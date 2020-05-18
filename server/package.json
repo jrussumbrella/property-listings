@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.ts"
+    "start": "nodemon src/index.ts",
+    "seed": "ts-node temp/seed.ts"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
@@ -25,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.13.1",
-    "graphql": "^15.0.0"
+    "graphql": "^15.0.0",
+    "mongodb": "^3.5.7"
   }
 }

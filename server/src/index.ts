@@ -1,35 +1,17 @@
 require("dotenv").config();
 
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer } from "apollo-server";
+import { connectDb } from "./database";
+import { typeDefs, resolvers } from "./graphql";
 
-const books = [
-  {
-    title: "Harry Potter and the Chamber of Secrets",
-    author: "J.K. Rowling",
-  },
-  {
-    title: "Jurassic Park",
-    author: "Michael Crichton",
-  },
-];
-
-const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
-  }
-
-  type Query {
-    books: [Book]
-  }
-`;
-
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
+const start = async () => {
+  const db = await connectDb();
+  const server = new ApolloServer({
+    resolvers,
+    typeDefs,
+    context: ({ req, res }) => ({ db, req, res }),
+  });
+  server.listen().then(({ url }) => console.log(`Server ready at ${url}. `));
 };
 
-const server = new ApolloServer({ resolvers, typeDefs });
-
-server.listen().then(({ url }) => console.log(`Server ready at ${url}. `));
+start();
