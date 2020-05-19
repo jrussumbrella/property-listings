@@ -27,6 +27,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    listings: Listings!
+    listings(page: Int!, limit: Int!): Listings!
+    listing(id: ID!): Listing!
   }
 `;
