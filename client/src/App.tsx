@@ -1,9 +1,26 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { User, Home, NotFound } from "./pages";
+import { Layout } from "./components";
 
 function App() {
   return (
     <>
-      <h2> Property Listings </h2>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route path="/user/:id" exact>
+              <User />
+            </Route>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </Layout>
+      </Router>
     </>
   );
 }
