@@ -7,6 +7,8 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
      --color-dark: #3d3d3d;
+     --color-primary: #e74c3c;
+     --color-gray: #ececec;
   }
   
   body {

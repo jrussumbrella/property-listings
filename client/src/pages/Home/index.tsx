@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import HomeHero from "./HomeHero";
 import HomeListings from "./HomeListings";
 
 const Container = styled.div`
@@ -8,8 +9,11 @@ const Container = styled.div`
 
 export const Home = () => {
   return (
-    <Container>
-      <HomeListings />
-    </Container>
+    <>
+      <HomeHero />
+      <Container>
+        <HomeListings />
+      </Container>
+    </>
   );
 };
