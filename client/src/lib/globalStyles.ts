@@ -9,10 +9,12 @@ export const GlobalStyle = createGlobalStyle`
      --color-dark: #3d3d3d;
      --color-primary: #e74c3c;
      --color-gray: #ececec;
+     --color-dark-gray: #6c6c6c;
   }
+
   
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: var(--color-dark);
     font-weight: 400;
     font-size: 15px;
@@ -29,6 +31,10 @@ export const GlobalStyle = createGlobalStyle`
 
   h2 {
     font-size: 1.4rem;
+  }
+
+  button, input, textarea {
+    font-family: 'Poppins', sans-serif;
   }
  
 `;

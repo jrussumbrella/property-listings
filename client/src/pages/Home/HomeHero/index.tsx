@@ -15,7 +15,7 @@ const Info = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +34,7 @@ const Hero = () => {
       }}
     >
       <Info>
-        <Title> Find a place to stay. </Title>
+        <Title> Find a place to stay </Title>
         <SearchForm />
       </Info>
     </StyledHero>

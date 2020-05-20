@@ -9,6 +9,7 @@ export const LISTINGS = gql`
         title
         description
         imageUrl
+        price
       }
     }
   }

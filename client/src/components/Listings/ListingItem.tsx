@@ -37,6 +37,12 @@ const Title = styled.div`
   line-height: 1.25rem;
 `;
 
+const Price = styled.div`
+  margin-top: 0.5rem;
+  color: var(--color-primary);
+  font-weight: 600;
+`;
+
 interface Props {
   listing: Listing;
 }
@@ -50,7 +56,7 @@ const ListingItem: React.FC<Props> = ({ listing }) => {
         </CoverWrapper>
         <Info>
           <Title>{listing.title}</Title>
-          <div>{listing.price}</div>
+          <Price>P{listing.price}/mo</Price>
         </Info>
       </Link>
     </ListItem>

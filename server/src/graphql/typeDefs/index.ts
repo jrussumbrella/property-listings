@@ -22,6 +22,7 @@ export const typeDefs = gql`
     admin: String!
     numOfGuests: Int!
     rating: Int
+    price: Int!
     host: String!
     type: ListingType
   }

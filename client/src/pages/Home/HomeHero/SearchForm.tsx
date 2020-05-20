@@ -26,6 +26,7 @@ const Btn = styled.button`
   padding: 0 1rem;
   border: 1px solid var(--color-primary);
   font-size: 1rem;
+  cursor: pointer;
 `;
 
 const SearchForm = () => {
