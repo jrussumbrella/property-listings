@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 const Title = styled.div`
   background-color: var(--color-gray);
-  width: 10rem;
+  width: 12rem;
   height: 2rem;
+  margin: 0 auto;
 `;
 
 const List = styled.div`

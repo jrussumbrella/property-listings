@@ -32,3 +32,9 @@ export interface Listing {
   bookings: string[];
   bookingsIndex: BookingsIndex;
 }
+
+export interface City {
+  id: string;
+  imageUrl: string;
+  name: string;
+}

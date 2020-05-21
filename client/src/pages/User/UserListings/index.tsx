@@ -9,6 +9,12 @@ const Container = styled.div`
 
 const Heading = styled.h2`
   font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+const ListingWrapper = styled.div`
+  margin-top: 2rem;
 `;
 
 interface UserListingsData {
@@ -26,10 +32,10 @@ const UserListings: React.FC<Props> = ({ listings }) => {
       {listings.total === 0 ? (
         <div> No listings created yet. </div>
       ) : (
-        <>
+        <ListingWrapper>
           <Heading> Listings </Heading>
           <Listings listings={listings.result} />
-        </>
+        </ListingWrapper>
       )}
     </Container>
   );

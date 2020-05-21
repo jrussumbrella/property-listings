@@ -2,6 +2,12 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { LISTINGS } from "../../../graphql/queries";
 import { Listings, ListingsSkeleton } from "../../../components";
+import styled from "styled-components";
+
+const Title = styled.h2`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
 
 const HomeListings: React.FC<{}> = () => {
   const { loading, data, error } = useQuery(LISTINGS, {
@@ -16,7 +22,7 @@ const HomeListings: React.FC<{}> = () => {
 
   return (
     <div>
-      <h2> Popular Listings </h2>
+      <Title> Listings You May Like </Title>
       <Listings listings={listings} />
     </div>
   );
