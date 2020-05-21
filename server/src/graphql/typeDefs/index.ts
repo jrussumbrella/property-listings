@@ -23,12 +23,21 @@ export const typeDefs = gql`
     numOfGuests: Int!
     rating: Int
     price: Int!
-    host: String!
+    host: User!
     type: ListingType
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+    photoUrl: String
+    listings(limit: Int!, page: Int!): Listings!
   }
 
   type Query {
     listings(page: Int!, limit: Int!): Listings!
     listing(id: ID!): Listing!
+    host(id: ID!): User!
   }
 `;

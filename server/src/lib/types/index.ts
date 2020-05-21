@@ -1,4 +1,4 @@
-import { ObjectId, Collection } from "mongodb";
+import { ObjectId, Collection, ObjectID } from "mongodb";
 
 export interface BookingsIndexMonth {
   [key: string]: boolean;
@@ -37,15 +37,13 @@ export interface Listing {
 
 export interface User {
   _id: string;
-  token: string;
   email: string;
   name: string;
-  avatar: string;
+  photoUrl: string;
   walletId?: string;
-  income: number;
-  bookings: ObjectId[];
   listings: ObjectId[];
-  authorized?: boolean;
+  bookings: ObjectId[];
+  income: number;
 }
 
 export interface Database {

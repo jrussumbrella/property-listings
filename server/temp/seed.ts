@@ -675,9 +675,8 @@ const listings: Listing[] = [
 const users: User[] = [
   {
     _id: "5d378db94e84753160e08b55",
-    token: "token_************",
     name: "James J.",
-    avatar:
+    photoUrl:
       "https://res.cloudinary.com/tiny-house/image/upload/w_1000,ar_1:1,c_fill,g_auto/v1560648533/mock/users/user-profile-1_mawp12.jpg",
     email: "james@tinyhouse.com",
     walletId: "acct_************",
@@ -691,9 +690,8 @@ const users: User[] = [
   },
   {
     _id: "5d378db94e84753160e08b56",
-    token: "token_************",
     name: "Elizabeth A.",
-    avatar:
+    photoUrl:
       "https://res.cloudinary.com/tiny-house/image/upload/w_1000,ar_1:1,c_fill,g_auto/v1560649052/mock/users/user-profile-2_arwtdy.jpg",
     email: "elizabeth@tinyhouse.com",
     walletId: "acct_************",
@@ -716,9 +714,8 @@ const users: User[] = [
   },
   {
     _id: "5d378db94e84753160e08b57",
-    token: "token_************",
     name: "Andrew D.",
-    avatar:
+    photoUrl:
       "https://res.cloudinary.com/tiny-house/image/upload/w_1000,ar_1:1,c_fill,g_auto/v1560649280/mock/users/user-profile-3_omxctk.jpg",
     email: "andrew@tinyhouse.com",
     walletId: "acct_************",
@@ -739,9 +736,8 @@ const users: User[] = [
   },
   {
     _id: "5d378db94e84753160e08b58",
-    token: "token_************",
     name: "Danielle C.",
-    avatar:
+    photoUrl:
       "https://res.cloudinary.com/tiny-house/image/upload/w_1000,ar_1:1,c_fill,g_auto/v1560650165/mock/users/user-profile-4_wxi6om.jpg",
     email: "danielle@tinyhouse.com",
     walletId: "acct_************",
@@ -755,9 +751,8 @@ const users: User[] = [
   },
   {
     _id: "5d378db94e84753160e08b59",
-    token: "token_************",
     name: "Sarah K.",
-    avatar:
+    photoUrl:
       "https://res.cloudinary.com/tiny-house/image/upload/w_1000,ar_1:1,c_fill,g_auto/v1560650436/mock/users/user-profile-5_tm8hhl.jpg",
     email: "sarah@tinyhouse.com",
     walletId: "acct_************",

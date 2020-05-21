@@ -1,4 +1,4 @@
-import { Database, Listing } from "../../../lib/types";
+import { Database, Listing, User } from "../../../lib/types";
 import { ListingsData, ListingsArgs, ListingArgs } from "./types";
 import { ObjectID } from "mongodb";
 
@@ -39,5 +39,14 @@ export const listingResolvers = {
   },
   Listing: {
     id: (listing: Listing): string => listing._id.toString(),
+    host: async (
+      listing: Listing,
+      {},
+      { db }: { db: Database }
+    ): Promise<User> => {
+      const user = await db.users.findOne({ _id: listing.host });
+      if (!user) throw new Error("Host not found");
+      return user;
+    },
   },
 };
