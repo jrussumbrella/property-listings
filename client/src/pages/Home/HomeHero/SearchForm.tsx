@@ -10,6 +10,8 @@ const FormSearch = styled.form`
   border-radius: 6px;
   height: 2.5rem;
   overflow: hidden;
+  width: 80%;
+  max-width: 30rem;
 `;
 
 const Input = styled.input`
@@ -18,6 +20,8 @@ const Input = styled.input`
   height: 100%;
   border: 1px solid transparent;
   font-size: 1rem;
+  flex: 1;
+  width: 100%;
 `;
 
 const Btn = styled.button`
@@ -27,6 +31,10 @@ const Btn = styled.button`
   border: 1px solid var(--color-primary);
   font-size: 1rem;
   cursor: pointer;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const SearchForm = () => {

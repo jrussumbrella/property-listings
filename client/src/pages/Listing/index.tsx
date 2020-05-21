@@ -6,6 +6,11 @@ import ListingInfo from "./ListingInfo";
 import ListingAction from "./ListingAction";
 import ListingSkeleton from "./ListingSkeleton";
 import ListingContact from "./ListingContact";
+import styled from "styled-components";
+
+const Container = styled.div`
+  padding-bottom: 6rem;
+`;
 
 export const Listing = () => {
   const { id } = useParams();
@@ -19,10 +24,10 @@ export const Listing = () => {
   const { host } = listing;
 
   return (
-    <div>
+    <Container>
       <ListingInfo listing={listing} />
       <ListingContact host={host} />
       <ListingAction />
-    </div>
+    </Container>
   );
 };
