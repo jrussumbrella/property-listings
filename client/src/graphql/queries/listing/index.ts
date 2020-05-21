@@ -9,6 +9,11 @@ export const LISTING = gql`
       description
       price
       address
+      host {
+        id
+        name
+        photoUrl
+      }
     }
   }
 `;

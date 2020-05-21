@@ -5,6 +5,7 @@ import { LISTING } from "../../graphql/queries";
 import ListingInfo from "./ListingInfo";
 import ListingAction from "./ListingAction";
 import ListingSkeleton from "./ListingSkeleton";
+import ListingContact from "./ListingContact";
 
 export const Listing = () => {
   const { id } = useParams();
@@ -15,10 +16,12 @@ export const Listing = () => {
   if (error) return <h2>Error</h2>;
 
   const { listing } = data;
+  const { host } = listing;
 
   return (
     <div>
       <ListingInfo listing={listing} />
+      <ListingContact host={host} />
       <ListingAction />
     </div>
   );
