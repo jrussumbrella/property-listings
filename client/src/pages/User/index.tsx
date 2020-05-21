@@ -1,4 +1,8 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
+import { HOST } from "../../graphql/queries/host";
+import UserSkeleton from "./UserSkeleton";
 import UserListings from "./UserListings";
 import styled from "styled-components";
 
@@ -26,16 +30,26 @@ const HostName = styled.div`
 `;
 
 export const User = () => {
+  const { id } = useParams();
+  const { loading, data, error } = useQuery(HOST, {
+    variables: { page: 1, limit: 10, id },
+  });
+
+  if (loading) return <UserSkeleton />;
+
+  if (error) return <h2>Error </h2>;
+
+  const { host } = data;
+
+  const { listings } = host;
+
   return (
     <Container>
       <HostWrapper>
-        <HostImg
-          src="https://img.rentberry.com/7yWNLnGpZGjVjo2HAMJJIwwcvC__o-v-yZYkuQ7dpXc/auto/280/280/sm/1/plain/media/users/profile_picture/80ee6ff8-592f-11e9-9636-7298b86db087.jpeg"
-          alt=""
-        />
-        <HostName> Angela Yu </HostName>
+        <HostImg src={host.photoUrl} alt={host.name} />
+        <HostName> {host.name} </HostName>
       </HostWrapper>
-      <UserListings />
+      <UserListings listings={listings} />
     </Container>
   );
 };
