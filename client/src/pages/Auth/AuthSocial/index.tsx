@@ -13,6 +13,7 @@ const Button = styled.button`
   border: 1px solid rgb(205, 209, 212);
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
 
   svg {
     height: 1.5rem;

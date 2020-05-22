@@ -35,9 +35,32 @@ export const typeDefs = gql`
     listings(limit: Int!, page: Int!): Listings!
   }
 
+  type Viewer {
+    id: ID!
+    token: String!
+    hasWallet: Boolean!
+  }
+
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+
+  input SignUpInput {
+    name: String!
+    email: String!
+    password: String!
+  }
+
   type Query {
     listings(page: Int!, limit: Int!): Listings!
     listing(id: ID!): Listing!
     host(id: ID!): User!
+    getLoginUser: User!
+  }
+
+  type Mutation {
+    signUp(input: SignUpInput): Viewer!
+    login(input: LoginInput!): Viewer!
   }
 `;
