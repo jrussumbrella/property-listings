@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
      --color-primary: #e74c3c;
      --color-gray: #ececec;
      --color-dark-gray: #6c6c6c;
+     --color-blue: #7b53c1;
   }
 
   
@@ -35,6 +36,10 @@ export const GlobalStyle = createGlobalStyle`
 
   button, input, textarea {
     font-family: 'Poppins', sans-serif;
+  }
+
+  .overflow {
+    overflow: hidden;
   }
  
 `;

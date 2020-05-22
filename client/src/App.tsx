@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { User, Home, Listing, NotFound } from "./pages";
+import { User, Home, Listing, NotFound, Auth } from "./pages";
 import { Layout } from "./components";
 
 function App() {
@@ -9,6 +9,9 @@ function App() {
       <Router>
         <Layout>
           <Switch>
+            <Route path="/auth" exact>
+              <Auth />
+            </Route>
             <Route path="/" exact>
               <Home />
             </Route>

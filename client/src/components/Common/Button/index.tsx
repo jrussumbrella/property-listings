@@ -4,6 +4,7 @@ import styled from "styled-components";
 interface StyledButtonProps {
   classType: "primary" | "outline";
   onClick?(): void;
+  style?: Object;
 }
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
   classType: "primary" | "outline";
   type: "reset" | "submit" | "button";
   onClick?(): void;
+  style?: Object;
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -28,9 +30,14 @@ const StyledButton = styled.button<StyledButtonProps>`
   cursor: pointer;
 `;
 
-export const Button = ({ title, type, classType, onClick }: Props) => {
+export const Button = ({ title, type, classType, onClick, style }: Props) => {
   return (
-    <StyledButton type={type} onClick={onClick} classType={classType}>
+    <StyledButton
+      type={type}
+      onClick={onClick}
+      classType={classType}
+      style={style}
+    >
       {title}
     </StyledButton>
   );

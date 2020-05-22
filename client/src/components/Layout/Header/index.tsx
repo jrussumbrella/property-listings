@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
+import Sidebar from "../Sidebar";
 
 const StyledHeader = styled.header`
   background-color: #fff;
@@ -29,9 +30,19 @@ const SiteTitle = styled(Link)`
 `;
 
 const Header: React.FC<{}> = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("overflow");
+      return;
+    }
+    document.body.classList.remove("overflow");
+  }, [isOpen]);
+
   return (
     <StyledHeader>
-      <div>
+      <div onClick={() => setIsOpen(!isOpen)}>
         <GiHamburgerMenu size={20} />
       </div>
       <SiteTitleWrapper>
@@ -40,6 +51,7 @@ const Header: React.FC<{}> = () => {
       <div>
         <BsSearch size={20} />
       </div>
+      <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </StyledHeader>
   );
 };
