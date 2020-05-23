@@ -11,10 +11,6 @@ const Heading = styled.div`
   font-weight: 600;
 `;
 
-const HostLink = styled(Link)`
-  display: block;
-`;
-
 const HostWrapper = styled.div`
   display: flex;
   align-items: center;

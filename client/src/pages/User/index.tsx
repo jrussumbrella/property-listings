@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { HOST } from "../../graphql/queries/host";
 import UserSkeleton from "./UserSkeleton";
 import UserListings from "./UserListings";
 import styled from "styled-components";
+import { Spinner } from "../../components/Common";
 
 const Container = styled.div`
   padding: 1rem;
@@ -29,6 +30,16 @@ const HostName = styled.div`
   font-weight: 600;
 `;
 
+const LoadMoreWrapper = styled.div`
+  text-align: center;
+`;
+
+const ReachedEndText = styled.div`
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--color-primary);
+`;
+
 const PAGE_LIMIT = 6;
 
 export const User = () => {
@@ -36,29 +47,43 @@ export const User = () => {
   const { loading, data, error, fetchMore } = useQuery(HOST, {
     variables: { page: 1, limit: PAGE_LIMIT, id },
   });
+  const [isLoadMore, setIsLoadMore] = useState(false);
 
-  if (loading) return <UserSkeleton />;
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll, false);
+    return () => window.removeEventListener("scroll", onScroll, false);
+  }, [data, loading, isLoadMore]);
 
-  if (error) return <h2>Error </h2>;
+  function onScroll() {
+    // check if user scroll to bottom
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      handleLoadMore();
+    }
+  }
 
-  const { host } = data;
-
-  const { listings } = host;
-
-  const handleLoadMore = () => {
+  const handleLoadMore = async () => {
+    setIsLoadMore(true);
+    if (loading) return;
+    const { listings } = data.host;
     const currentTotalFetched = listings.result.length;
     const totalItems = listings.total;
     const nextPage = Math.floor((currentTotalFetched * 2) / PAGE_LIMIT);
 
-    if (currentTotalFetched > totalItems) return;
+    if (currentTotalFetched >= totalItems) {
+      setIsLoadMore(false);
+      return;
+    }
 
-    fetchMore({
+    await fetchMore({
       variables: {
         page: nextPage,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
-
+        if (isLoadMore) return prev;
         return {
           ...prev,
           host: {
@@ -74,7 +99,18 @@ export const User = () => {
         };
       },
     });
+    setIsLoadMore(false);
   };
+
+  if (loading) return <UserSkeleton />;
+
+  if (error) return <h2>Error </h2>;
+
+  const { host } = data;
+
+  const { listings } = host;
+
+  const isReachedListingsEnd = listings.total >= listings.result.length;
 
   return (
     <Container>
@@ -83,7 +119,14 @@ export const User = () => {
         <HostName> {host.name} </HostName>
       </HostWrapper>
       <UserListings listings={listings} />
-      <button onClick={handleLoadMore}> Load more </button>
+      {isLoadMore && (
+        <LoadMoreWrapper>
+          <Spinner color="var(--color-primary)" size={3} />
+        </LoadMoreWrapper>
+      )}
+      {!isLoadMore && isReachedListingsEnd && (
+        <ReachedEndText> You have reached the end. </ReachedEndText>
+      )}
     </Container>
   );
 };
