@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { HOST } from "../../graphql/queries/host";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { HOST } from "../../graphql/queries/host";
+import { Spinner } from "../../components/Common";
 import UserSkeleton from "./UserSkeleton";
 import UserListings from "./UserListings";
 import styled from "styled-components";
-import { Spinner } from "../../components/Common";
 
 const Container = styled.div`
   padding: 1rem;

@@ -1,8 +1,9 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import { Button } from "../../components/Common";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AuthSocial from "./AuthSocial";
+import styled from "styled-components";
 
 const Container = styled.div`
   padding: 50px 0;
@@ -10,7 +11,7 @@ const Container = styled.div`
   min-height: 82vh;
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   width: 100%;
   background-color: #fff;
   margin: 2rem 0;
@@ -55,17 +56,57 @@ const AuthWrapper = styled.div`
   margin: 0 auto;
 `;
 
+const ErrorText = styled.div`
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  padding-top: 0.5rem;
+`;
+
+type FormData = {
+  email: string;
+  password: string;
+};
+
 export const Auth = () => {
+  const { register, handleSubmit, errors } = useForm<FormData>();
+
+  const onSubmit = handleSubmit(({ email, password }) => {
+    console.log(errors);
+  });
+
   return (
     <Container>
       <AuthWrapper>
         <Heading> Login your account </Heading>
-        <Form>
+        <Form onSubmit={onSubmit}>
           <Group>
-            <Input type="text" placeholder="Email" />
+            <Input
+              type="text"
+              placeholder="Email"
+              name="email"
+              ref={register({
+                required: "Email is required field.",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "Invalid email address.",
+                },
+              })}
+            />
+            {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
           </Group>
           <Group>
-            <Input type="text" placeholder="Password " />
+            <Input
+              type="password"
+              placeholder="Password "
+              ref={register({
+                required: "Password is required.",
+                minLength: 6,
+              })}
+              name="password"
+            />
+            {errors.password && (
+              <ErrorText>{errors.password.message}</ErrorText>
+            )}
             <LinkWrapper>
               <Link to="/forgot-password"> Forgot your pasword? </Link>
             </LinkWrapper>
