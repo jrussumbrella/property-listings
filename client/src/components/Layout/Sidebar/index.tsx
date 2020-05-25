@@ -1,16 +1,21 @@
 import React from "react";
-import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Button } from "../../Common";
 import { useAuth } from "../../../store";
+import styled from "styled-components";
+
+interface StyledProps {
+  isOpen: boolean;
+}
 
 interface Props {
   isOpen: boolean;
-  onClose?(): void;
+  onClose(): void;
 }
 
-const StyledSideBar = styled.div<Props>`
+const StyledSideBar = styled.div<StyledProps>`
   position: fixed;
   top: 0;
   left: 0;
@@ -76,7 +81,14 @@ const UserInfo = styled.div`
 `;
 
 const Sidebar = ({ isOpen, onClose }: Props) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const history = useHistory();
+
+  const handleLogOut = () => {
+    onClose();
+    logout();
+    history.push("/auth");
+  };
 
   return (
     <>
@@ -101,10 +113,10 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
               </Link>
             </li>
             <li onClick={onClose}>
-              <Link to="/auth"> My Property </Link>
+              <Link to="/my-properties"> My Properties </Link>
             </li>
             <li onClick={onClose}>
-              <Link to="/auth"> My Favorites </Link>
+              <Link to="/my-favorites"> My Favorites </Link>
             </li>
             <li>
               <Button
@@ -119,6 +131,7 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
                 classType="primary"
                 type="button"
                 title="Log Out"
+                onClick={handleLogOut}
                 style={{ width: "100%" }}
               />
             </li>
@@ -129,7 +142,7 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
               <Link to="/auth"> Log In </Link>
             </li>
             <li onClick={onClose}>
-              <Link to="/auth"> Sign Up </Link>
+              <Link to="/auth/sign-up"> Sign Up </Link>
             </li>
             <li>
               <Button

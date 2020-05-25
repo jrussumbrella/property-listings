@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { authReducer } from "./authReducer";
-import { SET_USER } from "./authTypes";
+import { SET_USER, LOG_OUT, AUTH_ERROR } from "./authTypes";
 import { Viewer, User } from "../../lib";
 import cookie from "js-cookie";
 
@@ -9,6 +9,8 @@ interface InitialStateType {
   isLoading: boolean;
   login(viewer: Viewer): void;
   loadUser(user: User): void;
+  logout(): void;
+  setAuthError(): void;
 }
 
 const initialState = {
@@ -16,6 +18,8 @@ const initialState = {
   isLoading: true,
   login: (viewer: Viewer) => {},
   loadUser: (user: User) => {},
+  logout: () => {},
+  setAuthError: () => {},
 };
 
 export const AuthContext = createContext<InitialStateType>(initialState);
@@ -32,12 +36,23 @@ export const AuthProvider: React.FC = ({ children }) => {
     autoLogin(viewer);
   };
 
+  const logout = () => {
+    cookie.remove("token");
+    dispatch({ type: LOG_OUT, payload: null });
+  };
+
   const loadUser = (user: User) => {
     dispatch({ type: SET_USER, payload: user });
   };
 
+  const setAuthError = () => {
+    dispatch({ type: AUTH_ERROR, payload: null });
+  };
+
   return (
-    <AuthContext.Provider value={{ ...state, login, loadUser }}>
+    <AuthContext.Provider
+      value={{ ...state, login, loadUser, logout, setAuthError }}
+    >
       {children}
     </AuthContext.Provider>
   );
