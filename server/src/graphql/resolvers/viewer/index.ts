@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { AuthenticationError } from "apollo-server";
 import { Request } from "express";
 import { Database, Viewer, User } from "../../../lib/types";
 import { LoginArgs, SignUpArgs } from "./types";
@@ -13,16 +14,17 @@ const generateToken = (id: string): string => {
 
 export const viewerResolvers = {
   Query: {
-    getLoginUser: async (
+    me: async (
       _root: undefined,
       {},
       { db, req }: { db: Database; req: Request }
     ): Promise<User | null> => {
       try {
         const user = await authenticate(db, req);
+        if (!user) throw new Error("Invalid token");
         return user;
       } catch (error) {
-        throw new Error("Invalid token");
+        throw new Error(error);
       }
     },
   },
@@ -36,7 +38,7 @@ export const viewerResolvers = {
         const { email, password } = input;
 
         const viewer = await db.users.findOne({ email });
-        if (!viewer) throw new Error("User not found");
+        if (!viewer) throw new Error("Email or password is incorrect");
 
         // check viewer input password if match into found viewer
         const isMatch = await bcrypt.compare(password, viewer.password);
@@ -46,12 +48,12 @@ export const viewerResolvers = {
         const token = generateToken(viewer._id);
 
         return {
-          _id: viewer._id,
+          user: viewer,
           token,
           walletId: viewer.walletId,
         };
       } catch (error) {
-        throw new Error(error);
+        throw new AuthenticationError(error);
       }
     },
     signUp: async (
@@ -86,7 +88,7 @@ export const viewerResolvers = {
         const token = generateToken(viewer._id);
 
         return {
-          _id: viewer._id,
+          user: viewer,
           token,
           walletId: viewer.walletId,
         };
@@ -96,6 +98,6 @@ export const viewerResolvers = {
     },
   },
   Viewer: {
-    id: (viewer: Viewer): string => viewer._id.toString(),
+    hasWallet: (viewer: Viewer): boolean => (viewer.walletId ? true : false),
   },
 };

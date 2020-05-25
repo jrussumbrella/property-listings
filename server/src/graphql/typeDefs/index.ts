@@ -36,8 +36,8 @@ export const typeDefs = gql`
   }
 
   type Viewer {
-    id: ID!
     token: String!
+    user: User!
     hasWallet: Boolean!
   }
 
@@ -56,7 +56,7 @@ export const typeDefs = gql`
     listings(page: Int!, limit: Int!): Listings!
     listing(id: ID!): Listing!
     host(id: ID!): User!
-    getLoginUser: User!
+    me: User!
   }
 
   type Mutation {

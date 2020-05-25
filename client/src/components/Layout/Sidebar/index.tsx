@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Button } from "../../Common";
+import { useAuth } from "../../../store";
 
 interface Props {
   isOpen: boolean;
@@ -36,6 +37,7 @@ const Overlay = styled.div`
 const NavList = styled.ul`
   margin-top: 2rem;
   li {
+    padding: 1rem 0;
     margin-bottom: 1rem;
     &:not(:last-child) {
       border-bottom: 1px solid var(--color-gray);
@@ -43,7 +45,6 @@ const NavList = styled.ul`
   }
 
   a {
-    padding: 1rem 0;
     font-size: 1.2rem;
     display: block;
   }
@@ -59,34 +60,87 @@ const Head = styled.div`
   justify-content: space-between;
 `;
 
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+
+  span {
+    padding: 0 1rem;
+  }
+`;
+
 const Sidebar = ({ isOpen, onClose }: Props) => {
+  const { user } = useAuth();
+
   return (
     <>
       <StyledSideBar isOpen={isOpen}>
         <Head>
           <Link to="/" onClick={onClose}>
             <Title> Property </Title>
-          </Link>{" "}
+          </Link>
           <span onClick={onClose}>
             <MdClose size={30} />
           </span>
         </Head>
 
-        <NavList>
-          <li onClick={onClose}>
-            <Link to="/auth"> Log In </Link>
-          </li>
-          <li onClick={onClose}>
-            <Link to="/auth"> Sign Up </Link>
-          </li>
-          <li>
-            <Button
-              classType="primary"
-              type="button"
-              title="List your property"
-            />
-          </li>
-        </NavList>
+        {user ? (
+          <NavList>
+            <li onClick={onClose}>
+              <Link to="/profile">
+                <UserInfo>
+                  <img src={user.photoUrl} alt={user.name} />
+                  <span>{user.name}</span>
+                </UserInfo>
+              </Link>
+            </li>
+            <li onClick={onClose}>
+              <Link to="/auth"> My Property </Link>
+            </li>
+            <li onClick={onClose}>
+              <Link to="/auth"> My Favorites </Link>
+            </li>
+            <li>
+              <Button
+                classType="outline"
+                type="button"
+                title="List your property"
+                style={{ width: "100%" }}
+              />
+            </li>
+            <li>
+              <Button
+                classType="primary"
+                type="button"
+                title="Log Out"
+                style={{ width: "100%" }}
+              />
+            </li>
+          </NavList>
+        ) : (
+          <NavList>
+            <li onClick={onClose}>
+              <Link to="/auth"> Log In </Link>
+            </li>
+            <li onClick={onClose}>
+              <Link to="/auth"> Sign Up </Link>
+            </li>
+            <li>
+              <Button
+                classType="outline"
+                type="button"
+                title="List your property"
+                style={{ width: "100%" }}
+              />
+            </li>
+          </NavList>
+        )}
       </StyledSideBar>
       {isOpen && <Overlay onClick={onClose} />}
     </>

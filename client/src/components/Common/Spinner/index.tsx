@@ -11,7 +11,7 @@ const StyledSpinner = styled.div<Props>`
   width: ${({ size }) => size}rem;
   height: ${({ size }) => size}rem;
   vertical-align: text-bottom;
-  border: 0.25em solid
+  border: 0.15em solid
     ${(props) => (props.color ? props.color : "var(--color-primary)")};
   border-right-color: transparent;
   border-radius: 50%;

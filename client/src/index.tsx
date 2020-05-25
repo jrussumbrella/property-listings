@@ -3,18 +3,30 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import { AuthProvider } from "./store";
+import cookie from "js-cookie";
 import * as serviceWorker from "./serviceWorker";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/",
+  request: (operation) => {
+    const token = cookie.get("token") || "";
+    operation.setContext({
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+  },
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </ApolloProvider>,
+  <React.StrictMode>
+    <ApolloProvider client={client}>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ApolloProvider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

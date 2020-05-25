@@ -1,9 +1,13 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/Common";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/react-hooks";
+import { LOGIN } from "../../graphql/mutations";
 import AuthSocial from "./AuthSocial";
 import styled from "styled-components";
+import { useAuth } from "../../store";
 
 const Container = styled.div`
   padding: 50px 0;
@@ -15,6 +19,7 @@ const Form = styled.form`
   width: 100%;
   background-color: #fff;
   margin: 2rem 0;
+  padding-top: 1rem;
 `;
 
 const Group = styled.div`
@@ -62,16 +67,34 @@ const ErrorText = styled.div`
   padding-top: 0.5rem;
 `;
 
+const ErrorMessage = styled.div`
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  padding: 1rem 0;
+  text-align: center;
+`;
+
 type FormData = {
   email: string;
   password: string;
 };
 
 export const Auth = () => {
+  const { login: onLogin } = useAuth();
   const { register, handleSubmit, errors } = useForm<FormData>();
+  const history = useHistory();
+
+  const [login, { loading, error }] = useMutation(LOGIN, {
+    onCompleted(data) {
+      onLogin(data.login);
+      history.push("/profile");
+    },
+    onError(err) {},
+  });
 
   const onSubmit = handleSubmit(({ email, password }) => {
-    console.log(errors);
+    const input = { email, password };
+    login({ variables: { input } });
   });
 
   return (
@@ -79,6 +102,11 @@ export const Auth = () => {
       <AuthWrapper>
         <Heading> Login your account </Heading>
         <Form onSubmit={onSubmit}>
+          {error && (
+            <ErrorMessage>
+              {error.graphQLErrors[0].message.split(":")[1]}
+            </ErrorMessage>
+          )}
           <Group>
             <Input
               type="text"
@@ -116,6 +144,8 @@ export const Auth = () => {
               type="submit"
               title="Log In "
               classType="primary"
+              disabled={loading}
+              loading={loading}
               style={{
                 width: "100%",
                 height: "4rem",

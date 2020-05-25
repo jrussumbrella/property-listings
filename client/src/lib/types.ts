@@ -38,3 +38,14 @@ export interface City {
   imageUrl: string;
   name: string;
 }
+
+export interface Viewer {
+  token: string;
+  user: User;
+}
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  photoUrl: string;
+}

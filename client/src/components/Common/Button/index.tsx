@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Spinner } from "../Spinner";
 
 interface StyledButtonProps {
   classType: "primary" | "outline";
@@ -13,6 +14,8 @@ interface Props {
   type: "reset" | "submit" | "button";
   onClick?(): void;
   style?: Object;
+  disabled?: boolean;
+  loading?: boolean;
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -28,17 +31,34 @@ const StyledButton = styled.button<StyledButtonProps>`
   font-size: 1.1rem;
   border-radius: 6px;
   cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
-export const Button = ({ title, type, classType, onClick, style }: Props) => {
+export const Button = ({
+  title,
+  type,
+  classType,
+  onClick,
+  style,
+  disabled,
+  loading,
+}: Props) => {
   return (
     <StyledButton
       type={type}
       onClick={onClick}
       classType={classType}
       style={style}
+      disabled={disabled}
     >
-      {title}
+      {loading ? <Spinner color="#fff" size={1.2} /> : title}
     </StyledButton>
   );
 };

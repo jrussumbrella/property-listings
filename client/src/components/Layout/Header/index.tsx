@@ -29,6 +29,10 @@ const SiteTitle = styled(Link)`
   font-weight: 600;
 `;
 
+const IconWrapper = styled.div`
+  padding: 0.5rem;
+`;
+
 const Header: React.FC<{}> = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,15 +46,15 @@ const Header: React.FC<{}> = () => {
 
   return (
     <StyledHeader>
-      <div onClick={() => setIsOpen(!isOpen)}>
+      <IconWrapper onClick={() => setIsOpen(!isOpen)}>
         <GiHamburgerMenu size={20} />
-      </div>
+      </IconWrapper>
       <SiteTitleWrapper>
         <SiteTitle to="/"> Property </SiteTitle>
       </SiteTitleWrapper>
-      <div>
+      <IconWrapper>
         <BsSearch size={20} />
-      </div>
+      </IconWrapper>
       <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </StyledHeader>
   );
