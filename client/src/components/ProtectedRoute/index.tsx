@@ -12,8 +12,6 @@ export const ProtectedRoute = ({
 }: PrivateRouteProps) => {
   const { user, isLoading } = useAuth();
 
-  console.log(isLoading, user);
-
   return (
     <Route
       {...rest}
