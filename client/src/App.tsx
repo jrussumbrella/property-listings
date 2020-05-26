@@ -8,6 +8,7 @@ import {
   SignIn,
   SignUp,
   Profile,
+  MyProperties,
 } from "./pages";
 import { Layout, AppSkeleton } from "./components";
 import { useAuth } from "./store";
@@ -43,6 +44,11 @@ function App() {
             <Route path="/auth/sign-up" exact>
               <SignUp />
             </Route>
+            <ProtectedRoute
+              path="/my-properties"
+              component={MyProperties}
+              exact
+            />
             <ProtectedRoute path="/profile" component={Profile} exact />
             <Route path="/" exact>
               <Home />
