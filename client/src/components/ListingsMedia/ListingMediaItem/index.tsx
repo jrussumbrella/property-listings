@@ -60,6 +60,7 @@ const Price = styled.div`
 
 const MoreOptions = styled.div`
   padding: 0.5rem;
+  cursor: pointer;
 `;
 
 const ListingMediaItem: React.FC<Props> = ({ listing }) => {

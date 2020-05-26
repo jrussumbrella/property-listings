@@ -6,10 +6,11 @@ import { Database, Viewer, User } from "../../../lib/types";
 import { LoginArgs, SignUpArgs } from "./types";
 import { ObjectID } from "mongodb";
 import { authenticate } from "../../../lib/utils";
+import { sendEmail } from "../../../lib/api/email";
 
-const generateToken = (id: string): string => {
+const generateToken = (id: string, expiresIn: string): string => {
   const secret = String(process.env.JWT_SECRET_KEY);
-  return jwt.sign({ id }, secret, { expiresIn: "7d" });
+  return jwt.sign({ id }, secret, { expiresIn: expiresIn });
 };
 
 export const viewerResolvers = {
@@ -45,7 +46,7 @@ export const viewerResolvers = {
         if (!isMatch) throw new Error("Email or password is incorrect");
 
         // generate token
-        const token = generateToken(viewer._id);
+        const token = generateToken(viewer._id, "7d");
 
         return {
           user: viewer,
@@ -85,7 +86,18 @@ export const viewerResolvers = {
         const viewer = insertRes.ops[0];
 
         // generate token
-        const token = generateToken(viewer._id);
+        const token = generateToken(viewer._id, "7d");
+
+        const verifyToken = generateToken(viewer._id, "1d");
+
+        const url = `http://localhost:3000/verify-email/${verifyToken}`;
+
+        await sendEmail(
+          viewer,
+          "email-confirmation",
+          "Welcome to Property Listings",
+          url
+        );
 
         return {
           user: viewer,
@@ -93,6 +105,7 @@ export const viewerResolvers = {
           walletId: viewer.walletId,
         };
       } catch (error) {
+        console.log(error);
         throw new Error(error);
       }
     },

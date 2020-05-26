@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { useAuth } from "../../../store";
 
 const Container = styled.div`
-  padding: 50px 0;
+  padding: 50px 1rem;
   background: #f4f5f7;
   min-height: 82vh;
 `;
@@ -72,6 +72,16 @@ const ErrorMessage = styled.div`
   font-size: 1.1rem;
   padding: 1rem 0;
   text-align: center;
+`;
+
+const AuthBottom = styled.div`
+  padding: 2rem 0;
+  text-align: center;
+  line-height: 1.2;
+
+  a {
+    color: var(--color-primary);
+  }
 `;
 
 type FormData = {
@@ -159,6 +169,13 @@ export const SignUp = () => {
           </ButtonWrapper>
         </Form>
         <AuthSocial />
+        <AuthBottom>
+          <p>
+            {" "}
+            Already have an account?{" "}
+            <Link to="/auth"> Login to your account </Link>.{" "}
+          </p>
+        </AuthBottom>
       </AuthWrapper>
     </Container>
   );
