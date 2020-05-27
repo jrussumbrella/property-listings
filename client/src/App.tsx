@@ -9,6 +9,7 @@ import {
   SignUp,
   Profile,
   MyProperties,
+  EmailConfirmation,
 } from "./pages";
 import { Layout, AppSkeleton } from "./components";
 import { useAuth } from "./store";
@@ -43,6 +44,9 @@ function App() {
             </Route>
             <Route path="/auth/sign-up" exact>
               <SignUp />
+            </Route>
+            <Route path="/email-confirmation/:token" exact>
+              <EmailConfirmation />
             </Route>
             <ProtectedRoute
               path="/my-properties"

@@ -1,13 +1,13 @@
 import { gql } from "apollo-boost";
 
-export const LOGIN = gql`
-  mutation Login($input: LoginInput!) {
-    login(input: $input) {
+export const SIGN_UP = gql`
+  mutation SignUp($input: SignUpInput!) {
+    signUp(input: $input) {
       token
       user {
         id
-        name
         email
+        name
         photoUrl
         isEmailVerified
       }

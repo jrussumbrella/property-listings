@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form";
 import { Button } from "../../../components/Common";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
-import { LOGIN } from "../../../graphql/mutations";
+import { useAuth } from "../../../store";
+import { SIGN_UP } from "../../../graphql/mutations";
 import AuthSocial from "../AuthSocial";
 import styled from "styled-components";
-import { useAuth } from "../../../store";
 
 const Container = styled.div`
   padding: 50px 1rem;
@@ -85,6 +85,7 @@ const AuthBottom = styled.div`
 `;
 
 type FormData = {
+  name: string;
   email: string;
   password: string;
 };
@@ -94,17 +95,17 @@ export const SignUp = () => {
   const { register, handleSubmit, errors } = useForm<FormData>();
   const history = useHistory();
 
-  const [login, { loading, error }] = useMutation(LOGIN, {
+  const [signUp, { loading, error }] = useMutation(SIGN_UP, {
     onCompleted(data) {
-      onLogin(data.login);
+      onLogin(data.signUp);
       history.push("/profile");
     },
     onError(err) {},
   });
 
-  const onSubmit = handleSubmit(({ email, password }) => {
-    const input = { email, password };
-    login({ variables: { input } });
+  const onSubmit = handleSubmit(({ email, password, name }) => {
+    const input = { email, password, name };
+    signUp({ variables: { input } });
   });
 
   return (
@@ -117,6 +118,17 @@ export const SignUp = () => {
               {error.graphQLErrors[0].message.split(":")[1]}
             </ErrorMessage>
           )}
+          <Group>
+            <Input
+              type="text"
+              placeholder="Name"
+              name="name"
+              ref={register({
+                required: "Name is required field.",
+              })}
+            />
+            {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
+          </Group>
           <Group>
             <Input
               type="text"
@@ -155,7 +167,7 @@ export const SignUp = () => {
           <ButtonWrapper>
             <Button
               type="submit"
-              title="Log In "
+              title="Sign Up"
               classType="primary"
               disabled={loading}
               loading={loading}

@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
-export const LOGIN = gql`
-  mutation Login($input: LoginInput!) {
-    login(input: $input) {
+export const EMAIL_VERIFICATION = gql`
+  mutation EmailVerification($token: String!) {
+    emailTokenVerification(token: $token) {
       token
       user {
         id

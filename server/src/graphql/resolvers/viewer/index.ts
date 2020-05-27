@@ -94,9 +94,9 @@ export const viewerResolvers = {
         const emailVerifyToken = v4();
 
         // save email verify token to redis
-        await redis.set(emailVerifyToken, viewer._id, "ex", 60 * 60 * 24); // 1 day expiration
+        await redis.set(emailVerifyToken, viewer._id, "ex", 60 * 60 * 24); // set 1 day expiration
 
-        const url = `http://localhost:3000/email-confirmation/${emailVerifyToken}`;
+        const url = `${process.env.CLIENT_URL}/email-confirmation/${emailVerifyToken}`;
 
         await sendEmail(
           viewer,
@@ -111,7 +111,6 @@ export const viewerResolvers = {
           walletId: viewer.walletId,
         };
       } catch (error) {
-        console.log(error);
         throw new Error(error);
       }
     },
@@ -119,7 +118,7 @@ export const viewerResolvers = {
       _root: undefined,
       { token }: { token: string },
       { db }: { db: Database }
-    ) => {
+    ): Promise<Viewer> => {
       const userId = await redis.get(token);
       if (!userId) throw new Error(`Invalid token/ Token expired.`);
 
@@ -135,13 +134,20 @@ export const viewerResolvers = {
         }
       );
 
-      if (!updateResult.value)
-        throw new Error(`Error in validating email address.`);
+      const viewer = updateResult.value;
+
+      if (!viewer) throw new Error(`Error in validating email address.`);
 
       // delete token in redis
       await redis.del(token);
 
-      return "Email Verified Successfully";
+      const userToken = generateToken(viewer._id, "7d");
+
+      return {
+        user: viewer,
+        token: userToken,
+        walletId: viewer.walletId,
+      };
     },
   },
   Viewer: {

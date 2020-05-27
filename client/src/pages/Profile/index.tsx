@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth } from "../../store";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { Alert } from "../../components";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -25,6 +26,20 @@ const Img = styled.img`
   margin-bottom: 1rem;
 `;
 
+const Avatar = styled.div`
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Text = styled.div`
   padding: 0.5rem;
   font-size: 1.2rem;
@@ -43,17 +58,37 @@ const Settings = styled.ul`
   }
 `;
 
+const AlertWrapper = styled.div`
+  margin: 2rem 0;
+`;
+
 export const Profile = () => {
   const { user } = useAuth();
+
+  const isEmailVerifiedMessage = !user?.isEmailVerified ? (
+    <AlertWrapper>
+      <Alert
+        message="Please check your email, we sent you a confirmation email."
+        type="info"
+      />
+    </AlertWrapper>
+  ) : null;
 
   return (
     <Container>
       <h2> Personal Info </h2>
+      {isEmailVerifiedMessage}
       <Info>
-        <Img src={user?.photoUrl} alt={user?.name} />
+        {user?.photoUrl ? (
+          <Img src={user?.photoUrl} alt={user?.name} />
+        ) : (
+          <Avatar>{user?.name.charAt(0)}</Avatar>
+        )}
+
         <Text>{user?.name}</Text>
         <Text>{user?.email}</Text>
       </Info>
+
       <h2> Settings </h2>
       <Settings>
         <li>

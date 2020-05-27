@@ -80,6 +80,19 @@ const UserInfo = styled.div`
   }
 `;
 
+const Avatar = styled.div`
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+`;
+
 const Sidebar = ({ isOpen, onClose }: Props) => {
   const { user, logout } = useAuth();
   const history = useHistory();
@@ -107,7 +120,11 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
             <li onClick={onClose}>
               <Link to="/profile">
                 <UserInfo>
-                  <img src={user.photoUrl} alt={user.name} />
+                  {user.photoUrl ? (
+                    <img src={user.photoUrl} alt={user.name} />
+                  ) : (
+                    <Avatar>{user.name.charAt(0)}</Avatar>
+                  )}
                   <span>{user.name}</span>
                 </UserInfo>
               </Link>

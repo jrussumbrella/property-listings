@@ -32,6 +32,7 @@ export const typeDefs = gql`
     name: String!
     email: String!
     photoUrl: String
+    isEmailVerified: Boolean!
     listings(limit: Int!, page: Int!): Listings!
   }
 
@@ -62,6 +63,6 @@ export const typeDefs = gql`
   type Mutation {
     signUp(input: SignUpInput): Viewer!
     login(input: LoginInput!): Viewer!
-    emailTokenVerification(token: String!): String!
+    emailTokenVerification(token: String!): Viewer!
   }
 `;
