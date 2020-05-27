@@ -2,11 +2,13 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { AuthenticationError } from "apollo-server";
 import { Request } from "express";
+import { v4 } from "uuid";
 import { Database, Viewer, User } from "../../../lib/types";
 import { LoginArgs, SignUpArgs } from "./types";
 import { ObjectID } from "mongodb";
 import { authenticate } from "../../../lib/utils";
 import { sendEmail } from "../../../lib/api/email";
+import { redis } from "../../../lib";
 
 const generateToken = (id: string, expiresIn: string): string => {
   const secret = String(process.env.JWT_SECRET_KEY);
@@ -81,16 +83,20 @@ export const viewerResolvers = {
           listings: [],
           income: 0,
           _id: new ObjectID().toString(),
+          isEmailVerified: false,
         });
 
         const viewer = insertRes.ops[0];
 
-        // generate token
+        // generate access token
         const token = generateToken(viewer._id, "7d");
 
-        const verifyToken = generateToken(viewer._id, "1d");
+        const emailVerifyToken = v4();
 
-        const url = `http://localhost:3000/verify-email/${verifyToken}`;
+        // save email verify token to redis
+        await redis.set(emailVerifyToken, viewer._id, "ex", 60 * 60 * 24); // 1 day expiration
+
+        const url = `http://localhost:3000/email-confirmation/${emailVerifyToken}`;
 
         await sendEmail(
           viewer,
@@ -108,6 +114,34 @@ export const viewerResolvers = {
         console.log(error);
         throw new Error(error);
       }
+    },
+    emailTokenVerification: async (
+      _root: undefined,
+      { token }: { token: string },
+      { db }: { db: Database }
+    ) => {
+      const userId = await redis.get(token);
+      if (!userId) throw new Error(`Invalid token/ Token expired.`);
+
+      const updateResult = await db.users.findOneAndUpdate(
+        { _id: userId },
+        {
+          $set: {
+            isEmailVerified: true,
+          },
+        },
+        {
+          returnOriginal: false,
+        }
+      );
+
+      if (!updateResult.value)
+        throw new Error(`Error in validating email address.`);
+
+      // delete token in redis
+      await redis.del(token);
+
+      return "Email Verified Successfully";
     },
   },
   Viewer: {

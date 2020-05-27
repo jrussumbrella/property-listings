@@ -38,6 +38,7 @@ export interface Listing {
 export interface User {
   _id: string;
   email: string;
+  isEmailVerified: boolean;
   name: string;
   password: string;
   photoUrl?: string;

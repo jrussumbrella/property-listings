@@ -62,5 +62,6 @@ export const typeDefs = gql`
   type Mutation {
     signUp(input: SignUpInput): Viewer!
     login(input: LoginInput!): Viewer!
+    emailTokenVerification(token: String!): String!
   }
 `;
