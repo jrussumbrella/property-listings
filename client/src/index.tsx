@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { AuthProvider } from "./store";
+import { AuthProvider, ToastProvider } from "./store";
 import cookie from "js-cookie";
 import * as serviceWorker from "./serviceWorker";
 
@@ -22,9 +22,11 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </ToastProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
