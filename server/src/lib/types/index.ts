@@ -45,6 +45,7 @@ export interface User {
   walletId?: string;
   listings: ObjectId[];
   bookings: ObjectId[];
+  favorites: ObjectId[];
   income: number;
 }
 

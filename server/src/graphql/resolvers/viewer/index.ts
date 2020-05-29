@@ -81,6 +81,7 @@ export const viewerResolvers = {
           password: encryptPassword,
           bookings: [],
           listings: [],
+          favorites: [],
           income: 0,
           _id: new ObjectID().toString(),
           isEmailVerified: false,

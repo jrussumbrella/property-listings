@@ -27,6 +27,11 @@ export const typeDefs = gql`
     type: ListingType
   }
 
+  type Favorites {
+    total: Int!
+    result: [Listing!]
+  }
+
   type User {
     id: ID!
     name: String!
@@ -34,6 +39,7 @@ export const typeDefs = gql`
     photoUrl: String
     isEmailVerified: Boolean!
     listings(limit: Int!, page: Int!): Listings!
+    favorites(limit: Int!, page: Int!): Favorites!
   }
 
   type Viewer {
@@ -64,5 +70,6 @@ export const typeDefs = gql`
     signUp(input: SignUpInput): Viewer!
     login(input: LoginInput!): Viewer!
     emailTokenVerification(token: String!): Viewer!
+    toggleFavorite(id: ID!): Listing!
   }
 `;

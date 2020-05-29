@@ -1,5 +1,13 @@
 import { Database, User } from "../../../lib/types";
-import { UserArgs, UserListingsArgs, UserListingsData } from "./types";
+import {
+  UserArgs,
+  UserListingsArgs,
+  UserListingsData,
+  UserFavoritesArgs,
+  UserFavoritesData,
+} from "./types";
+import { authenticate } from "../../../lib/utils";
+import { Request } from "express";
 
 export const userResolvers = {
   Query: {
@@ -35,6 +43,31 @@ export const userResolvers = {
         total: 0,
         result: [],
       };
+
+      data.total = await listings.count();
+      data.result = await listings.toArray();
+
+      return data;
+    },
+    favorites: async (
+      user: User,
+      { limit, page }: UserFavoritesArgs,
+      { db, req }: { db: Database; req: Request }
+    ): Promise<UserFavoritesData> => {
+      const data: UserFavoritesData = {
+        total: 0,
+        result: [],
+      };
+      // if viewer is not login, return empty data
+      const viewer = await authenticate(db, req);
+      if (!viewer) return data;
+
+      const skips = page > 0 ? (page - 1) * limit : 0;
+
+      let listings = db.listings
+        .find({ _id: { $in: user.favorites } })
+        .skip(skips)
+        .limit(limit);
 
       data.total = await listings.count();
       data.result = await listings.toArray();

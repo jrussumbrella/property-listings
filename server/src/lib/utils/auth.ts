@@ -18,9 +18,12 @@ export const authenticate = async (
     token = req.headers.authorization.split(" ")[1];
   }
   if (!token) return null;
-
-  const decoded = jwt.verify(token, String(process.env.JWT_SECRET_KEY));
-  const user = await db.users.findOne({ _id: (decoded as Decoded).id });
-  if (!user) return null;
-  return user;
+  try {
+    const decoded = jwt.verify(token, String(process.env.JWT_SECRET_KEY));
+    const user = await db.users.findOne({ _id: (decoded as Decoded).id });
+    if (!user) return null;
+    return user;
+  } catch (error) {
+    return null;
+  }
 };
