@@ -44,6 +44,8 @@ export const favoritesResolvers = {
             throw new Error("Failed to add to favorites");
         }
 
+        listing.isFavorite = !isFavorite;
+
         return listing;
       } catch (error) {
         throw new Error(error);

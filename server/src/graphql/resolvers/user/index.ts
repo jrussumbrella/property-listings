@@ -70,7 +70,14 @@ export const userResolvers = {
         .limit(limit);
 
       data.total = await listings.count();
-      data.result = await listings.toArray();
+      const listingsResult = await listings.toArray();
+
+      const result = listingsResult.map((listing) => ({
+        ...listing,
+        isFavorite: true,
+      }));
+
+      data.result = result;
 
       return data;
     },

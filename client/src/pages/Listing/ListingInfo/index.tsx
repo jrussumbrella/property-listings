@@ -1,7 +1,12 @@
 import React from "react";
 import { FaBed, FaBath } from "react-icons/fa";
 import { Listing } from "../../../lib";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { FiShare } from "react-icons/fi";
 import styled from "styled-components";
+import { useMutation } from "@apollo/react-hooks";
+import { TOGGLE_FAVORITE } from "../../../graphql/mutations";
+import { useToast } from "../../../store";
 
 const CoverImg = styled.div`
   position: relative;
@@ -74,15 +79,78 @@ const Details = styled.ul`
   }
 `;
 
+const ActionWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+`;
+
+const IconWrapper = styled.button`
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  height: 2.6rem;
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 interface Props {
   listing: Listing;
 }
 
+const COLOR_RED = "var(--color-red)";
+
 const ListingInfo: React.FC<Props> = ({ listing }) => {
+  const { setToast } = useToast();
+  const [toggleFavorite] = useMutation(TOGGLE_FAVORITE, {
+    variables: { id: listing.id },
+    onCompleted() {},
+    onError(err) {
+      setToast("error", err.graphQLErrors[0].message);
+    },
+  });
+
+  const handleToggleFavorite = () => {
+    toggleFavorite();
+  };
+
   return (
     <div>
       <CoverImg>
         <Img src={listing.imageUrl} alt={listing.title} />
+        <ActionWrapper>
+          {listing.isFavorite ? (
+            <IconWrapper onClick={handleToggleFavorite}>
+              {" "}
+              <AiFillHeart fill={COLOR_RED} />
+            </IconWrapper>
+          ) : (
+            <IconWrapper onClick={handleToggleFavorite}>
+              <AiOutlineHeart />
+            </IconWrapper>
+          )}
+          <IconWrapper>
+            <FiShare />
+          </IconWrapper>
+        </ActionWrapper>
       </CoverImg>
       <Wrapper>
         <Title>{listing.title}</Title>

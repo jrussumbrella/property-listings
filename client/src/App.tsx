@@ -9,6 +9,7 @@ import {
   SignUp,
   Profile,
   MyProperties,
+  MyFavorites,
   EmailConfirmation,
 } from "./pages";
 import { Layout, AppSkeleton } from "./components";
@@ -51,6 +52,11 @@ function App() {
             <ProtectedRoute
               path="/my-properties"
               component={MyProperties}
+              exact
+            />
+            <ProtectedRoute
+              path="/my-favorites"
+              component={MyFavorites}
               exact
             />
             <ProtectedRoute path="/profile" component={Profile} exact />

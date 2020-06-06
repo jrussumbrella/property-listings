@@ -30,6 +30,7 @@ export interface Listing {
   rating?: number;
   price: number;
   host: string;
+  isFavorite: boolean;
   type: ListingType;
   bookings: ObjectId[];
   bookingsIndex: BookingsIndex;

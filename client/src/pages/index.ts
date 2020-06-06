@@ -5,3 +5,4 @@ export * from "./NotFound";
 export * from "./Auth";
 export * from "./Profile";
 export * from "./MyProperties";
+export * from "./MyFavorites";

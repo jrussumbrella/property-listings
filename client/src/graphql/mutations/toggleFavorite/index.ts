@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
-export const LISTING = gql`
-  query Listing($id: ID!) {
-    listing(id: $id) {
+export const TOGGLE_FAVORITE = gql`
+  mutation ToggleFavorite($id: ID!) {
+    toggleFavorite(id: $id) {
       id
       title
       imageUrl

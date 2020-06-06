@@ -31,6 +31,7 @@ export interface Listing {
   type: ListingType;
   bookings: string[];
   bookingsIndex: BookingsIndex;
+  isFavorite: boolean;
 }
 
 export interface City {
