@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleIcon } from "../../../components/Common";
+import { GoogleIcon } from "../../../components/Common/Icons";
 import styled from "styled-components";
 
 const Button = styled.button`

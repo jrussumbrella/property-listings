@@ -4,6 +4,7 @@ import { Listing } from "../../lib";
 import { useToast } from "../../store";
 import { useMutation } from "@apollo/react-hooks";
 import { TOGGLE_FAVORITE } from "../../graphql/mutations";
+import { MY_FAVORITES } from "../../graphql/queries";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import styled from "styled-components";
 
@@ -91,6 +92,12 @@ const ListingItem: React.FC<Props> = ({ listing }) => {
     onError(err) {
       setToast("error", err.graphQLErrors[0].message);
     },
+    refetchQueries: [
+      {
+        query: MY_FAVORITES,
+        variables: { page: 1, limit: 10 },
+      },
+    ],
   });
 
   const handleToggle = () => {

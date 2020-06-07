@@ -10,11 +10,6 @@ export const TOGGLE_FAVORITE = gql`
       price
       address
       isFavorite
-      host {
-        id
-        name
-        photoUrl
-      }
     }
   }
 `;

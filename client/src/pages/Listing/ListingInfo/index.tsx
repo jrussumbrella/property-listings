@@ -3,10 +3,11 @@ import { FaBed, FaBath } from "react-icons/fa";
 import { Listing } from "../../../lib";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FiShare } from "react-icons/fi";
-import styled from "styled-components";
 import { useMutation } from "@apollo/react-hooks";
 import { TOGGLE_FAVORITE } from "../../../graphql/mutations";
-import { useToast } from "../../../store";
+import { useToast, useModal } from "../../../store";
+import styled from "styled-components";
+import ListingShareModal from "../ListingShareModal";
 
 const CoverImg = styled.div`
   position: relative;
@@ -120,6 +121,7 @@ const COLOR_RED = "var(--color-red)";
 
 const ListingInfo: React.FC<Props> = ({ listing }) => {
   const { setToast } = useToast();
+  const { toggleModal } = useModal();
   const [toggleFavorite] = useMutation(TOGGLE_FAVORITE, {
     variables: { id: listing.id },
     onCompleted() {},
@@ -132,8 +134,13 @@ const ListingInfo: React.FC<Props> = ({ listing }) => {
     toggleFavorite();
   };
 
+  const handleOpenShare = () => {
+    toggleModal();
+  };
+
   return (
     <div>
+      <ListingShareModal />
       <CoverImg>
         <Img src={listing.imageUrl} alt={listing.title} />
         <ActionWrapper>
@@ -147,7 +154,7 @@ const ListingInfo: React.FC<Props> = ({ listing }) => {
               <AiOutlineHeart />
             </IconWrapper>
           )}
-          <IconWrapper>
+          <IconWrapper onClick={handleOpenShare}>
             <FiShare />
           </IconWrapper>
         </ActionWrapper>

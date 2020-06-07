@@ -21,7 +21,7 @@ export const MyFavorites = () => {
     fetchPolicy: "cache-and-network",
   });
 
-  if (error) return <div>Error</div>;
+  if (error) return <div> Something went wrong </div>;
 
   if (loading) {
     return (
