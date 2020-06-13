@@ -49,7 +49,7 @@ const NavList = styled.ul`
     }
   }
 
-  a {
+  .link {
     font-size: 1.2rem;
     display: block;
   }
@@ -118,7 +118,7 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
         {user ? (
           <NavList>
             <li onClick={onClose}>
-              <Link to="/profile">
+              <Link to="/profile" className="link">
                 <UserInfo>
                   {user.photoUrl ? (
                     <img src={user.photoUrl} alt={user.name} />
@@ -130,17 +130,24 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
               </Link>
             </li>
             <li onClick={onClose}>
-              <Link to="/my-properties"> My Properties </Link>
+              <Link to="/my-properties" className="link">
+                {" "}
+                My Properties{" "}
+              </Link>
             </li>
             <li onClick={onClose}>
-              <Link to="/my-favorites"> My Favorites </Link>
+              <Link to="/my-favorites" className="link">
+                {" "}
+                My Favorites{" "}
+              </Link>
             </li>
-            <li>
+            <li onClick={onClose}>
               <Button
                 classType="outline"
                 type="button"
                 title="List your property"
                 style={{ width: "100%" }}
+                to="/listing/create"
               />
             </li>
             <li>
@@ -156,13 +163,20 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
         ) : (
           <NavList>
             <li onClick={onClose}>
-              <Link to="/auth"> Log In </Link>
+              <Link to="/auth" className="link">
+                {" "}
+                Log In{" "}
+              </Link>
             </li>
             <li onClick={onClose}>
-              <Link to="/auth/sign-up"> Sign Up </Link>
+              <Link to="/auth/sign-up" className="link">
+                {" "}
+                Sign Up{" "}
+              </Link>
             </li>
-            <li>
+            <li onClick={onClose}>
               <Button
+                to="/listing/create"
                 classType="outline"
                 type="button"
                 title="List your property"

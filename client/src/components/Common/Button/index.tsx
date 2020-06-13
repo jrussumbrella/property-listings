@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Spinner } from "../Spinner";
+import { Link } from "react-router-dom";
 
 interface StyledButtonProps {
   classType: "primary" | "outline";
@@ -16,6 +17,7 @@ interface Props {
   style?: Object;
   disabled?: boolean;
   loading?: boolean;
+  to?: string;
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -41,6 +43,24 @@ const StyledButton = styled.button<StyledButtonProps>`
   }
 `;
 
+const StyledLink = styled(Link)<StyledButtonProps>`
+  background-color: ${(props) =>
+    props.classType === "outline" ? "#fff" : "var(--color-primary)"};
+  color: ${(props) =>
+    props.classType === "outline" ? "var(--color-primary)" : "#fff"};
+  border: 1px solid
+    ${(props) =>
+      props.classType === "outline" ? "var(--color-primary)" : "#fff"};
+  height: 3rem;
+  padding: 0 1rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Button = ({
   title,
   type,
@@ -49,16 +69,31 @@ export const Button = ({
   style,
   disabled,
   loading,
+  to,
 }: Props) => {
   return (
-    <StyledButton
-      type={type}
-      onClick={onClick}
-      classType={classType}
-      style={style}
-      disabled={disabled}
-    >
-      {loading ? <Spinner color="#fff" size={1.2} /> : title}
-    </StyledButton>
+    <>
+      {to ? (
+        <StyledLink
+          type={type}
+          onClick={onClick}
+          classType={classType}
+          style={style}
+          to={to}
+        >
+          {loading ? <Spinner color="#fff" size={1.2} /> : title}
+        </StyledLink>
+      ) : (
+        <StyledButton
+          type={type}
+          onClick={onClick}
+          classType={classType}
+          style={style}
+          disabled={disabled}
+        >
+          {loading ? <Spinner color="#fff" size={1.2} /> : title}
+        </StyledButton>
+      )}
+    </>
   );
 };

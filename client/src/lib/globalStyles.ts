@@ -4,6 +4,11 @@ import reset from "styled-reset";
 export const GlobalStyle = createGlobalStyle`
   ${reset}
 
+  * {
+    box-sizing: border-box;
+  }
+  
+
 
   :root {
      --color-dark: #3d3d3d;

@@ -11,6 +11,7 @@ import {
   MyProperties,
   MyFavorites,
   EmailConfirmation,
+  CreateListing,
 } from "./pages";
 import { Layout, AppSkeleton } from "./components";
 import { useAuth } from "./store";
@@ -63,6 +64,11 @@ function App() {
             <Route path="/" exact>
               <Home />
             </Route>
+            <ProtectedRoute
+              path="/listing/create"
+              component={CreateListing}
+              exact
+            />
             <Route path="/listing/:id" exact>
               <Listing />
             </Route>
