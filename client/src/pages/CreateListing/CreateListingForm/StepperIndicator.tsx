@@ -54,7 +54,7 @@ const steppers = Array(NUMBER_OF_STEP)
 
 const StepperIndicator: React.FC<Props> = ({ activeNumber }) => {
   const stepperElements = steppers.map((stepper) => (
-    <StepperList>
+    <StepperList key={stepper}>
       <Circle active={stepper <= activeNumber}>{stepper}</Circle>
       <Line active={stepper <= activeNumber} />
     </StepperList>

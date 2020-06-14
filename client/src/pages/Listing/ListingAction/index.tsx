@@ -32,8 +32,8 @@ const ListingAction = () => {
   return (
     <BottomAction>
       <ButtonWrapper>
-        <Button title="Contact Agent" type="button" classType="outline" />
-        <Button title="Book Now" type="button" classType="primary" />
+        <Button title="Contact Agent" type="button" classtype="outline" />
+        <Button title="Book Now" type="button" classtype="primary" />
       </ButtonWrapper>
     </BottomAction>
   );

@@ -143,7 +143,7 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
             </li>
             <li onClick={onClose}>
               <Button
-                classType="outline"
+                classtype="outline"
                 type="button"
                 title="List your property"
                 style={{ width: "100%" }}
@@ -152,7 +152,7 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
             </li>
             <li>
               <Button
-                classType="primary"
+                classtype="primary"
                 type="button"
                 title="Log Out"
                 onClick={handleLogOut}
@@ -177,7 +177,7 @@ const Sidebar = ({ isOpen, onClose }: Props) => {
             <li onClick={onClose}>
               <Button
                 to="/listing/create"
-                classType="outline"
+                classtype="outline"
                 type="button"
                 title="List your property"
                 style={{ width: "100%" }}

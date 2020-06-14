@@ -27,13 +27,14 @@ export interface Listing {
   city: string;
   admin: string;
   numOfGuests: number;
+  numOfBaths: number;
+  numOfBedrooms: number;
+  propertySize: string;
   rating?: number;
   price: number;
   host: string;
-  isFavorite: boolean;
+  isFavorite?: boolean;
   type: ListingType;
-  bookings: ObjectId[];
-  bookingsIndex: BookingsIndex;
 }
 
 export interface User {

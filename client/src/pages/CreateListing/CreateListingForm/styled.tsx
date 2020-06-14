@@ -43,7 +43,7 @@ export const FormGroup = styled.div`
 
 export const InputFile = styled.button`
   background-color: #fff;
-  width: 50%;
+  width: 12rem;
   border-radius: 6px;
   border: 1px solid var(--color-dark-gray);
   height: 3rem;

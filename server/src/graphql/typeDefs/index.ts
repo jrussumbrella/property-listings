@@ -20,6 +20,9 @@ export const typeDefs = gql`
     country: String!
     city: String!
     admin: String!
+    numOfBedrooms: Int!
+    numOfBaths: Int!
+    propertySize: Int!
     numOfGuests: Int!
     rating: Int
     price: Int!
@@ -60,6 +63,19 @@ export const typeDefs = gql`
     password: String!
   }
 
+  input CreateListingInput {
+    title: String!
+    description: String!
+    image: String!
+    type: ListingType!
+    address: String!
+    price: Int!
+    numOfGuests: Int!
+    numOfBaths: Int!
+    numOfBedrooms: Int!
+    propertySize: String!
+  }
+
   type Query {
     listings(page: Int!, limit: Int!): Listings!
     listing(id: ID!): Listing!
@@ -72,5 +88,6 @@ export const typeDefs = gql`
     login(input: LoginInput!): Viewer!
     emailTokenVerification(token: String!): Viewer!
     toggleFavorite(id: ID!): Listing!
+    createListing(input: CreateListingInput!): Listing!
   }
 `;

@@ -61,7 +61,7 @@ export const CreateListingForm = () => {
           <ButtonWrapper position="left">
             {step > 1 && (
               <Button
-                classType="outline"
+                classtype="outline"
                 type="button"
                 title="Previous"
                 onClick={handlePreviousStep}
@@ -72,7 +72,7 @@ export const CreateListingForm = () => {
           <ButtonWrapper position="right">
             {step < NUMBER_OF_STEP && (
               <Button
-                classType="primary"
+                classtype="primary"
                 type="button"
                 title="Continue"
                 onClick={handleNextStep}
@@ -80,7 +80,7 @@ export const CreateListingForm = () => {
             )}
             {step === NUMBER_OF_STEP && (
               <Button
-                classType="primary"
+                classtype="primary"
                 type="submit"
                 title="Submit Property"
               />

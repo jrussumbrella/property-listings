@@ -156,7 +156,7 @@ export const SignIn = () => {
             <Button
               type="submit"
               title="Log In "
-              classType="primary"
+              classtype="primary"
               disabled={loading}
               loading={loading}
               style={{

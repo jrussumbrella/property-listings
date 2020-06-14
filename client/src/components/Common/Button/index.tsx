@@ -4,14 +4,14 @@ import { Spinner } from "../Spinner";
 import { Link } from "react-router-dom";
 
 interface StyledButtonProps {
-  classType: "primary" | "outline";
+  classtype?: "primary" | "outline";
   onClick?(): void;
   style?: Object;
 }
 
 interface Props {
   title: string;
-  classType: "primary" | "outline";
+  classtype?: "primary" | "outline";
   type: "reset" | "submit" | "button";
   onClick?(): void;
   style?: Object;
@@ -22,12 +22,12 @@ interface Props {
 
 const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${(props) =>
-    props.classType === "outline" ? "#fff" : "var(--color-primary)"};
+    props.classtype === "outline" ? "#fff" : "var(--color-primary)"};
   color: ${(props) =>
-    props.classType === "outline" ? "var(--color-primary)" : "#fff"};
+    props.classtype === "outline" ? "var(--color-primary)" : "#fff"};
   border: 1px solid
     ${(props) =>
-      props.classType === "outline" ? "var(--color-primary)" : "#fff"};
+      props.classtype === "outline" ? "var(--color-primary)" : "#fff"};
   height: 3rem;
   padding: 0 1rem;
   font-size: 1.1rem;
@@ -36,6 +36,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 
   &:disabled {
     opacity: 0.5;
@@ -45,12 +46,12 @@ const StyledButton = styled.button<StyledButtonProps>`
 
 const StyledLink = styled(Link)<StyledButtonProps>`
   background-color: ${(props) =>
-    props.classType === "outline" ? "#fff" : "var(--color-primary)"};
+    props.classtype === "outline" ? "#fff" : "var(--color-primary)"};
   color: ${(props) =>
-    props.classType === "outline" ? "var(--color-primary)" : "#fff"};
+    props.classtype === "outline" ? "var(--color-primary)" : "#fff"};
   border: 1px solid
     ${(props) =>
-      props.classType === "outline" ? "var(--color-primary)" : "#fff"};
+      props.classtype === "outline" ? "var(--color-primary)" : "#fff"};
   height: 3rem;
   padding: 0 1rem;
   font-size: 1.1rem;
@@ -59,12 +60,13 @@ const StyledLink = styled(Link)<StyledButtonProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 `;
 
 export const Button = ({
   title,
   type,
-  classType,
+  classtype,
   onClick,
   style,
   disabled,
@@ -77,7 +79,7 @@ export const Button = ({
         <StyledLink
           type={type}
           onClick={onClick}
-          classType={classType}
+          classtype={classtype}
           style={style}
           to={to}
         >
@@ -87,7 +89,7 @@ export const Button = ({
         <StyledButton
           type={type}
           onClick={onClick}
-          classType={classType}
+          classtype={classtype}
           style={style}
           disabled={disabled}
         >

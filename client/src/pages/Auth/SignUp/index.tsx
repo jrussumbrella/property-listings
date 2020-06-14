@@ -168,7 +168,7 @@ export const SignUp = () => {
             <Button
               type="submit"
               title="Sign Up"
-              classType="primary"
+              classtype="primary"
               disabled={loading}
               loading={loading}
               style={{

@@ -1,8 +1,41 @@
-import { Database, Listing, User } from "../../../lib/types";
-import { ListingsData, ListingsArgs, ListingArgs } from "./types";
+import { Database, Listing, User, ListingType } from "../../../lib/types";
+import {
+  ListingsData,
+  ListingsArgs,
+  ListingArgs,
+  CreateListingArgs,
+  CreateListingInput,
+} from "./types";
 import { ObjectId } from "mongodb";
 import { authenticate } from "../../../lib/utils";
 import { Request } from "express";
+import { Google } from "./../../../lib/api/google";
+
+const validateListingInput = ({
+  title,
+  description,
+  price,
+  propertySize,
+  numOfBaths,
+  numOfBedrooms,
+  numOfGuests,
+  type,
+}: CreateListingInput) => {
+  if (title.length > 100) throw new Error("Title must be under 100 characters");
+  if (description.length > 5000)
+    throw new Error("Description must be under 5000 characters");
+  if (type !== ListingType.Apartment && type !== ListingType.House)
+    throw new Error("Type must be house or apartment");
+  if (price < 0) throw new Error("Price must be greater than zero");
+  if (propertySize.length === 0)
+    throw new Error("Property size cannot be empty");
+  if (String(numOfBaths).length === 0)
+    throw new Error("Number of baths cannot be empty");
+  if (String(numOfBedrooms).length === 0)
+    throw new Error("Number of bed rooms cannot be empty");
+  if (String(numOfGuests).length === 0)
+    throw new Error("Number of guests cannot be empty");
+};
 
 export const listingResolvers = {
   Query: {
@@ -80,6 +113,54 @@ export const listingResolvers = {
       } catch (error) {
         throw new Error(error);
       }
+    },
+  },
+  Mutation: {
+    createListing: async (
+      _root: undefined,
+      { input }: CreateListingArgs,
+      { db, req }: { db: Database; req: Request }
+    ) => {
+      const {
+        title,
+        description,
+        image,
+        type,
+        numOfGuests,
+        numOfBaths,
+        numOfBedrooms,
+        price,
+        propertySize,
+        address,
+      } = input;
+
+      // perform validation to input
+      validateListingInput(input);
+      const viewer = await authenticate(db, req);
+      if (!viewer) throw new Error("User cannot be found");
+
+      const { city, admin, country } = await Google.geocode(input.address);
+      if (!city || !admin || !country) throw new Error("Invalid input address");
+
+      const insertResult = await db.listings.insertOne({
+        title,
+        description,
+        imageUrl: image,
+        price,
+        type,
+        numOfGuests,
+        propertySize,
+        numOfBedrooms,
+        numOfBaths,
+        address,
+        country,
+        admin,
+        city,
+        host: viewer._id,
+      });
+
+      const listing: Listing = insertResult.ops[0];
+      return listing;
     },
   },
   Listing: {
