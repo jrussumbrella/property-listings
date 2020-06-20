@@ -8,15 +8,6 @@ interface StyledProps {
   type: string;
 }
 
-const StyledToast = styled.div`
-  position: fixed;
-  top: 4rem;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 1rem;
-`;
-
 const Container = styled.div<StyledProps>`
   display: flex;
   align-items: center;
@@ -49,17 +40,23 @@ export const Toast = () => {
 
   return (
     <motion.div
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: isActive ? 0 : -60, opacity: isActive ? 1 : 0 }}
+      initial={{ y: -200, opacity: 0 }}
+      animate={{ y: isActive ? 0 : -200, opacity: isActive ? 1 : 0 }}
+      style={{
+        position: "fixed",
+        top: isActive ? "4rem" : 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        padding: "1rem",
+      }}
     >
-      <StyledToast>
-        <Container type={type}>
-          <Message> {message} </Message>
-          <CloseWrapper onClick={removeToast}>
-            <MdClose size={25} />
-          </CloseWrapper>
-        </Container>
-      </StyledToast>
+      <Container type={type}>
+        <Message> {message} </Message>
+        <CloseWrapper onClick={removeToast}>
+          <MdClose size={25} />
+        </CloseWrapper>
+      </Container>
     </motion.div>
   );
 };

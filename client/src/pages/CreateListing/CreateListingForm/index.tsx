@@ -27,11 +27,46 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
 
 const sections = [Step1, Step2, Step3];
 
+const initialState = {
+  title: "",
+  description: "",
+  type: "",
+  price: "",
+};
+
 export const CreateListingForm = () => {
   const [step, setStep] = useState(1);
+  const [listing, setListing] = useState(initialState);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleNextStep = () => {
-    console.log(step + 1);
+    const error: string[] = [];
+
+    if (step === 1) {
+      if (listing.title.length < 6) {
+        error.push("Listing title cannot be less than 6 characters");
+      }
+
+      if (parseInt(listing.price) === 0) {
+        error.push("Listing price cannot be equal to zero");
+      } else if (listing.price.length === 0) {
+        error.push("Listing price cannot be empty");
+      }
+
+      if (listing.type.length === 0) {
+        error.push("Listing type is required field");
+      }
+
+      if (listing.description.length < 10) {
+        error.push("Listing description cannot be less than 10 characters");
+      }
+    }
+
+    if (error.length > 0) {
+      setErrors(error);
+      return;
+    }
+
     setStep((step) => step + 1);
   };
 
@@ -39,18 +74,23 @@ export const CreateListingForm = () => {
     setStep((step) => step - 1);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setListing({ ...listing, [e.target.name]: e.target.value });
+  };
+
   const stepperElement = sections.map((Section, i) => {
     return (
       <div key={i} style={{ display: `${step === i + 1 ? "block" : "none"}` }}>
-        <Section />
+        <Section handleChange={handleChange} />
       </div>
     );
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
+  console.log(errors);
 
   return (
     <div>

@@ -2,6 +2,8 @@ import React from "react";
 import { Modal } from "../../../components/Common";
 import { FacebookIcon, TwitterIcon } from "../../../components/Common/Icons";
 import { share } from "../../../lib/utils/socialShare";
+import copyToClipBoard from "../../../utils/copyToClipboard";
+import { useToast, useModal } from "../../../store";
 import styled from "styled-components";
 
 const SocialButton = styled.button`
@@ -25,17 +27,32 @@ const SocialButton = styled.button`
   }
 `;
 
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const ListingShareModal = () => {
+  const { setToast } = useToast();
+  const { toggleModal } = useModal();
+
+  const handleCopyClipBoard = () => {
+    copyToClipBoard();
+    setToast("success", "Copied to clipboard");
+    toggleModal();
+  };
+
   return (
     <Modal>
-      <div>
+      <Container>
         <SocialButton type="button" onClick={() => share("fb")}>
           <FacebookIcon />
         </SocialButton>
         <SocialButton type="button" onClick={() => share("twitter")}>
           <TwitterIcon />
         </SocialButton>
-      </div>
+        <SocialButton onClick={handleCopyClipBoard}>Copy</SocialButton>
+      </Container>
     </Modal>
   );
 };

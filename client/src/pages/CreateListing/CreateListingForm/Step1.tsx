@@ -2,16 +2,21 @@ import React from "react";
 import { Label, Input, Select, TextArea, FormGroup, InputFile } from "./styled";
 import { BsUpload } from "react-icons/bs";
 
-const Step1: React.FC = () => {
+interface Props {
+  handleChange(e: React.ChangeEvent<HTMLElement>): void;
+}
+
+const Step1: React.FC<Props> = ({ handleChange }) => {
   return (
     <div>
       <FormGroup>
         <Label htmlFor="title"> Title </Label>
         <Input
-          type="text"
           id="title"
           name="title"
+          onChange={handleChange}
           placeholder="Please input title here..."
+          type="text"
         />
       </FormGroup>
       <FormGroup>
@@ -19,25 +24,26 @@ const Step1: React.FC = () => {
         <TextArea
           id="description"
           name="description"
+          onChange={handleChange}
           placeholder="Please input description here..."
         ></TextArea>
       </FormGroup>
       <FormGroup>
         <Label htmlFor="type"> Property Type </Label>
-        <Select name="type" id="type">
+        <Select id="type" name="type" onChange={handleChange}>
           <option value=""> </option>
           <option value="apartment"> Apartment </option>
           <option value="house"> House </option>
         </Select>
       </FormGroup>
-
       <FormGroup>
         <Label htmlFor="price"> Price </Label>
         <Input
-          type="text"
           id="price"
           name="price"
+          onChange={handleChange}
           placeholder="Please input price here..."
+          type="text"
         />
       </FormGroup>
       <FormGroup>
