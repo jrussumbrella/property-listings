@@ -32,8 +32,8 @@ const Step1: React.FC<Props> = ({ handleChange }) => {
         <Label htmlFor="type"> Property Type </Label>
         <Select id="type" name="type" onChange={handleChange}>
           <option value=""> </option>
-          <option value="apartment"> Apartment </option>
-          <option value="house"> House </option>
+          <option value="APARTMENT"> Apartment </option>
+          <option value="HOUSE"> House </option>
         </Select>
       </FormGroup>
       <FormGroup>

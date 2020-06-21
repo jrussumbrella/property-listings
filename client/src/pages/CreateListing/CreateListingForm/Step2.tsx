@@ -1,7 +1,11 @@
 import React from "react";
 import { Label, Input, FormGroup } from "./styled";
 
-const Step2: React.FC = () => {
+interface Props {
+  handleChange(e: React.ChangeEvent<HTMLElement>): void;
+}
+
+const Step2: React.FC<Props> = ({ handleChange }) => {
   return (
     <>
       <FormGroup>
@@ -10,6 +14,7 @@ const Step2: React.FC = () => {
           type="text"
           id="address"
           name="address"
+          onChange={handleChange}
           placeholder="Please input address here..."
         />
       </FormGroup>
@@ -19,6 +24,7 @@ const Step2: React.FC = () => {
           type="text"
           id="city"
           name="city"
+          onChange={handleChange}
           placeholder="Please input city here..."
         />
       </FormGroup>
@@ -28,6 +34,7 @@ const Step2: React.FC = () => {
           type="text"
           id="zip"
           name="zip"
+          onChange={handleChange}
           placeholder="Please input zip here..."
         />
       </FormGroup>
