@@ -66,3 +66,10 @@ export const InputFile = styled.button`
     padding: 0 0.5rem;
   }
 `;
+
+export const ImagePreview = styled.div`
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  margin-top: 10px;
+`;

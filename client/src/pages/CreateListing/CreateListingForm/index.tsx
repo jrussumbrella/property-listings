@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
-import { Form } from "./styled";
-import { Button } from "../../../components/Common";
-import { NUMBER_OF_STEP } from "../../../utils/constants";
-import styled from "styled-components";
 import StepperIndicator from "./StepperIndicator";
+import { Form } from "./styled";
+import { Button, PageLoader } from "../../../components/Common";
+import { NUMBER_OF_STEP } from "../../../utils/constants";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_LISTING } from "../../../graphql/mutations";
 import { useToast } from "../../../store";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 interface ButtonWrapperProps {
   position: string;
@@ -39,6 +40,7 @@ const initialState = {
   address: "",
   city: "",
   zip: "",
+  state: "",
   numOfBaths: "",
   numOfGuests: "",
   numOfBedrooms: "",
@@ -46,15 +48,21 @@ const initialState = {
 };
 
 export const CreateListingForm = () => {
+  const history = useHistory();
   const { setToast } = useToast();
   const [step, setStep] = useState(1);
   const [listing, setListing] = useState(initialState);
   const [errors, setErrors] = useState<string[]>([]);
+  const [imagePreview, setImagePreview] = useState<string | null | ArrayBuffer>(
+    null
+  );
+
   const [createListing, { loading }] = useMutation(CREATE_LISTING, {
     onError(err) {
       console.log(err);
     },
     onCompleted(data) {
+      history.push(`/listing/${data.createListing.id}`);
       setToast("success", "Successfully listing created");
     },
   });
@@ -96,36 +104,69 @@ export const CreateListingForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const {
+      title,
+      description,
+      type,
+      propertySize,
+      numOfBaths,
+      numOfGuests,
+      numOfBedrooms,
+      price,
+      zip,
+      city,
+      address,
+      state,
+    } = listing;
+
+    const fullAddress = `${address}, ${city}, ${state}, ${zip}`;
+
     const newListing = {
-      title: listing.title,
-      description: listing.description,
-      type: listing.type,
-      image:
-        "https://images.pexels.com/photos/280221/pexels-photo-280221.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-      address: "Mandaluyong, City",
-      propertySize: listing.propertySize,
-      price: Number(listing.price),
-      numOfBaths: Number(listing.numOfBaths),
-      numOfBedrooms: Number(listing.numOfBedrooms),
-      numOfGuests: Number(listing.numOfGuests),
+      title,
+      description,
+      type,
+      image: imagePreview,
+      address: fullAddress,
+      propertySize,
+      price: Number(price),
+      numOfBaths: Number(numOfBaths),
+      numOfBedrooms: Number(numOfBedrooms),
+      numOfGuests: Number(numOfGuests),
     };
+
     createListing({ variables: { input: newListing } });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === "image") {
+      if (e.target && e.target.files) {
+        imageChange(e.target.files[0]);
+      }
+      return;
+    }
     setListing({ ...listing, [e.target.name]: e.target.value });
+  };
+
+  const imageChange = (files: Blob) => {
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(files);
   };
 
   const stepperElement = sections.map((Section, i) => {
     return (
       <div key={i} style={{ display: `${step === i + 1 ? "block" : "none"}` }}>
-        <Section handleChange={handleChange} />
+        <Section handleChange={handleChange} imagePreview={imagePreview} />
       </div>
     );
   });
 
   return (
     <div>
+      {loading && <PageLoader />}
       <StepperIndicator activeNumber={step} />
       <Form onSubmit={handleSubmit}>
         {stepperElement}

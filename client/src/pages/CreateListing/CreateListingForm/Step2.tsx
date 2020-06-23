@@ -2,6 +2,7 @@ import React from "react";
 import { Label, Input, FormGroup } from "./styled";
 
 interface Props {
+  imagePreview?: ArrayBuffer | null | string;
   handleChange(e: React.ChangeEvent<HTMLElement>): void;
 }
 
@@ -26,6 +27,16 @@ const Step2: React.FC<Props> = ({ handleChange }) => {
           name="city"
           onChange={handleChange}
           placeholder="Please input city here..."
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label htmlFor="state"> State/ Province </Label>
+        <Input
+          type="text"
+          id="state"
+          name="state"
+          onChange={handleChange}
+          placeholder="Please input state / province here..."
         />
       </FormGroup>
       <FormGroup>

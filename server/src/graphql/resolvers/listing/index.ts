@@ -9,7 +9,7 @@ import {
 import { ObjectId } from "mongodb";
 import { authenticate } from "../../../lib/utils";
 import { Request } from "express";
-import { Google } from "./../../../lib/api/google";
+import { Google, Cloudinary } from "./../../../lib/api";
 
 const validateListingInput = ({
   title,
@@ -142,10 +142,12 @@ export const listingResolvers = {
       const { city, admin, country } = await Google.geocode(input.address);
       if (!city || !admin || !country) throw new Error("Invalid input address");
 
+      const imageUrl = await Cloudinary.upload(image);
+
       const insertResult = await db.listings.insertOne({
         title,
         description,
-        imageUrl: image,
+        imageUrl,
         price,
         type,
         numOfGuests,

@@ -1,12 +1,21 @@
 import React from "react";
-import { Label, Input, Select, TextArea, FormGroup, InputFile } from "./styled";
+import {
+  Label,
+  Input,
+  Select,
+  TextArea,
+  FormGroup,
+  InputFile,
+  ImagePreview,
+} from "./styled";
 import { BsUpload } from "react-icons/bs";
 
 interface Props {
+  imagePreview?: ArrayBuffer | null | string;
   handleChange(e: React.ChangeEvent<HTMLElement>): void;
 }
 
-const Step1: React.FC<Props> = ({ handleChange }) => {
+const Step1: React.FC<Props> = ({ handleChange, imagePreview }) => {
   return (
     <div>
       <FormGroup>
@@ -51,9 +60,12 @@ const Step1: React.FC<Props> = ({ handleChange }) => {
         <InputFile>
           <BsUpload size={23} />
           <span>Select Image</span>
-          <input type="file" id="image" name="image" />
+          <input type="file" id="image" name="image" onChange={handleChange} />
         </InputFile>
       </FormGroup>
+      {imagePreview && (
+        <ImagePreview style={{ backgroundImage: `url(${imagePreview})` }} />
+      )}
     </div>
   );
 };

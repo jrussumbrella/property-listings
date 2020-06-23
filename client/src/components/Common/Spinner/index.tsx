@@ -13,7 +13,7 @@ const StyledSpinner = styled.div<Props>`
   vertical-align: text-bottom;
   border: 0.15em solid
     ${(props) => (props.color ? props.color : "var(--color-primary)")};
-  border-right-color: transparent;
+  border-right-color: #ccc;
   border-radius: 50%;
   -webkit-animation: spinner-border 0.75s linear infinite;
   animation: spinner-border 0.75s linear infinite;

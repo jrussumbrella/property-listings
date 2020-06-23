@@ -2,6 +2,7 @@ import React from "react";
 import { Label, Input, FormGroup } from "./styled";
 
 interface Props {
+  imagePreview?: ArrayBuffer | null | string;
   handleChange(e: React.ChangeEvent<HTMLElement>): void;
 }
 
