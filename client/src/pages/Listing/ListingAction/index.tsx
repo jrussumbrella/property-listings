@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../../../components/Common";
+import { useModal } from "../../../store";
+import ListingContactModal from "../ListingContactModal";
 
 const BottomAction = styled.div`
   position: fixed;
@@ -29,10 +31,21 @@ const ButtonWrapper = styled.div`
 `;
 
 const ListingAction = () => {
+  const { toggleModal, openModal } = useModal();
+
+  const handleOpenModal = () => {
+    openModal(<ListingContactModal />);
+  };
+
   return (
     <BottomAction>
       <ButtonWrapper>
-        <Button title="Contact Agent" type="button" classtype="outline" />
+        <Button
+          title="Contact Agent"
+          onClick={handleOpenModal}
+          type="button"
+          classtype="outline"
+        />
         <Button title="Book Now" type="button" classtype="primary" />
       </ButtonWrapper>
     </BottomAction>

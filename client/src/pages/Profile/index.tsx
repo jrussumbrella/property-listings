@@ -68,7 +68,7 @@ export const Profile = () => {
   const isEmailVerifiedMessage = !user?.isEmailVerified ? (
     <AlertWrapper>
       <Alert
-        message="Please check your email, we sent you a confirmation email."
+        message="Please confirm your email before creating your property."
         type="info"
       />
     </AlertWrapper>

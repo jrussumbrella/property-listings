@@ -43,7 +43,7 @@ const ListingShareModal = () => {
   };
 
   return (
-    <Modal>
+    <Modal title="Share this Property">
       <Container>
         <SocialButton type="button" onClick={() => share("fb")}>
           <FacebookIcon />

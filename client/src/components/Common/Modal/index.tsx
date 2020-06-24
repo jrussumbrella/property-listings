@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { useModal } from "../../../store";
 import { MdClose } from "react-icons/md";
 import styled from "styled-components";
@@ -49,31 +48,25 @@ const ModalContent = styled.div`
   padding-top: 1rem;
 `;
 
-export const Modal: React.FC = ({ children }) => {
-  const { isOpen, toggleModal } = useModal();
+interface Props {
+  title: string;
+}
 
-  let modalElement = document.getElementById("modal");
-
-  if (!modalElement) return null;
+export const Modal: React.FC<Props> = ({ children, title }) => {
+  const { toggleModal } = useModal();
 
   return (
     <>
-      {isOpen &&
-        ReactDOM.createPortal(
-          <>
-            <StyledModal>
-              <Header>
-                <Title> Share </Title>
-                <CloseWrapper onClick={toggleModal}>
-                  <MdClose />
-                </CloseWrapper>
-              </Header>
-              <ModalContent>{children}</ModalContent>
-            </StyledModal>
-            <Overlay onClick={toggleModal} />
-          </>,
-          modalElement
-        )}
+      <StyledModal>
+        <Header>
+          <Title> {title} </Title>
+          <CloseWrapper onClick={toggleModal}>
+            <MdClose />
+          </CloseWrapper>
+        </Header>
+        <ModalContent>{children}</ModalContent>
+      </StyledModal>
+      <Overlay onClick={toggleModal} />
     </>
   );
 };

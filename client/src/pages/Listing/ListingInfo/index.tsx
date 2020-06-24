@@ -121,7 +121,7 @@ const COLOR_RED = "var(--color-red)";
 
 const ListingInfo: React.FC<Props> = ({ listing }) => {
   const { setToast } = useToast();
-  const { toggleModal } = useModal();
+  const { openModal } = useModal();
   const [toggleFavorite] = useMutation(TOGGLE_FAVORITE, {
     variables: { id: listing.id },
     onCompleted() {},
@@ -135,12 +135,11 @@ const ListingInfo: React.FC<Props> = ({ listing }) => {
   };
 
   const handleOpenShare = () => {
-    toggleModal();
+    openModal(<ListingShareModal />);
   };
 
   return (
     <div>
-      <ListingShareModal />
       <CoverImg>
         <Img src={listing.imageUrl} alt={listing.title} />
         <ActionWrapper>

@@ -22,7 +22,7 @@ const HomeListings: React.FC<{}> = () => {
 
   return (
     <div>
-      <Title> Listings You May Like </Title>
+      <Title> Properties You May Like </Title>
       <Listings listings={listings} />
     </div>
   );
