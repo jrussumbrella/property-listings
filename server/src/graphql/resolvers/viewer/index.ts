@@ -99,12 +99,15 @@ export const viewerResolvers = {
 
         const url = `${process.env.CLIENT_URL}/email-confirmation/${emailVerifyToken}`;
 
-        await sendEmail(
-          viewer,
-          "email-confirmation",
-          "Welcome to Property Listings",
-          url
-        );
+        await sendEmail({
+          name: viewer.name,
+          from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
+          to: viewer.email,
+          template: "email-confirmation",
+          subject: "Welcome to Property Listings",
+          url,
+          message: "Thanks for creating an account",
+        });
 
         return {
           user: viewer,

@@ -1,7 +1,17 @@
 import nodemailer from "nodemailer";
 import pug from "pug";
 import htmlToText from "html-to-text";
-import { User } from "../types";
+
+interface IEmail {
+  name: string;
+  template: string;
+  subject: string;
+  url: string;
+  from: string;
+  to: string;
+  message: string;
+  options?: object;
+}
 
 const newTransport = () => {
   // use mailtrap on development
@@ -17,28 +27,32 @@ const newTransport = () => {
 };
 
 // Send the actual email
-export const sendEmail = async (
-  user: User,
-  template: string,
-  subject: string,
-  url: string
-) => {
-  const firstName = user.name.split(" ")[0];
-
+export const sendEmail = async ({
+  name,
+  template,
+  subject,
+  url,
+  from,
+  to,
+  message,
+  options,
+}: IEmail) => {
   // convert html
   const html = pug.renderFile(
     `${process.cwd()}/src/templates/email/${template}.pug`,
     {
-      firstName: firstName,
-      url: url,
+      name,
+      url,
       subject,
+      message,
+      ...options,
     }
   );
 
   // Email options
   const mailOptions = {
-    from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
-    to: user.email,
+    from,
+    to,
     subject,
     text: htmlToText.fromString(html),
     html,

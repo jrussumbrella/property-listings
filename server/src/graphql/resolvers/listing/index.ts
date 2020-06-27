@@ -5,11 +5,13 @@ import {
   ListingArgs,
   CreateListingArgs,
   CreateListingInput,
+  EmailAgentListingArgs,
 } from "./types";
 import { ObjectId } from "mongodb";
 import { authenticate } from "../../../lib/utils";
 import { Request } from "express";
 import { Google, Cloudinary } from "./../../../lib/api";
+import { sendEmail } from "../../../lib/api/email";
 
 const validateListingInput = ({
   title,
@@ -163,6 +165,40 @@ export const listingResolvers = {
 
       const listing: Listing = insertResult.ops[0];
       return listing;
+    },
+    emailAgentListing: async (
+      _root: undefined,
+      { input }: EmailAgentListingArgs,
+      { db, req }: { db: Database; req: Request }
+    ): Promise<Listing> => {
+      try {
+        // find listing by id
+        const listing = await db.listings.findOne({
+          _id: new ObjectId(input.listingId),
+        });
+        if (!listing) throw new Error("Listing not found");
+
+        const host = await db.users.findOne({ _id: listing.host });
+        if (!host) throw new Error("Agent not found");
+
+        const url = `${process.env.CLIENT_URL}/listing/${listing._id}`;
+
+        // send email host of listing
+        await sendEmail({
+          name: input.name,
+          template: "email-host-listing",
+          subject: "Inquire for Property",
+          from: input.email,
+          to: host?.email,
+          url,
+          message: input.message,
+          options: { imageUrl: listing.imageUrl, title: listing.title },
+        });
+
+        return listing;
+      } catch (error) {
+        throw new Error(error);
+      }
     },
   },
   Listing: {

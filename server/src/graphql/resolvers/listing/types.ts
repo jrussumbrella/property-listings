@@ -1,4 +1,5 @@
 import { Listing, ListingType } from "../../../lib/types";
+import { ObjectID } from "mongodb";
 
 export interface ListingsData {
   total: number;
@@ -29,4 +30,16 @@ export interface CreateListingInput {
 
 export interface CreateListingArgs {
   input: CreateListingInput;
+}
+
+export interface EmailAgentListingInput {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  listingId: string;
+}
+
+export interface EmailAgentListingArgs {
+  input: EmailAgentListingInput;
 }

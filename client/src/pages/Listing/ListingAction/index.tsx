@@ -31,7 +31,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const ListingAction = () => {
-  const { toggleModal, openModal } = useModal();
+  const { openModal } = useModal();
 
   const handleOpenModal = () => {
     openModal(<ListingContactModal />);
@@ -40,13 +40,13 @@ const ListingAction = () => {
   return (
     <BottomAction>
       <ButtonWrapper>
+        <Button title="Call Agent" type="button" classtype="primary" />
         <Button
-          title="Contact Agent"
+          title="Email Agent"
           onClick={handleOpenModal}
           type="button"
           classtype="outline"
         />
-        <Button title="Book Now" type="button" classtype="primary" />
       </ButtonWrapper>
     </BottomAction>
   );

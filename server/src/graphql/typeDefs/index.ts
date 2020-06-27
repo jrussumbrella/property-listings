@@ -76,6 +76,14 @@ export const typeDefs = gql`
     propertySize: String!
   }
 
+  input EmailAgentListingInput {
+    name: String!
+    email: String!
+    phone: String!
+    message: String!
+    listingId: ID!
+  }
+
   type Query {
     listings(page: Int!, limit: Int!): Listings!
     listing(id: ID!): Listing!
@@ -89,5 +97,6 @@ export const typeDefs = gql`
     emailTokenVerification(token: String!): Viewer!
     toggleFavorite(id: ID!): Listing!
     createListing(input: CreateListingInput!): Listing!
+    emailAgentListing(input: EmailAgentListingInput!): Listing!
   }
 `;
