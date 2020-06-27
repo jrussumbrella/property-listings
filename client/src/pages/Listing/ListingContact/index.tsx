@@ -43,7 +43,6 @@ const ListingContact: React.FC<Props> = ({ host }) => {
   return (
     <Container>
       <Heading> Contact Information </Heading>
-
       <HostWrapper>
         <Link to={`/user/${host.id}`}>
           <HostImage src={host.photoUrl} alt={host.name} />

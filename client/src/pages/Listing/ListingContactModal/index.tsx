@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button } from "../../../components/Common";
-import { useModal, useAuth } from "../../../store";
+import { useModal, useAuth, useToast } from "../../../store";
 import { LISTING_CONTACT_MESSAGE } from "../../../utils/constants";
+import { EMAIL_AGENT_LISTING } from "../../../graphql/mutations";
+import { useMutation } from "@apollo/react-hooks";
 import styled from "styled-components";
 
 const FormGroup = styled.div`
@@ -46,9 +48,24 @@ interface FormData {
   message: string;
 }
 
-const ListingContactModal = () => {
+interface Props {
+  id: string;
+}
+
+const ListingContactModal: React.FC<Props> = ({ id }) => {
   const { toggleModal } = useModal();
   const { user } = useAuth();
+  const { setToast } = useToast();
+
+  const [emailAgentListing, { loading }] = useMutation(EMAIL_AGENT_LISTING, {
+    onError(error) {
+      console.log(error);
+    },
+    onCompleted(data) {
+      setToast("success", "Successfully email sent to agent");
+      toggleModal();
+    },
+  });
 
   const { register, handleSubmit, errors } = useForm<FormData>({
     defaultValues: {
@@ -60,7 +77,11 @@ const ListingContactModal = () => {
   });
 
   const onSubmit = handleSubmit((values) => {
-    console.log(values);
+    const input = {
+      listingId: id,
+      ...values,
+    };
+    emailAgentListing({ variables: { input } });
   });
 
   return (
@@ -124,6 +145,8 @@ const ListingContactModal = () => {
             classtype="primary"
             type="submit"
             style={{ width: "100%", height: "3rem" }}
+            disabled={loading}
+            loading={loading}
           />
         </FormGroup>
       </form>

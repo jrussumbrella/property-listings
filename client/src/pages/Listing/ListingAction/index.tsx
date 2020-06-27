@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "../../../components/Common";
 import { useModal } from "../../../store";
+import { Listing } from "../../../lib";
 import ListingContactModal from "../ListingContactModal";
 
 const BottomAction = styled.div`
@@ -30,11 +31,15 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const ListingAction = () => {
+interface Props {
+  listing: Listing;
+}
+
+const ListingAction: React.FC<Props> = ({ listing }) => {
   const { openModal } = useModal();
 
   const handleOpenModal = () => {
-    openModal(<ListingContactModal />);
+    openModal(<ListingContactModal id={listing.id} />);
   };
 
   return (

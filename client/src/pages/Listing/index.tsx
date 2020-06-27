@@ -27,7 +27,7 @@ export const Listing = () => {
     <Container>
       <ListingInfo listing={listing} />
       <ListingContact host={host} />
-      <ListingAction />
+      <ListingAction listing={listing} />
     </Container>
   );
 };

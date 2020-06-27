@@ -22,12 +22,15 @@ export const ToastContext = createContext<InitialState>(initialState);
 export const ToastProvider: React.FC = ({ children }) => {
   const [state, setState] = useState(initialState);
 
-  const setToast = (type: string, message: string) => {
-    setState({ ...state, message, type, isActive: true });
-  };
-
   const removeToast = () => {
     setState(initialState);
+  };
+
+  const setToast = (type: string, message: string) => {
+    setState({ ...state, message, type, isActive: true });
+    setTimeout(() => {
+      removeToast();
+    }, 4000);
   };
 
   return (
