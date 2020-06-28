@@ -14,6 +14,10 @@ const StyledModal = styled.div`
   padding: 1rem;
   width: 80%;
   max-height: 700px;
+
+  @media only screen and (min-width: 768px) {
+    width: 60%;
+  }
 `;
 
 const Overlay = styled.div`

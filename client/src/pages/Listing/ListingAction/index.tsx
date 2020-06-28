@@ -12,9 +12,9 @@ const BottomAction = styled.div`
   right: 0;
   z-index: 99;
   width: 100%;
-  height: 4rem;
+  height: 5rem;
   background-color: #fff;
-  border-top: 1px solid var(--color-dark-gray);
+  border-top: 1px solid var(--color-gray);
 `;
 
 const ButtonWrapper = styled.div`
@@ -23,10 +23,21 @@ const ButtonWrapper = styled.div`
   padding: 0 1rem;
   height: 100%;
 
+  @media only screen and (min-width: 768px) {
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+  }
+
   button {
-    flex: 1;
+    width: 100%;
+
     &:not(:last-child) {
       margin-right: 1rem;
+    }
+
+    @media only screen and (min-width: 768px) {
+      width: 15rem;
     }
   }
 `;

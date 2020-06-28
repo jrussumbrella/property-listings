@@ -4,24 +4,33 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
 import Sidebar from "../Sidebar";
+import DesktopMenu from "../DesktopMenu";
 
 const StyledHeader = styled.header`
   background-color: #fff;
   height: 4rem;
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 2rem;
   box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 99;
+
+  @media only screen and (min-width: 768px) {
+    height: 5.5rem;
+  }
 `;
 
 const SiteTitleWrapper = styled.div`
   flex: 1;
   text-align: center;
+
+  @media only screen and (min-width: 768px) {
+    text-align: left;
+  }
 `;
 
 const SiteTitle = styled(Link)`
@@ -29,8 +38,12 @@ const SiteTitle = styled(Link)`
   font-weight: 600;
 `;
 
-const IconWrapper = styled.div`
+const MobileIconWrapper = styled.div`
   padding: 0.5rem;
+
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const Header: React.FC<{}> = () => {
@@ -46,15 +59,16 @@ const Header: React.FC<{}> = () => {
 
   return (
     <StyledHeader>
-      <IconWrapper onClick={() => setIsOpen(!isOpen)}>
+      <MobileIconWrapper onClick={() => setIsOpen(!isOpen)}>
         <GiHamburgerMenu size={20} />
-      </IconWrapper>
+      </MobileIconWrapper>
       <SiteTitleWrapper>
         <SiteTitle to="/"> Property </SiteTitle>
       </SiteTitleWrapper>
-      <IconWrapper>
+      <MobileIconWrapper>
         <BsSearch size={20} />
-      </IconWrapper>
+      </MobileIconWrapper>
+      <DesktopMenu />
       <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </StyledHeader>
   );

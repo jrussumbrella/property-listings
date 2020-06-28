@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Host } from "../../../lib";
 
 const Container = styled.div`
   padding: 1rem;
@@ -29,26 +30,16 @@ const HostName = styled.div`
   font-size: 1.1rem;
 `;
 
-interface Host {
-  id: string;
-  name: string;
-  photoUrl: string;
-}
-
-interface Props {
-  host: Host;
-}
-
-const ListingContact: React.FC<Props> = ({ host }) => {
+const ListingContact: React.FC<Host> = ({ id, photoUrl, name }) => {
   return (
     <Container>
       <Heading> Contact Information </Heading>
       <HostWrapper>
-        <Link to={`/user/${host.id}`}>
-          <HostImage src={host.photoUrl} alt={host.name} />
+        <Link to={`/user/${id}`}>
+          <HostImage src={photoUrl} alt={name} />
         </Link>
         <HostName>
-          <Link to={`/user/${host.id}`}>{host.name}</Link>{" "}
+          <Link to={`/user/${id}`}>{name}</Link>{" "}
         </HostName>
       </HostWrapper>
     </Container>

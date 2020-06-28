@@ -8,6 +8,10 @@ const StyledList = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
   margin: 1rem 0;
+
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;
 
 interface Props {

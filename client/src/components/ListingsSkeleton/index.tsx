@@ -13,6 +13,10 @@ const List = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
   margin: 1rem 0;
+
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;
 
 const Info = styled.div`
@@ -36,14 +40,14 @@ interface Props {
   numbers: number;
 }
 
-export const ListingsSkeleton: React.FC<Props> = ({ numbers = 10 }) => {
+export const ListingsSkeleton: React.FC<Props> = ({ numbers = 12 }) => {
   const listingBox = Array(numbers)
     .fill(null)
     .map((_, i) => i + 1);
 
   return (
     <div>
-      <Title></Title>
+      <Title />
       <List>
         {listingBox.map((listing) => (
           <div key={listing}>

@@ -6,13 +6,25 @@ import { FiShare } from "react-icons/fi";
 import { useMutation } from "@apollo/react-hooks";
 import { TOGGLE_FAVORITE } from "../../../graphql/mutations";
 import { useToast, useModal } from "../../../store";
-import styled from "styled-components";
 import ListingShareModal from "../ListingShareModal";
+import ListingContact from "../ListingContact";
+import styled from "styled-components";
+
+const Container = styled.div`
+  @media only screen and (min-width: 768px) {
+    display: flex;
+  }
+`;
 
 const CoverImg = styled.div`
   position: relative;
   width: 100%;
   padding-bottom: 60%;
+
+  @media only screen and (min-width: 768px) {
+    width: 55%;
+    padding-bottom: 50%;
+  }
 `;
 
 const Img = styled.img`
@@ -26,6 +38,9 @@ const Img = styled.img`
 
 const Wrapper = styled.div`
   padding: 1rem;
+  @media only screen and (min-width: 768px) {
+    flex: 1;
+  }
 `;
 
 const Title = styled.div`
@@ -130,6 +145,8 @@ const ListingInfo: React.FC<Props> = ({ listing }) => {
     },
   });
 
+  const { host } = listing;
+
   const handleToggleFavorite = () => {
     toggleFavorite();
   };
@@ -139,7 +156,7 @@ const ListingInfo: React.FC<Props> = ({ listing }) => {
   };
 
   return (
-    <div>
+    <Container>
       <CoverImg>
         <Img src={listing.imageUrl} alt={listing.title} />
         <ActionWrapper>
@@ -180,8 +197,9 @@ const ListingInfo: React.FC<Props> = ({ listing }) => {
         </PriceWrapper>
         <Heading> Description </Heading>
         <Description>{listing.description}</Description>
+        <ListingContact {...host} />
       </Wrapper>
-    </div>
+    </Container>
   );
 };
 

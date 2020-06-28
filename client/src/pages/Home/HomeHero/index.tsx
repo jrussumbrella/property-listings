@@ -7,6 +7,11 @@ const StyledHero = styled.div`
   width: 100%;
   background-size: cover;
   position: relative;
+  background-position: center center;
+
+  @media only screen and (min-width: 768px) {
+    height: 30rem;
+  }
 `;
 
 const Info = styled.div`

@@ -22,7 +22,7 @@ const StyledSideBar = styled.div<StyledProps>`
   z-index: 99;
   width: 15rem;
   background-color: #fff;
-  height: 100vh;
+  height: 100%;
   padding: 1rem;
   transform: ${(props) =>
     props.isOpen ? "translateX(0)" : "translateX(-100vh)"};
@@ -33,8 +33,8 @@ const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vh;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 98;
   background-color: rgba(0, 0, 0, 0.5);
 `;
@@ -70,8 +70,8 @@ const UserInfo = styled.div`
   align-items: center;
 
   img {
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
   }
 

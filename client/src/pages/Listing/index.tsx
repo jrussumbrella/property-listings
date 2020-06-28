@@ -5,11 +5,15 @@ import { LISTING } from "../../graphql/queries";
 import ListingInfo from "./ListingInfo";
 import ListingAction from "./ListingAction";
 import ListingSkeleton from "./ListingSkeleton";
-import ListingContact from "./ListingContact";
 import styled from "styled-components";
 
 const Container = styled.div`
   padding-bottom: 6rem;
+
+  @media only screen and (min-width: 768px) {
+    max-width: 1200px;
+    margin: 1rem auto;
+  }
 `;
 
 export const Listing = () => {
@@ -21,12 +25,10 @@ export const Listing = () => {
   if (error) return <h2>Error</h2>;
 
   const { listing } = data;
-  const { host } = listing;
 
   return (
     <Container>
       <ListingInfo listing={listing} />
-      <ListingContact host={host} />
       <ListingAction listing={listing} />
     </Container>
   );

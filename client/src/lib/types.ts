@@ -15,6 +15,12 @@ export enum ListingType {
   House = "HOUSE",
 }
 
+export interface Host {
+  id: string;
+  name: string;
+  photoUrl: string;
+}
+
 export interface Listing {
   id: string;
   title: string;
@@ -27,7 +33,7 @@ export interface Listing {
   numOfGuests: number;
   rating?: number;
   price: number;
-  host: string;
+  host: Host;
   type: ListingType;
   bookings: string[];
   bookingsIndex: BookingsIndex;
