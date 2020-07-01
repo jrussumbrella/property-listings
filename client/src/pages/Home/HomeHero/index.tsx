@@ -20,7 +20,7 @@ const Info = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +29,11 @@ const Info = styled.div`
 
 const Title = styled.h1`
   color: #fff;
+  margin-bottom: 1rem;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const Hero = () => {

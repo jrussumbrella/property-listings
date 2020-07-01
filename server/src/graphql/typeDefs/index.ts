@@ -85,7 +85,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    listings(page: Int!, limit: Int!): Listings!
+    listings(page: Int!, limit: Int!, location: String): Listings!
     listing(id: ID!): Listing!
     host(id: ID!): User!
     me: User!

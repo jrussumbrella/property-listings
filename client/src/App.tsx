@@ -12,6 +12,7 @@ import {
   MyFavorites,
   EmailConfirmation,
   CreateListing,
+  Listings,
 } from "./pages";
 import { Layout, AppSkeleton } from "./components";
 import { useAuth } from "./store";
@@ -69,6 +70,9 @@ function App() {
               component={CreateListing}
               exact
             />
+            <Route path="/listings/:search" exact>
+              <Listings />
+            </Route>
             <Route path="/listing/:id" exact>
               <Listing />
             </Route>

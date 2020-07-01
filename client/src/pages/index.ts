@@ -1,6 +1,7 @@
 export * from "./Home";
 export * from "./User";
 export * from "./Listing";
+export * from "./Listings";
 export * from "./NotFound";
 export * from "./Auth";
 export * from "./Profile";

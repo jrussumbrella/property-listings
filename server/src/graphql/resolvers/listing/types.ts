@@ -6,9 +6,16 @@ export interface ListingsData {
   result: Listing[];
 }
 
+export interface ListingsQuery {
+  country?: string;
+  admin?: string;
+  city?: string;
+}
+
 export interface ListingsArgs {
   page: number;
   limit: number;
+  location?: string;
 }
 
 export interface ListingArgs {

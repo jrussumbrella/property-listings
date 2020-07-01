@@ -6,6 +6,7 @@ import {
   CreateListingArgs,
   CreateListingInput,
   EmailAgentListingArgs,
+  ListingsQuery,
 } from "./types";
 import { ObjectId } from "mongodb";
 import { authenticate } from "../../../lib/utils";
@@ -43,16 +44,29 @@ export const listingResolvers = {
   Query: {
     listings: async (
       _root: undefined,
-      { page, limit }: ListingsArgs,
+      { page, limit, location }: ListingsArgs,
       { db, req }: { db: Database; req: Request }
     ): Promise<ListingsData> => {
       try {
+        const query: ListingsQuery = {};
+
         const data: ListingsData = {
           total: 0,
           result: [],
         };
+
+        //query if there's a location
+        if (location) {
+          const { country, city, admin } = await Google.geocode(location);
+
+          if (city) query.city = city;
+          if (admin) query.admin = admin;
+
+          if (country) query.country = country;
+        }
+
         const skips = page > 0 ? (page - 1) * limit : 0;
-        const cursor = db.listings.find({}).skip(skips).limit(limit);
+        const cursor = db.listings.find(query).skip(skips).limit(limit);
         data.total = await cursor.count();
 
         const listingsArray = await cursor.toArray();

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
 
@@ -12,6 +13,12 @@ const FormSearch = styled.form`
   overflow: hidden;
   width: 80%;
   max-width: 30rem;
+
+  @media only screen and (min-width: 768px) {
+    height: 3.5rem;
+    font-size: 1.2rem;
+    max-width: 45rem;
+  }
 `;
 
 const Input = styled.input`
@@ -19,7 +26,7 @@ const Input = styled.input`
   padding: 0 1rem;
   height: 100%;
   border: 1px solid transparent;
-  font-size: 1rem;
+  font-size: inherit;
   flex: 1;
   width: 100%;
 `;
@@ -35,12 +42,34 @@ const Btn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: inherit;
+
+  @media only screen and (min-width: 768px) {
+    width: 5rem;
+  }
 `;
 
 const SearchForm = () => {
+  const history = useHistory();
+  const [search, setSearch] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!search.trim()) return;
+    const url = `/listings/${search}`;
+    history.push(url);
+  };
+
   return (
-    <FormSearch>
-      <Input type="text" placeholder="Manila City" />
+    <FormSearch onSubmit={handleSubmit}>
+      <Input
+        type="text"
+        placeholder="Where do you want to live?"
+        value={search}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setSearch(e.target.value)
+        }
+      />
       <Btn type="submit">
         <BsSearch color="#fff" />
       </Btn>
