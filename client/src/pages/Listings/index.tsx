@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import SearchListings from "./SearchListings";
+import ListingsFilter from "./ListingsFilter";
 
 const Container = styled.div`
   padding: 1rem;
@@ -21,6 +22,19 @@ const SearchText = styled.div`
   }
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+`;
+
+const ListingsFilterContainer = styled.div`
+  width: 15rem;
+  padding-right: 1rem;
+`;
+
+const SearchListingsContainer = styled.div`
+  flex: 1;
+`;
+
 export const Listings = () => {
   const { search } = useParams();
 
@@ -29,7 +43,14 @@ export const Listings = () => {
       <SearchText>
         Search Results for <span>"{search}"</span>
       </SearchText>
-      <SearchListings location={search} />
+      <Wrapper>
+        <ListingsFilterContainer>
+          <ListingsFilter />
+        </ListingsFilterContainer>
+        <SearchListingsContainer>
+          <SearchListings location={search} />
+        </SearchListingsContainer>
+      </Wrapper>
     </Container>
   );
 };

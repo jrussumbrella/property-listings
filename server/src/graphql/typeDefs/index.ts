@@ -84,8 +84,13 @@ export const typeDefs = gql`
     listingId: ID!
   }
 
+  input Price {
+    min: Int!
+    max: Int!
+  }
+
   type Query {
-    listings(page: Int!, limit: Int!, location: String): Listings!
+    listings(page: Int!, limit: Int!, location: String, price: Price): Listings!
     listing(id: ID!): Listing!
     host(id: ID!): User!
     me: User!

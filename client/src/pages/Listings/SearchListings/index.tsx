@@ -2,9 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { LISTINGS } from "../../../graphql/queries";
 import { ListingsSkeleton, Listings, EmptyMessage } from "../../../components";
-
-const PAGE = 1;
-const PAGE_LIMIT = 12;
+import { PAGE_LIMIT, PAGE } from "../../../utils/constants";
 
 interface Props {
   location: string;

@@ -6,16 +6,23 @@ export interface ListingsData {
   result: Listing[];
 }
 
+export interface PriceQuery {
+  min: number;
+  max: number;
+}
+
 export interface ListingsQuery {
   country?: string;
   admin?: string;
   city?: string;
+  price?: Object;
 }
 
 export interface ListingsArgs {
   page: number;
   limit: number;
   location?: string;
+  price?: PriceQuery;
 }
 
 export interface ListingArgs {

@@ -44,7 +44,7 @@ export const listingResolvers = {
   Query: {
     listings: async (
       _root: undefined,
-      { page, limit, location }: ListingsArgs,
+      { page, limit, location, price }: ListingsArgs,
       { db, req }: { db: Database; req: Request }
     ): Promise<ListingsData> => {
       try {
@@ -55,7 +55,7 @@ export const listingResolvers = {
           result: [],
         };
 
-        //query if there's a location
+        //filter by location
         if (location) {
           const { country, city, admin } = await Google.geocode(location);
 
@@ -65,8 +65,19 @@ export const listingResolvers = {
           if (country) query.country = country;
         }
 
+        // filter by min and max price
+        if (price) {
+          query.price = { $gte: price.min, $lte: price.max };
+        }
+
+        let cursor = db.listings.find(query);
+
+        if (price) {
+          cursor = cursor.sort({ price: 1 });
+        }
+
         const skips = page > 0 ? (page - 1) * limit : 0;
-        const cursor = db.listings.find(query).skip(skips).limit(limit);
+        cursor = cursor.skip(skips).limit(limit);
         data.total = await cursor.count();
 
         const listingsArray = await cursor.toArray();
