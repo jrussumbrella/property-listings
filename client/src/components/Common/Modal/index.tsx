@@ -12,7 +12,7 @@ const StyledModal = styled.div`
   background-color: #fff;
   border-radius: 6px;
   padding: 1rem;
-  width: 80%;
+  width: 70%;
   max-height: 700px;
 
   @media only screen and (min-width: 768px) {

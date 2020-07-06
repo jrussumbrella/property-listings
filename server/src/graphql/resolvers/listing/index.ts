@@ -170,6 +170,8 @@ export const listingResolvers = {
       validateListingInput(input);
       const viewer = await authenticate(db, req);
       if (!viewer) throw new Error("User cannot be found");
+      if (!viewer.isEmailVerified)
+        throw new Error("Please confirm your email address first.");
 
       const { city, admin, country } = await Google.geocode(input.address);
       if (!city || !admin || !country) throw new Error("Invalid input address");

@@ -6,6 +6,7 @@ import ListingInfo from "./ListingInfo";
 import ListingAction from "./ListingAction";
 import ListingSkeleton from "./ListingSkeleton";
 import styled from "styled-components";
+import { ErrorMessage } from "../../components";
 
 const Container = styled.div`
   padding-bottom: 6rem;
@@ -22,7 +23,7 @@ export const Listing = () => {
 
   if (loading) return <ListingSkeleton />;
 
-  if (error) return <h2>Error</h2>;
+  if (error) return <ErrorMessage message="Listing not found" />;
 
   const { listing } = data;
 

@@ -59,7 +59,7 @@ export const CreateListingForm = () => {
 
   const [createListing, { loading }] = useMutation(CREATE_LISTING, {
     onError(err) {
-      console.log(err);
+      setToast("error", err.graphQLErrors[0].message);
     },
     onCompleted(data) {
       history.push(`/listing/${data.createListing.id}`);

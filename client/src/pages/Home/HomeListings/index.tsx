@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { LISTINGS } from "../../../graphql/queries";
-import { Listings, ListingsSkeleton } from "../../../components";
+import { Listings, ListingsSkeleton, ErrorMessage } from "../../../components";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -26,7 +26,7 @@ const HomeListings: React.FC<{}> = () => {
 
   if (loading) return <ListingsSkeleton numbers={10} />;
 
-  if (error) return <h2>Error</h2>;
+  if (error) return <ErrorMessage message="Error in fetching listings" />;
 
   const listings = data.listings.result;
 

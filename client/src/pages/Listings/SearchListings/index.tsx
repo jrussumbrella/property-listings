@@ -62,7 +62,10 @@ const SearchListings: React.FC<Props> = ({ location }) => {
     variables,
   });
 
-  if (error) return <ErrorMessage />;
+  if (error)
+    return (
+      <ErrorMessage message="Error in searching listing. Please try again later." />
+    );
 
   if (loading) return <ListingsSkeleton numbers={12} />;
 

@@ -79,7 +79,7 @@ const FeaturedCities = () => {
       <Title> Featured Cities </Title>
       <ListWrapper>
         {cities.map((city) => (
-          <Link to={`/listings?city=${city.name}`} key={city.id}>
+          <Link to={`/listings/${city.name}`} key={city.id}>
             <List
               style={{
                 backgroundImage: `url(${city.imageUrl})`,

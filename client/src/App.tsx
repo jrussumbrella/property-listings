@@ -14,7 +14,7 @@ import {
   CreateListing,
   Listings,
 } from "./pages";
-import { Layout, AppSkeleton } from "./components";
+import { Layout, AppSkeleton, ScrollToTop } from "./components";
 import { useAuth } from "./store";
 import { useQuery } from "@apollo/react-hooks";
 import { ME } from "./graphql/queries";
@@ -40,6 +40,7 @@ function App() {
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Layout>
           <Switch>
             <Route path="/auth" exact>
