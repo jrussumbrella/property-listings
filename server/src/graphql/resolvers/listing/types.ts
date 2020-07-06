@@ -16,13 +16,19 @@ export interface ListingsQuery {
   admin?: string;
   city?: string;
   price?: Object;
+  type?: Object;
+}
+
+export interface Filter {
+  price?: PriceQuery;
+  type?: [ListingType];
 }
 
 export interface ListingsArgs {
   page: number;
   limit: number;
   location?: string;
-  price?: PriceQuery;
+  filter?: Filter;
 }
 
 export interface ListingArgs {

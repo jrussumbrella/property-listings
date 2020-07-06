@@ -54,13 +54,13 @@ interface IPrice {
 
 interface InitialState {
   price: IPrice;
-  propertyType: string[] | [];
+  type: string[] | [];
 }
 
 interface IParams {
   minPrice?: number | string | string[];
   maxPrice?: number | string | string[];
-  propertyType?: string;
+  type?: string;
 }
 
 const ListingsFilter = () => {
@@ -73,7 +73,7 @@ const ListingsFilter = () => {
       maxPrice: params.maxPrice || "",
       minPrice: params.minPrice || "",
     },
-    propertyType: [],
+    type: [],
   };
 
   const [filter, setFilter] = useState(initialState);
@@ -95,19 +95,19 @@ const ListingsFilter = () => {
       };
     }
 
-    if (filter.propertyType.length > 0) {
+    if (filter.type.length > 0) {
       newParams = {
         ...params,
-        propertyType: filter.propertyType.join(" "),
+        type: filter.type.join(" "),
       };
     } else {
-      if (newParams.propertyType) {
-        delete newParams.propertyType;
+      if (newParams.type) {
+        delete newParams.type;
       }
     }
 
     pushUrl(newParams);
-  }, [filter.propertyType]);
+  }, [filter.type]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const dataId = e.target.dataset.id;
@@ -124,11 +124,11 @@ const ListingsFilter = () => {
   const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     if (isChecked) {
-      const value = [...filter.propertyType, e.target.value];
+      const value = [...filter.type, e.target.value];
       setFilter({ ...filter, [e.target.name]: value });
     } else {
       const value = e.target.value;
-      const filterValue = filter.propertyType.filter((val) => val !== value);
+      const filterValue = filter.type.filter((val) => val !== value);
       setFilter({ ...filter, [e.target.name]: filterValue });
     }
   };
@@ -144,7 +144,7 @@ const ListingsFilter = () => {
 
   const handleClearFilters = () => {
     history.push(pathname);
-    setFilter({ price: { minPrice: "", maxPrice: "" }, propertyType: [] });
+    setFilter({ price: { minPrice: "", maxPrice: "" }, type: [] });
   };
 
   return (
@@ -155,9 +155,9 @@ const ListingsFilter = () => {
           <input
             data-index="0"
             type="checkbox"
-            checked={filter.propertyType.some((val) => val === "House")}
+            checked={filter.type.some((val) => val === "House")}
             id="house"
-            name="propertyType"
+            name="type"
             value="House"
             onChange={handleCheckChange}
           />
@@ -165,12 +165,12 @@ const ListingsFilter = () => {
         </div>
         <div>
           <input
-            checked={filter.propertyType.some((val) => val === "Apartment")}
+            checked={filter.type.some((val) => val === "Apartment")}
             data-index="1"
             type="checkbox"
             value="Apartment"
             id="apartment"
-            name="propertyType"
+            name="type"
             onChange={handleCheckChange}
           />
           <label htmlFor="apartment"> Apartment </label>

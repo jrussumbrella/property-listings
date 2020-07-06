@@ -44,7 +44,7 @@ export const listingResolvers = {
   Query: {
     listings: async (
       _root: undefined,
-      { page, limit, location, price }: ListingsArgs,
+      { page, limit, location, filter }: ListingsArgs,
       { db, req }: { db: Database; req: Request }
     ): Promise<ListingsData> => {
       try {
@@ -66,13 +66,18 @@ export const listingResolvers = {
         }
 
         // filter by min and max price
-        if (price) {
-          query.price = { $gte: price.min, $lte: price.max };
+        if (filter?.price) {
+          query.price = { $gte: filter.price.min, $lte: filter.price.max };
+        }
+
+        // filter by type in array
+        if (filter?.type) {
+          query.type = { $in: filter.type };
         }
 
         let cursor = db.listings.find(query);
 
-        if (price) {
+        if (filter?.price) {
           cursor = cursor.sort({ price: 1 });
         }
 

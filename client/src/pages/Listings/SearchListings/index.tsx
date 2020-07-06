@@ -15,13 +15,22 @@ interface IVariables {
   page: number;
   limit: number;
   location: string;
-  price?: Object;
+  filter?: {
+    price?: Object;
+    type?: string | string[] | undefined;
+  };
+}
+
+interface IParams {
+  maxPrice?: number;
+  minPrice?: number;
+  type?: string;
 }
 
 const SearchListings: React.FC<Props> = ({ location }) => {
   const { search } = useLocation();
 
-  const params = queryString.parse(search);
+  const params: IParams = queryString.parse(search);
 
   let variables: IVariables = {
     page: PAGE,
@@ -32,7 +41,20 @@ const SearchListings: React.FC<Props> = ({ location }) => {
   if (params.maxPrice && params.minPrice) {
     variables = {
       ...variables,
-      price: { min: Number(params.minPrice), max: Number(params.maxPrice) },
+      filter: {
+        price: { min: Number(params.minPrice), max: Number(params.maxPrice) },
+      },
+    };
+  }
+
+  if (params.type) {
+    const types = params.type.split(" ").map((type) => type.toUpperCase());
+    variables = {
+      ...variables,
+      filter: {
+        ...variables.filter,
+        type: types,
+      },
     };
   }
 
