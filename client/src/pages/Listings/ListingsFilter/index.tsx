@@ -106,7 +106,9 @@ const ListingsFilter = () => {
       }
     }
 
-    pushUrl(newParams);
+    if (Object.keys(newParams).length !== 0) {
+      pushUrl(newParams);
+    }
   }, [filter.type]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

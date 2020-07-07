@@ -11,7 +11,7 @@ const StyledFooter = styled.footer`
   padding: 2.5rem;
   text-align: center;
   background-color: var(--color-darker);
-  font-size: 1.1rem;
+  font-size: 1rem;
 `;
 
 const Text = styled.div`
@@ -31,7 +31,7 @@ const SocialList = styled.li`
   }
 
   svg {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   a {

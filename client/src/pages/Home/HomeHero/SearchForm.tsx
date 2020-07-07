@@ -3,13 +3,16 @@ import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
 
+interface Props {
+  selectedTransaction: string;
+}
+
 const FormSearch = styled.form`
-  margin: 1rem 0;
   display: flex;
   align-items: center;
   background-color: #fff;
   border-radius: 6px;
-  height: 2.5rem;
+  height: 3rem;
   overflow: hidden;
   width: 80%;
   max-width: 30rem;
@@ -29,6 +32,10 @@ const Input = styled.input`
   font-size: inherit;
   flex: 1;
   width: 100%;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Btn = styled.button`
@@ -49,14 +56,14 @@ const Btn = styled.button`
   }
 `;
 
-const SearchForm = () => {
+const SearchForm: React.FC<Props> = ({ selectedTransaction }) => {
   const history = useHistory();
   const [search, setSearch] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!search.trim()) return;
-    const url = `/listings/${search}`;
+    const url = `/listings/${search}?transactionType=${selectedTransaction}`;
     history.push(url);
   };
 

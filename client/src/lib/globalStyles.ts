@@ -49,5 +49,9 @@ export const GlobalStyle = createGlobalStyle`
   .overflow {
     overflow: hidden;
   }
+
+  ul {
+    list-style: none;
+  }
  
 `;

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SearchForm from "./SearchForm";
+import SearchTab from "./SearchTab";
 
 const StyledHero = styled.div`
   height: 18rem;
@@ -37,6 +38,12 @@ const Title = styled.h1`
 `;
 
 const Hero = () => {
+  const [transactionType, setTransactionType] = useState("rent");
+
+  const handleOnChangeTab = (selected: string) => {
+    setTransactionType(selected);
+  };
+
   return (
     <StyledHero
       style={{
@@ -45,7 +52,8 @@ const Hero = () => {
     >
       <Info>
         <Title> Find a place to stay </Title>
-        <SearchForm />
+        <SearchTab onChangeTab={handleOnChangeTab} selected={transactionType} />
+        <SearchForm selectedTransaction={transactionType} />
       </Info>
     </StyledHero>
   );
