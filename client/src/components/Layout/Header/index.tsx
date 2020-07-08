@@ -5,6 +5,7 @@ import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
 import Sidebar from "../Sidebar";
 import DesktopMenu from "../DesktopMenu";
+import { SearchBarMobile } from "../Searchbar";
 
 const StyledHeader = styled.header`
   background-color: #fff;
@@ -48,6 +49,7 @@ const MobileIconWrapper = styled.div`
 
 const Header: React.FC<{}> = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSearchBar, setIsOpenSearchBar] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -65,10 +67,14 @@ const Header: React.FC<{}> = () => {
       <SiteTitleWrapper>
         <SiteTitle to="/"> Property </SiteTitle>
       </SiteTitleWrapper>
-      <MobileIconWrapper>
+      <MobileIconWrapper onClick={() => setIsOpenSearchBar(true)}>
         <BsSearch size={20} />
       </MobileIconWrapper>
       <DesktopMenu />
+      <SearchBarMobile
+        isOpenSearchBar={isOpenSearchBar}
+        setIsOpenSearchBar={setIsOpenSearchBar}
+      />
       <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </StyledHeader>
   );
