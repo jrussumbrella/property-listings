@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Container = styled.div`
   padding: 1rem;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     max-width: 1200px;
     margin: 0 auto;
   }

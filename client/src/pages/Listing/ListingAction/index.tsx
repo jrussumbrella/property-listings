@@ -6,15 +6,16 @@ import { Listing } from "../../../lib";
 import ListingContactModal from "../ListingContactModal";
 
 const BottomAction = styled.div`
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 1;
   width: 100%;
   height: 5rem;
   background-color: #fff;
   border-top: 1px solid var(--color-gray);
+  margin-top: 20px;
 `;
 
 const ButtonWrapper = styled.div`

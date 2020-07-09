@@ -5,7 +5,7 @@ import { Listings, ListingsSkeleton, ErrorMessage } from "../../../components";
 import styled from "styled-components";
 
 const Container = styled.div`
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     max-width: 1200px;
     margin: 1rem auto;
   }

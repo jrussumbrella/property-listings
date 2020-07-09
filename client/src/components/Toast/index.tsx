@@ -49,6 +49,8 @@ export const Toast = () => {
         right: 0,
         zIndex: 1000,
         padding: "1rem",
+        maxWidth: "1200px",
+        margin: "0 auto",
       }}
     >
       <Container type={type}>

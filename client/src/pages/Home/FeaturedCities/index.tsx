@@ -14,7 +14,7 @@ const ListWrapper = styled.div`
   grid-gap: 1rem;
   margin: 2rem 0 3rem 0;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     max-width: 1200px;
     margin: 2rem auto;

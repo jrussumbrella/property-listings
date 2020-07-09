@@ -27,7 +27,7 @@ const TabList = styled.li<TabListProps>`
   border-radius: 6px 6px 0px 0px;
   cursor: pointer;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     width: 7rem;
     font-size: 1.2rem;
     height: 3.5rem;

@@ -9,7 +9,7 @@ const StyledList = styled.div`
   grid-gap: 1rem;
   margin: 1rem 0;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 `;

@@ -17,7 +17,7 @@ const FormSearch = styled.form`
   width: 80%;
   max-width: 30rem;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     height: 3.5rem;
     font-size: 1.2rem;
     max-width: 45rem;
@@ -51,7 +51,7 @@ const Btn = styled.button`
   justify-content: center;
   font-size: inherit;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     width: 5rem;
   }
 `;

@@ -11,7 +11,7 @@ import ListingContact from "../ListingContact";
 import styled from "styled-components";
 
 const Container = styled.div`
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     display: flex;
   }
 `;
@@ -21,7 +21,7 @@ const CoverImg = styled.div`
   width: 100%;
   padding-bottom: 60%;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     width: 55%;
     padding-bottom: 50%;
   }

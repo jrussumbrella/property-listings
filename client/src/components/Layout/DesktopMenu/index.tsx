@@ -9,7 +9,7 @@ const Nav = styled.ul`
   display: none;
   align-items: center;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     display: flex;
   }
 

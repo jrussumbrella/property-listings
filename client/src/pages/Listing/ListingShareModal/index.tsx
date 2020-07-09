@@ -4,6 +4,7 @@ import { FacebookIcon, TwitterIcon } from "../../../components/Common/Icons";
 import { share } from "../../../lib/utils/socialShare";
 import copyToClipBoard from "../../../utils/copyToClipboard";
 import { useToast, useModal } from "../../../store";
+import { MdContentCopy } from "react-icons/md";
 import styled from "styled-components";
 
 const SocialButton = styled.button`
@@ -22,8 +23,8 @@ const SocialButton = styled.button`
   }
 
   svg {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
   }
 `;
 
@@ -51,7 +52,9 @@ const ListingShareModal = () => {
         <SocialButton type="button" onClick={() => share("twitter")}>
           <TwitterIcon />
         </SocialButton>
-        <SocialButton onClick={handleCopyClipBoard}>Copy</SocialButton>
+        <SocialButton onClick={handleCopyClipBoard}>
+          <MdContentCopy />
+        </SocialButton>
       </Container>
     </Modal>
   );

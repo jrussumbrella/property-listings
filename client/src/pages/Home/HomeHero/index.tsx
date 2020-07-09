@@ -10,7 +10,7 @@ const StyledHero = styled.div`
   position: relative;
   background-position: center center;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     height: 30rem;
   }
 `;
@@ -32,7 +32,7 @@ const Title = styled.h1`
   color: #fff;
   margin-bottom: 1rem;
 
-  @media only screen and (min-width: 768px) {
+  @media ${(props) => props.theme.mediaQueries.desktop} {
     font-size: 2.5rem;
   }
 `;
