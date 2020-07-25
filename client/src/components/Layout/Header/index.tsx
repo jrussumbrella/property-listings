@@ -67,8 +67,7 @@ const Header: React.FC<{}> = () => {
   }, [isShowDesktopSearchBar]);
 
   function handleScroll() {
-    if (window.scrollY > 350) {
-      console.log("show");
+    if (window.scrollY > 335) {
       setIsShowDesktopBar(true);
       return;
     }
