@@ -4,6 +4,10 @@ import {
   AddressType,
 } from "@googlemaps/google-maps-services-js";
 
+import { OAuth2Client } from "google-auth-library";
+
+const CLIENT_ID = `${process.env.GOOGLE_CLIENT_ID}`;
+
 const client = new Client({});
 
 const parseAddress = (addressComponents: AddressComponent[]) => {
@@ -42,5 +46,14 @@ export const Google = {
       throw new Error("Failed to geocode address");
 
     return parseAddress(res.data.results[0].address_components);
+  },
+  verifyIdToken: async (accessToken: string) => {
+    const authClient = new OAuth2Client();
+    const ticket = await authClient.verifyIdToken({
+      idToken: accessToken,
+      audience: CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    return payload;
   },
 };

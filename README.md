@@ -1,8 +1,6 @@
 ## Property Listings
 
-- a real state app built with React, Node, GraphQL and PostgreSQL.
-
-## screenshots
+### Screenshots
 
 ![thumbnail](propety-thumbnail.png)
 
@@ -15,3 +13,48 @@
 - Search properties
 - Inquire for property
 - Toggle Favorites property
+
+### Stacks
+
+- React
+- Styled Components
+- Typescript
+- Node
+- Graphql
+- MongoDB
+
+### Installation
+
+Clone Repository
+
+```
+git clone https://github.com/jrussumbrella/property-listings
+```
+
+### Client
+
+```
+cd property-listing
+npm install
+```
+
+### Server
+
+```
+cd property-listing
+npm install
+```
+
+### Run Client
+
+```
+cd client
+npm start
+```
+
+### Run Server
+
+```
+cd server
+npm start
+```

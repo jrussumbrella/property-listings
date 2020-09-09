@@ -9,6 +9,7 @@ import { ObjectID } from "mongodb";
 import { authenticate } from "../../../lib/utils";
 import { sendEmail } from "../../../lib/api/email";
 import { redis } from "../../../lib";
+import { Google } from "../../../lib/api";
 
 const generateToken = (id: string, expiresIn: string): string => {
   const secret = String(process.env.JWT_SECRET_KEY);
@@ -44,7 +45,8 @@ export const viewerResolvers = {
         if (!viewer) throw new Error("Email or password is incorrect");
 
         // check viewer input password if match into found viewer
-        const isMatch = await bcrypt.compare(password, viewer.password);
+
+        const isMatch = await bcrypt.compare(password, String(viewer.password));
         if (!isMatch) throw new Error("Email or password is incorrect");
 
         // generate token
@@ -57,6 +59,52 @@ export const viewerResolvers = {
         };
       } catch (error) {
         throw new AuthenticationError(error);
+      }
+    },
+    loginWithGoogle: async (
+      _root: undefined,
+      { idToken }: { idToken: string },
+      { db }: { db: Database }
+    ): Promise<Viewer> => {
+      try {
+        const results = await Google.verifyIdToken(idToken);
+        if (!results)
+          throw new Error("Cant verify access token. Please try again later.");
+
+        const email = results.email as string;
+        const name = results.name as string;
+        const googleId = results.sub;
+        const photoUrl = results.picture;
+
+        let viewer = await db.users.findOne({ email });
+
+        if (!viewer) {
+          const insertResult = await db.users.insertOne({
+            _id: new ObjectID().toString(),
+            name,
+            email,
+            bookings: [],
+            listings: [],
+            favorites: [],
+            income: 0,
+            isEmailVerified: true,
+            googleId,
+            photoUrl,
+          });
+
+          viewer = insertResult.ops[0];
+        }
+
+        // generate token
+        const token = generateToken(viewer._id, "7d");
+
+        return {
+          user: viewer,
+          token,
+          walletId: viewer.walletId,
+        };
+      } catch (error) {
+        throw new Error(error);
       }
     },
     signUp: async (

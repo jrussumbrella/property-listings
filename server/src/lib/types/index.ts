@@ -42,7 +42,8 @@ export interface User {
   email: string;
   isEmailVerified: boolean;
   name: string;
-  password: string;
+  googleId?: string;
+  password?: string;
   photoUrl?: string;
   walletId?: string;
   listings: ObjectId[];

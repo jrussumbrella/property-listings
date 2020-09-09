@@ -36,6 +36,7 @@
     "apollo-server": "^2.13.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.22.0",
+    "google-auth-library": "^6.0.6",
     "graphql": "^15.0.0",
     "html-to-text": "^5.1.1",
     "ioredis": "^4.17.1",

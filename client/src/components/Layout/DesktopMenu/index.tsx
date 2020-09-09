@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../../store";
-import { Button } from "../../Common";
-import styled from "styled-components";
-import Dropdown from "./Dropdown";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../../store';
+import { Button } from '../../Common';
+import styled from 'styled-components';
 
 const Nav = styled.ul`
   display: none;
@@ -30,8 +29,8 @@ const UserInfo = styled.div`
   cursor: pointer;
 
   img {
-    width: 3rem;
-    height: 3rem;
+    width: 2.6rem;
+    height: 2.6rem;
     border-radius: 50%;
   }
 
@@ -41,8 +40,8 @@ const UserInfo = styled.div`
 `;
 
 const Avatar = styled.div`
-  width: 4rem;
-  height: 4rem;
+  width: 2.6rem;
+  height: 2.6rem;
   border-radius: 50%;
   background-color: var(--color-primary);
   color: #fff;
@@ -55,23 +54,12 @@ const Avatar = styled.div`
 
 const DesktopMenu = () => {
   const { user } = useAuth();
-  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
-  const avatarRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutSide);
-    return () => document.removeEventListener("click", handleClickOutSide);
-  }, []);
-
-  const handleClickOutSide = (e: Event) => {
-    const target = e.target;
-    if (target instanceof Node && avatarRef.current?.contains(target)) {
-      return;
-    }
-    setIsOpenDropdown(false);
-  };
-
-  const dropdownElement = isOpenDropdown && <Dropdown />;
+  const userAvatar = user?.photoUrl ? (
+    <img src={user.photoUrl} alt={user.name} />
+  ) : (
+    <Avatar>{user?.name.charAt(0)}</Avatar>
+  );
 
   const guestRoutes = () => (
     <Nav>
@@ -91,7 +79,7 @@ const DesktopMenu = () => {
           classtype="outline"
           type="button"
           title="List your property"
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
         />
       </NavList>
     </Nav>
@@ -114,22 +102,14 @@ const DesktopMenu = () => {
           classtype="outline"
           type="button"
           title="List your property"
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           to="/listing/create"
         />
       </NavList>
       <NavList>
-        <UserInfo
-          onClick={() => setIsOpenDropdown(!isOpenDropdown)}
-          ref={avatarRef}
-        >
-          {user?.photoUrl ? (
-            <img src={user.photoUrl} alt={user.name} />
-          ) : (
-            <Avatar>{user?.name.charAt(0)}</Avatar>
-          )}
-        </UserInfo>
-        {dropdownElement}
+        <Link to="/profile">
+          <UserInfo>{userAvatar}</UserInfo>
+        </Link>
       </NavList>
     </Nav>
   );

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
-import { EMAIL_VERIFICATION } from "../../../graphql/mutations";
-import { useAuth, useToast } from "../../../store";
-import { Spinner } from "../../../components/Common";
-import { Alert } from "../../../components";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { useMutation } from '@apollo/react-hooks';
+import { EMAIL_VERIFICATION } from '../../../graphql/mutations';
+import { useAuth, useToast } from '../../../store';
+import { Spinner } from '../../../components/Common';
+import { Alert } from '../../../components';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 100px 1rem;
@@ -25,9 +25,9 @@ export const EmailConfirmation = () => {
   const [confirmEmail, { error, loading }] = useMutation(EMAIL_VERIFICATION, {
     variables: { token },
     onCompleted(data) {
-      setToast("success", "Successfully verified email.");
+      setToast('success', 'Successfully verified email.');
       login(data.emailTokenVerification);
-      history.push("/profile");
+      history.push('/profile');
     },
     onError(err) {},
   });
@@ -40,7 +40,7 @@ export const EmailConfirmation = () => {
     return (
       <Container>
         <Title> Verifying your Email... </Title>
-        <Spinner size={5} color={"var(--color-primary)"} />
+        <Spinner size={5} color={'var(--color-primary)'} />
       </Container>
     );
   }

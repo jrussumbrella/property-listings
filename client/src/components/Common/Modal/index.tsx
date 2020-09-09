@@ -1,7 +1,7 @@
-import React from "react";
-import { useModal } from "../../../store";
-import { MdClose } from "react-icons/md";
-import styled from "styled-components";
+import React from 'react';
+import { useModal } from '../../../store';
+import { MdClose } from 'react-icons/md';
+import styled from 'styled-components';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -12,11 +12,11 @@ const StyledModal = styled.div`
   background-color: #fff;
   border-radius: 6px;
   padding: 1rem;
-  width: 70%;
+  max-width: 70%;
   max-height: 700px;
 
   @media only screen and (min-width: 768px) {
-    width: 60%;
+    max-width: 60%;
   }
 `;
 

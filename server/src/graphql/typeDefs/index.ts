@@ -109,6 +109,7 @@ export const typeDefs = gql`
   type Mutation {
     signUp(input: SignUpInput): Viewer!
     login(input: LoginInput!): Viewer!
+    loginWithGoogle(idToken: String!): Viewer!
     emailTokenVerification(token: String!): Viewer!
     toggleFavorite(id: ID!): Listing!
     createListing(input: CreateListingInput!): Listing!

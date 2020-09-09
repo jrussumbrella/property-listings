@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { BsSearch } from "react-icons/bs";
-import { SearchBarMobile, SearchBarDesktop } from "../SearchBar";
-import styled from "styled-components";
-import Sidebar from "../Sidebar";
-import DesktopMenu from "../DesktopMenu";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { BsSearch } from 'react-icons/bs';
+import { SearchBarMobile, SearchBarDesktop } from '../SearchBar';
+import styled from 'styled-components';
+import Sidebar from '../Sidebar';
+import DesktopMenu from '../DesktopMenu';
 
 const StyledHeader = styled.header`
   background-color: #fff;
@@ -55,15 +55,15 @@ const Header: React.FC<{}> = () => {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.classList.add("overflow");
+      document.body.classList.add('overflow');
       return;
     }
-    document.body.classList.remove("overflow");
+    document.body.classList.remove('overflow');
   }, [isOpen]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [isShowDesktopSearchBar]);
 
   function handleScroll() {
@@ -75,8 +75,8 @@ const Header: React.FC<{}> = () => {
   }
 
   // show desktop element
-  const desktopSearchBarELement = (isShowDesktopSearchBar ||
-    pathname !== "/") && <SearchBarDesktop />;
+  const desktopSearchBarElement = (isShowDesktopSearchBar ||
+    pathname !== '/') && <SearchBarDesktop />;
 
   return (
     <StyledHeader>
@@ -93,7 +93,7 @@ const Header: React.FC<{}> = () => {
         isOpenSearchBar={isOpenSearchBar}
         setIsOpenSearchBar={setIsOpenSearchBar}
       />
-      {desktopSearchBarELement}
+      {desktopSearchBarElement}
       <DesktopMenu />
       <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </StyledHeader>

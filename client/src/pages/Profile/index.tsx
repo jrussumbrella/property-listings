@@ -3,6 +3,7 @@ import { useAuth } from '../../store';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { Alert } from '../../components';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
   padding: 1rem;
@@ -67,8 +68,27 @@ const AlertWrapper = styled.div`
   margin: 2rem 0;
 `;
 
+const BottomContainer = styled.div`
+  text-align: center;
+  padding: 3rem 0;
+`;
+
+const LogOutButton = styled.button`
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  cursor: pointer;
+`;
+
 export const Profile = () => {
-  const { user } = useAuth();
+  const history = useHistory();
+  const { user, logout } = useAuth();
+
+  const handleLogOut = () => {
+    logout();
+    history.push('/auth');
+  };
 
   const isEmailVerifiedMessage = !user?.isEmailVerified ? (
     <AlertWrapper>
@@ -109,6 +129,11 @@ export const Profile = () => {
           </span>
         </li>
       </Settings>
+      <BottomContainer>
+        <LogOutButton type="button" onClick={handleLogOut}>
+          Log Out
+        </LogOutButton>
+      </BottomContainer>
     </Container>
   );
 };
