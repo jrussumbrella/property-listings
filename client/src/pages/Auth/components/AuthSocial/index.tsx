@@ -1,0 +1,37 @@
+import React from 'react';
+import { GoogleIcon } from '../../../../components/Common/Icons';
+import styled from 'styled-components';
+
+const Button = styled.button`
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  background-color: #fff;
+  border: 1px solid rgb(205, 209, 212);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+
+  svg {
+    height: 1.5rem;
+    width: 2rem;
+  }
+`;
+
+const Text = styled.span`
+  padding: 0 0.5rem;
+`;
+
+export const AuthSocial = () => {
+  return (
+    <div>
+      <Button>
+        <GoogleIcon />
+        <Text> Login with google </Text>
+      </Button>
+    </div>
+  );
+};

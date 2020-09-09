@@ -2,6 +2,10 @@
 
 - a real state app built with React, Node, GraphQL and PostgreSQL.
 
+## screenshots
+
+![thumbnail](property.png)
+
 ### Features
 
 - Login with email

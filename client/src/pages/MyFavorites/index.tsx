@@ -1,8 +1,8 @@
-import React from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { MY_FAVORITES } from "../../graphql/queries";
-import { EmptyMessage, Listings, ListingsSkeleton } from "../../components";
-import styled from "styled-components";
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { MY_FAVORITES } from '../../graphql/queries';
+import { EmptyMessage, Listings, ListingsSkeleton } from '../../components';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 2rem 1rem;
@@ -23,7 +23,7 @@ const PAGE_LIMIT = 10;
 export const MyFavorites = () => {
   const { data, loading, error } = useQuery(MY_FAVORITES, {
     variables: { page: 1, limit: PAGE_LIMIT },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network',
   });
 
   if (error) return <div> Something went wrong </div>;

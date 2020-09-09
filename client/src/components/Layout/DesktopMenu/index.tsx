@@ -101,14 +101,12 @@ const DesktopMenu = () => {
     <Nav>
       <NavList>
         <Link to="/my-properties" className="link">
-          {" "}
-          My Properties{" "}
+          My Properties
         </Link>
       </NavList>
       <NavList>
         <Link to="/my-favorites" className="link">
-          {" "}
-          My Favorites{" "}
+          My Favorites
         </Link>
       </NavList>
       <NavList>

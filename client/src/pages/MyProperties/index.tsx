@@ -1,12 +1,12 @@
-import React from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { MY_PROPERTIES } from "../../graphql/queries";
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { MY_PROPERTIES } from '../../graphql/queries';
 import {
   ListingsMedia,
   EmptyMessage,
   ListingsMediaSkeleton,
-} from "../../components";
-import styled from "styled-components";
+} from '../../components';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 2rem 1rem;

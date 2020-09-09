@@ -1,8 +1,8 @@
-import React from "react";
-import { useAuth } from "../../store";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { Alert } from "../../components";
-import styled from "styled-components";
+import React from 'react';
+import { useAuth } from '../../store';
+import { MdKeyboardArrowDown } from 'react-icons/md';
+import { Alert } from '../../components';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 1rem;
@@ -79,21 +79,21 @@ export const Profile = () => {
     </AlertWrapper>
   ) : null;
 
+  const userPhotoElement = user?.photoUrl ? (
+    <Img src={user?.photoUrl} alt={user?.name} />
+  ) : (
+    <Avatar>{user?.name.charAt(0)}</Avatar>
+  );
+
   return (
     <Container>
       <h2> Personal Info </h2>
       {isEmailVerifiedMessage}
       <Info>
-        {user?.photoUrl ? (
-          <Img src={user?.photoUrl} alt={user?.name} />
-        ) : (
-          <Avatar>{user?.name.charAt(0)}</Avatar>
-        )}
-
+        {userPhotoElement}
         <Text>{user?.name}</Text>
         <Text>{user?.email}</Text>
       </Info>
-
       <h2> Settings </h2>
       <Settings>
         <li>

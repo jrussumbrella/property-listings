@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { HOST } from "../../graphql/queries/host";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
-import { Spinner } from "../../components/Common";
-import UserSkeleton from "./UserSkeleton";
-import UserListings from "./UserListings";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import { HOST } from '../../graphql/queries/host';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
+import { Spinner } from '../../components/Common';
+import { UserSkeleton, UserListings } from './components';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 1rem;
@@ -55,8 +54,8 @@ export const User = () => {
   const [isLoadMore, setIsLoadMore] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", onScroll, false);
-    return () => window.removeEventListener("scroll", onScroll, false);
+    window.addEventListener('scroll', onScroll, false);
+    return () => window.removeEventListener('scroll', onScroll, false);
   }, [data, loading, isLoadMore]);
 
   function onScroll() {

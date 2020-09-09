@@ -1,8 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import HomeHero from "./HomeHero";
-import HomeListings from "./HomeListings";
-import FeaturedCities from "./FeaturedCities";
+import React from 'react';
+import styled from 'styled-components';
+import { HomeHero, HomeListings, FeaturedCities } from './components';
 
 const Container = styled.div`
   padding: 2rem 1rem;

@@ -1,13 +1,13 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { Button } from "../../../components/Common";
-import { Link } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
-import { useAuth } from "../../../store";
-import { SIGN_UP } from "../../../graphql/mutations";
-import AuthSocial from "../AuthSocial";
-import styled from "styled-components";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { Button } from '../../../components/Common';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/react-hooks';
+import { useAuth } from '../../../store';
+import { SIGN_UP } from '../../../graphql/mutations';
+import { AuthSocial } from '../components';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 50px 1rem;
@@ -98,7 +98,7 @@ export const SignUp = () => {
   const [signUp, { loading, error }] = useMutation(SIGN_UP, {
     onCompleted(data) {
       onLogin(data.signUp);
-      history.push("/profile");
+      history.push('/profile');
     },
     onError(err) {},
   });
@@ -115,7 +115,7 @@ export const SignUp = () => {
         <Form onSubmit={onSubmit}>
           {error && (
             <ErrorMessage>
-              {error.graphQLErrors[0].message.split(":")[1]}
+              {error.graphQLErrors[0].message.split(':')[1]}
             </ErrorMessage>
           )}
           <Group>
@@ -124,7 +124,7 @@ export const SignUp = () => {
               placeholder="Name"
               name="name"
               ref={register({
-                required: "Name is required field.",
+                required: 'Name is required field.',
               })}
             />
             {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
@@ -135,10 +135,10 @@ export const SignUp = () => {
               placeholder="Email"
               name="email"
               ref={register({
-                required: "Email is required field.",
+                required: 'Email is required field.',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "Invalid email address.",
+                  message: 'Invalid email address.',
                 },
               })}
             />
@@ -149,7 +149,7 @@ export const SignUp = () => {
               type="password"
               placeholder="Password "
               ref={register({
-                required: "Password is required.",
+                required: 'Password is required.',
                 minLength: 6,
               })}
               name="password"
@@ -157,7 +157,7 @@ export const SignUp = () => {
             {errors.password && (
               <ErrorText>
                 {errors.password &&
-                  "Password required to be at least 6 characters"}
+                  'Password required to be at least 6 characters'}
               </ErrorText>
             )}
             <LinkWrapper>
@@ -172,10 +172,9 @@ export const SignUp = () => {
               disabled={loading}
               loading={loading}
               style={{
-                width: "100%",
-                height: "4rem",
-                fontWeight: "600",
-                fontSize: "1.2rem",
+                width: '100%',
+                fontWeight: '600',
+                fontSize: '1.2rem',
               }}
             />
           </ButtonWrapper>
@@ -183,9 +182,9 @@ export const SignUp = () => {
         <AuthSocial />
         <AuthBottom>
           <p>
-            {" "}
-            Already have an account?{" "}
-            <Link to="/auth"> Login to your account </Link>.{" "}
+            {' '}
+            Already have an account?{' '}
+            <Link to="/auth"> Login to your account </Link>.{' '}
           </p>
         </AuthBottom>
       </AuthWrapper>

@@ -1,13 +1,13 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { Button } from "../../../components/Common";
-import { Link } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
-import { LOGIN } from "../../../graphql/mutations";
-import AuthSocial from "../AuthSocial";
-import styled from "styled-components";
-import { useAuth } from "../../../store";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { Button } from '../../../components/Common';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/react-hooks';
+import { LOGIN } from '../../../graphql/mutations';
+import { AuthSocial } from '../components';
+import styled from 'styled-components';
+import { useAuth } from '../../../store';
 
 const Container = styled.div`
   padding: 50px 1rem;
@@ -97,7 +97,7 @@ export const SignIn = () => {
   const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted(data) {
       onLogin(data.login);
-      history.push("/profile");
+      history.push('/profile');
     },
     onError(err) {},
   });
@@ -114,7 +114,7 @@ export const SignIn = () => {
         <Form onSubmit={onSubmit}>
           {error && (
             <ErrorMessage>
-              {error.graphQLErrors[0].message.split(":")[1]}
+              {error.graphQLErrors[0].message.split(':')[1]}
             </ErrorMessage>
           )}
           <Group>
@@ -123,10 +123,10 @@ export const SignIn = () => {
               placeholder="Email"
               name="email"
               ref={register({
-                required: "Email is required field.",
+                required: 'Email is required field.',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "Invalid email address.",
+                  message: 'Invalid email address.',
                 },
               })}
             />
@@ -137,7 +137,7 @@ export const SignIn = () => {
               type="password"
               placeholder="Password "
               ref={register({
-                required: "Password is required.",
+                required: 'Password is required.',
                 minLength: 6,
               })}
               name="password"
@@ -145,7 +145,7 @@ export const SignIn = () => {
             {errors.password && (
               <ErrorText>
                 {errors.password &&
-                  "Password required to be at least 6 characters"}
+                  'Password required to be at least 6 characters'}
               </ErrorText>
             )}
             <LinkWrapper>
@@ -160,10 +160,9 @@ export const SignIn = () => {
               disabled={loading}
               loading={loading}
               style={{
-                width: "100%",
-                height: "4rem",
-                fontWeight: "600",
-                fontSize: "1.2rem",
+                width: '100%',
+                fontWeight: '600',
+                fontSize: '1.2rem',
               }}
             />
           </ButtonWrapper>
@@ -171,9 +170,8 @@ export const SignIn = () => {
         <AuthSocial />
         <AuthBottom>
           <p>
-            {" "}
-            Don't have an account?{" "}
-            <Link to="/auth/sign-up"> Create an account </Link>.{" "}
+            Don't have an account?
+            <Link to="/auth/sign-up"> Create an account </Link>.
           </p>
         </AuthBottom>
       </AuthWrapper>

@@ -1,12 +1,14 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
-import { LISTING } from "../../graphql/queries";
-import ListingInfo from "./ListingInfo";
-import ListingAction from "./ListingAction";
-import ListingSkeleton from "./ListingSkeleton";
-import styled from "styled-components";
-import { ErrorMessage } from "../../components";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
+import { LISTING } from '../../graphql/queries';
+import { ListingInfo, ListingAction, ListingSkeleton } from './components';
+import styled from 'styled-components';
+import { ErrorMessage } from '../../components';
+
+interface Params {
+  id: string;
+}
 
 const Container = styled.div`
   padding-bottom: 6rem;
@@ -18,10 +20,15 @@ const Container = styled.div`
 `;
 
 export const Listing = () => {
-  const { id } = useParams();
+  const { id } = useParams<Params>();
   const { loading, error, data } = useQuery(LISTING, { variables: { id } });
 
-  if (loading) return <ListingSkeleton />;
+  if (loading)
+    return (
+      <Container>
+        <ListingSkeleton />
+      </Container>
+    );
 
   if (error) return <ErrorMessage message="Listing not found" />;
 

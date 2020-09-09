@@ -1,6 +1,6 @@
-import React from "react";
-import { CreateListingForm } from "./CreateListingForm";
-import styled from "styled-components";
+import React from 'react';
+import { CreateListingForm } from './components';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 1rem;
