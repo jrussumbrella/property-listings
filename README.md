@@ -4,7 +4,7 @@
 
 ## screenshots
 
-![thumbnail](property.png)
+![thumbnail](propety-thumbnail.png)
 
 ### Features
 
