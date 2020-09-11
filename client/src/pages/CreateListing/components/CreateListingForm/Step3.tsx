@@ -1,12 +1,14 @@
-import React from "react";
-import { Label, Input, FormGroup } from "./styled";
+import React from 'react';
+import { Label, Input, FormGroup, ErrorText } from './styled';
+import { FormProps } from './types';
 
-interface Props {
-  imagePreview?: ArrayBuffer | null | string;
-  handleChange(e: React.ChangeEvent<HTMLElement>): void;
-}
-
-const Step3: React.FC<Props> = ({ handleChange }) => {
+const Step3: React.FC<FormProps> = ({
+  onBlur,
+  onChange,
+  touched,
+  errors,
+  values,
+}) => {
   return (
     <div>
       <FormGroup>
@@ -16,8 +18,13 @@ const Step3: React.FC<Props> = ({ handleChange }) => {
           id="numOfGuests"
           name="numOfGuests"
           placeholder="Please input bathRooms here..."
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={values.numOfGuests}
         />
+        {touched.numOfGuests && errors.numOfGuests && (
+          <ErrorText>{errors.numOfGuests}</ErrorText>
+        )}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="bedrooms"> Bed Rooms </Label>
@@ -26,8 +33,13 @@ const Step3: React.FC<Props> = ({ handleChange }) => {
           id="bedrooms"
           name="numOfBedrooms"
           placeholder="Please input bedrooms here..."
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={values.numOfBedrooms}
         />
+        {touched.numOfBedrooms && errors.numOfBedrooms && (
+          <ErrorText>{errors.numOfBedrooms}</ErrorText>
+        )}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="numOfBaths"> Bath Rooms </Label>
@@ -36,8 +48,13 @@ const Step3: React.FC<Props> = ({ handleChange }) => {
           id="numOfBaths"
           name="numOfBaths"
           placeholder="Please input bathRooms here..."
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={values.numOfBaths}
         />
+        {touched.numOfBaths && errors.numOfBaths && (
+          <ErrorText>{errors.numOfBaths}</ErrorText>
+        )}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="size"> Property Size </Label>
@@ -46,8 +63,13 @@ const Step3: React.FC<Props> = ({ handleChange }) => {
           id="size"
           name="propertySize"
           placeholder="Please input property size here..."
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={values.propertySize}
         />
+        {touched.propertySize && errors.propertySize && (
+          <ErrorText>{errors.propertySize}</ErrorText>
+        )}
       </FormGroup>
     </div>
   );

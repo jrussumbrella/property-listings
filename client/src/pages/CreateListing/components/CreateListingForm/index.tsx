@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Step1 from './Step1';
-import Step2 from './Step2';
-import Step3 from './Step3';
-import StepperIndicator from './StepperIndicator';
+import { useFormik } from 'formik';
 import { Form } from './styled';
 import { Button, PageLoader } from '../../../../components/Common';
 import { NUMBER_OF_STEP } from '../../../../utils/constants';
@@ -10,6 +7,11 @@ import { useMutation } from '@apollo/react-hooks';
 import { CREATE_LISTING } from '../../../../graphql/mutations';
 import { useToast } from '../../../../store';
 import { useHistory } from 'react-router-dom';
+import { validationSchema } from './validationSchema';
+import Step1 from './Step1';
+import Step2 from './Step2';
+import Step3 from './Step3';
+import StepperIndicator from './StepperIndicator';
 import styled from 'styled-components';
 
 interface ButtonWrapperProps {
@@ -29,8 +31,6 @@ const ButtonWrapper = styled.div<ButtonWrapperProps>`
   flex: 1;
 `;
 
-const sections = [Step1, Step2, Step3];
-
 const initialState = {
   title: '',
   description: '',
@@ -41,9 +41,9 @@ const initialState = {
   city: '',
   zip: '',
   state: '',
-  numOfBaths: '',
-  numOfGuests: '',
-  numOfBedrooms: '',
+  numOfBaths: 1,
+  numOfGuests: 1,
+  numOfBedrooms: 1,
   propertySize: '',
 };
 
@@ -51,11 +51,11 @@ export const CreateListingForm = () => {
   const history = useHistory();
   const { setToast } = useToast();
   const [step, setStep] = useState(1);
-  const [listing, setListing] = useState(initialState);
-  const [errors, setErrors] = useState<string[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null | ArrayBuffer>(
     null
   );
+
+  const isLastStep = step === NUMBER_OF_STEP;
 
   const [createListing, { loading }] = useMutation(CREATE_LISTING, {
     onError(err) {
@@ -67,85 +67,25 @@ export const CreateListingForm = () => {
     },
   });
 
-  const handleNextStep = () => {
-    // const error: string[] = [];
+  const formik = useFormik({
+    initialValues: initialState,
+    validationSchema: validationSchema[`step${step}`],
+    onSubmit: (values) => {
+      if (isLastStep) {
+        console.log(values);
+      } else {
+        nextStep();
+      }
+    },
+  });
 
-    // if (step === 1) {
-    //   if (listing.title.length < 6) {
-    //     error.push("Listing title cannot be less than 6 characters");
-    //   }
-
-    //   if (parseInt(listing.price) === 0) {
-    //     error.push("Listing price cannot be equal to zero");
-    //   } else if (listing.price.length === 0) {
-    //     error.push("Listing price cannot be empty");
-    //   }
-
-    //   if (listing.type.length === 0) {
-    //     error.push("Listing type is required field");
-    //   }
-
-    //   if (listing.description.length < 10) {
-    //     error.push("Listing description cannot be less than 10 characters");
-    //   }
-    // }
-
-    // if (error.length > 0) {
-    //   setErrors(error);
-    //   return;
-    // }
-
+  const nextStep = () => {
+    formik.setTouched({});
     setStep((step) => step + 1);
   };
 
   const handlePreviousStep = () => {
     setStep((step) => step - 1);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const {
-      title,
-      description,
-      type,
-      propertySize,
-      numOfBaths,
-      numOfGuests,
-      numOfBedrooms,
-      price,
-      zip,
-      city,
-      address,
-      state,
-    } = listing;
-
-    const fullAddress = `${address}, ${city}, ${state}, ${zip}`;
-
-    const newListing = {
-      title,
-      description,
-      type,
-      image: imagePreview,
-      address: fullAddress,
-      propertySize,
-      price: Number(price),
-      numOfBaths: Number(numOfBaths),
-      numOfBedrooms: Number(numOfBedrooms),
-      numOfGuests: Number(numOfGuests),
-    };
-
-    createListing({ variables: { input: newListing } });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === 'image') {
-      if (e.target && e.target.files) {
-        imageChange(e.target.files[0]);
-      }
-      return;
-    }
-    setListing({ ...listing, [e.target.name]: e.target.value });
   };
 
   const imageChange = (files: Blob) => {
@@ -156,49 +96,72 @@ export const CreateListingForm = () => {
     reader.readAsDataURL(files);
   };
 
-  const stepperElement = sections.map((Section, i) => {
-    return (
-      <div key={i} style={{ display: `${step === i + 1 ? 'block' : 'none'}` }}>
-        <Section handleChange={handleChange} imagePreview={imagePreview} />
-      </div>
-    );
-  });
+  const renderStepperElement = () => {
+    switch (step) {
+      case 1:
+        return (
+          <Step1
+            onChange={formik.handleChange}
+            imagePreview={imagePreview}
+            errors={formik.errors}
+            touched={formik.touched}
+            onBlur={formik.handleBlur}
+            values={formik.values}
+          />
+        );
+      case 2:
+        return (
+          <Step2
+            onChange={formik.handleChange}
+            imagePreview={imagePreview}
+            errors={formik.errors}
+            touched={formik.touched}
+            onBlur={formik.handleBlur}
+            values={formik.values}
+          />
+        );
+      case 3:
+        return (
+          <Step3
+            onChange={formik.handleChange}
+            imagePreview={imagePreview}
+            errors={formik.errors}
+            touched={formik.touched}
+            onBlur={formik.handleBlur}
+            values={formik.values}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const previewsButtonElement = step > 1 && (
+    <Button
+      classtype="outline"
+      type="button"
+      title="Previous"
+      onClick={handlePreviousStep}
+    />
+  );
+
+  const buttonSubmitText = isLastStep ? 'Submit Property' : 'Next';
+
+  const buttonSubmitElement = (
+    <Button classtype="primary" type="submit" title={buttonSubmitText} />
+  );
+
+  const pageLoaderElement = loading && <PageLoader />;
 
   return (
     <div>
-      {loading && <PageLoader />}
+      {pageLoaderElement}
       <StepperIndicator activeNumber={step} />
-      <Form onSubmit={handleSubmit}>
-        {stepperElement}
+      <Form onSubmit={formik.handleSubmit}>
+        {renderStepperElement()}
         <FormBottom>
-          <ButtonWrapper position="left">
-            {step > 1 && (
-              <Button
-                classtype="outline"
-                type="button"
-                title="Previous"
-                onClick={handlePreviousStep}
-              />
-            )}
-          </ButtonWrapper>
-
-          <ButtonWrapper position="right">
-            {step < NUMBER_OF_STEP && (
-              <Button
-                classtype="primary"
-                type="button"
-                title="Continue"
-                onClick={handleNextStep}
-              />
-            )}
-            {step === NUMBER_OF_STEP && (
-              <Button
-                classtype="primary"
-                type="submit"
-                title="Submit Property"
-              />
-            )}
-          </ButtonWrapper>
+          <ButtonWrapper position="left">{previewsButtonElement}</ButtonWrapper>
+          <ButtonWrapper position="right">{buttonSubmitElement}</ButtonWrapper>
         </FormBottom>
       </Form>
     </div>

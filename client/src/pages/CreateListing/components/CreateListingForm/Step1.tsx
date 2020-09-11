@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Label,
   Input,
@@ -7,15 +7,19 @@ import {
   FormGroup,
   InputFile,
   ImagePreview,
-} from "./styled";
-import { BsUpload } from "react-icons/bs";
+  ErrorText,
+} from './styled';
+import { BsUpload } from 'react-icons/bs';
+import { FormProps } from './types';
 
-interface Props {
-  imagePreview?: ArrayBuffer | null | string;
-  handleChange(e: React.ChangeEvent<HTMLElement>): void;
-}
-
-const Step1: React.FC<Props> = ({ handleChange, imagePreview }) => {
+const Step1: React.FC<FormProps> = ({
+  onChange,
+  imagePreview,
+  errors,
+  touched,
+  onBlur,
+  values,
+}) => {
   return (
     <div>
       <FormGroup>
@@ -23,44 +27,62 @@ const Step1: React.FC<Props> = ({ handleChange, imagePreview }) => {
         <Input
           id="title"
           name="title"
-          onChange={handleChange}
+          onChange={onChange}
           placeholder="Please input title here..."
           type="text"
+          onBlur={onBlur}
+          value={values.title}
         />
+        {touched.title && errors.title && <ErrorText>{errors.title}</ErrorText>}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="description"> Description </Label>
         <TextArea
           id="description"
           name="description"
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
           placeholder="Please input description here..."
+          value={values.description}
         ></TextArea>
+        {touched.description && errors.description && (
+          <ErrorText>{errors.description}</ErrorText>
+        )}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="type"> Property Type </Label>
-        <Select id="type" name="type" onChange={handleChange}>
+        <Select
+          id="type"
+          name="type"
+          onChange={onChange}
+          onBlur={onBlur}
+          defaultValue={values.type}
+        >
           <option value=""> </option>
           <option value="APARTMENT"> Apartment </option>
           <option value="HOUSE"> House </option>
         </Select>
+        {touched.type && errors.type && <ErrorText>{errors.type}</ErrorText>}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="price"> Price </Label>
         <Input
           id="price"
           name="price"
-          onChange={handleChange}
+          onChange={onChange}
           placeholder="Please input price here..."
           type="text"
+          onBlur={onBlur}
+          value={values.price}
         />
+        {touched.price && errors.price && <ErrorText>{errors.price}</ErrorText>}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="image"> Image </Label>
         <InputFile>
           <BsUpload size={23} />
           <span>Select Image</span>
-          <input type="file" id="image" name="image" onChange={handleChange} />
+          <input type="file" id="image" name="image" onChange={onChange} />
         </InputFile>
       </FormGroup>
       {imagePreview && (

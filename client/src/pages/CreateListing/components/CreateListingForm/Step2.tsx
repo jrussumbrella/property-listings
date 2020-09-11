@@ -1,12 +1,14 @@
-import React from "react";
-import { Label, Input, FormGroup } from "./styled";
+import React from 'react';
+import { Label, Input, FormGroup, ErrorText } from './styled';
+import { FormProps } from './types';
 
-interface Props {
-  imagePreview?: ArrayBuffer | null | string;
-  handleChange(e: React.ChangeEvent<HTMLElement>): void;
-}
-
-const Step2: React.FC<Props> = ({ handleChange }) => {
+const Step2: React.FC<FormProps> = ({
+  onChange,
+  errors,
+  touched,
+  onBlur,
+  values,
+}) => {
   return (
     <>
       <FormGroup>
@@ -15,9 +17,14 @@ const Step2: React.FC<Props> = ({ handleChange }) => {
           type="text"
           id="address"
           name="address"
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
           placeholder="Please input address here..."
+          value={values.address}
         />
+        {touched.address && errors.address && (
+          <ErrorText>{errors.address}</ErrorText>
+        )}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="city"> City/ Town </Label>
@@ -25,9 +32,12 @@ const Step2: React.FC<Props> = ({ handleChange }) => {
           type="text"
           id="city"
           name="city"
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
           placeholder="Please input city here..."
+          value={values.city}
         />
+        {touched.city && errors.city && <ErrorText>{errors.city}</ErrorText>}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="state"> State/ Province </Label>
@@ -35,9 +45,12 @@ const Step2: React.FC<Props> = ({ handleChange }) => {
           type="text"
           id="state"
           name="state"
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
           placeholder="Please input state / province here..."
+          value={values.state}
         />
+        {touched.state && errors.state && <ErrorText>{errors.state}</ErrorText>}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="city"> Zip/ Postal Code </Label>
@@ -45,9 +58,12 @@ const Step2: React.FC<Props> = ({ handleChange }) => {
           type="text"
           id="zip"
           name="zip"
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
           placeholder="Please input zip here..."
+          value={values.zip}
         />
+        {touched.zip && errors.zip && <ErrorText>{errors.zip}</ErrorText>}
       </FormGroup>
     </>
   );

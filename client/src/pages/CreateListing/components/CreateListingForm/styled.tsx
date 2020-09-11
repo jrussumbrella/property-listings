@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Form = styled.form`
   margin: 2rem 0;
@@ -72,4 +72,10 @@ export const ImagePreview = styled.div`
   height: 200px;
   background-size: cover;
   margin-top: 10px;
+`;
+
+export const ErrorText = styled.div`
+  color: var(--color-red);
+  font-size: 0.9rem;
+  padding-top: 0.5rem;
 `;
