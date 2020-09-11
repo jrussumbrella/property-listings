@@ -51,9 +51,6 @@ export const CreateListingForm = () => {
   const history = useHistory();
   const { setToast } = useToast();
   const [step, setStep] = useState(1);
-  const [imagePreview, setImagePreview] = useState<string | null | ArrayBuffer>(
-    null
-  );
 
   const isLastStep = step === NUMBER_OF_STEP;
 
@@ -72,7 +69,38 @@ export const CreateListingForm = () => {
     validationSchema: validationSchema[`step${step}`],
     onSubmit: (values) => {
       if (isLastStep) {
-        console.log(values);
+        const {
+          title,
+          description,
+          type,
+          propertySize,
+          numOfBaths,
+          numOfGuests,
+          numOfBedrooms,
+          price,
+          zip,
+          city,
+          address,
+          state,
+          image,
+        } = values;
+
+        const fullAddress = `${address}, ${city}, ${state}, ${zip}`;
+
+        const newListing = {
+          title,
+          description,
+          type,
+          image,
+          address: fullAddress,
+          propertySize,
+          price: Number(price),
+          numOfBaths: Number(numOfBaths),
+          numOfBedrooms: Number(numOfBedrooms),
+          numOfGuests: Number(numOfGuests),
+        };
+
+        createListing({ variables: { input: newListing } });
       } else {
         nextStep();
       }
@@ -88,10 +116,16 @@ export const CreateListingForm = () => {
     setStep((step) => step - 1);
   };
 
-  const imageChange = (files: Blob) => {
+  const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // add some file validation here
+
+    if (!e.target.files) {
+      return;
+    }
+    const files = e.target.files[0];
     let reader = new FileReader();
     reader.onloadend = () => {
-      setImagePreview(reader.result);
+      formik.setFieldValue('image', reader.result);
     };
     reader.readAsDataURL(files);
   };
@@ -102,7 +136,7 @@ export const CreateListingForm = () => {
         return (
           <Step1
             onChange={formik.handleChange}
-            imagePreview={imagePreview}
+            onImageChange={onImageChange}
             errors={formik.errors}
             touched={formik.touched}
             onBlur={formik.handleBlur}
@@ -113,7 +147,6 @@ export const CreateListingForm = () => {
         return (
           <Step2
             onChange={formik.handleChange}
-            imagePreview={imagePreview}
             errors={formik.errors}
             touched={formik.touched}
             onBlur={formik.handleBlur}
@@ -124,7 +157,6 @@ export const CreateListingForm = () => {
         return (
           <Step3
             onChange={formik.handleChange}
-            imagePreview={imagePreview}
             errors={formik.errors}
             touched={formik.touched}
             onBlur={formik.handleBlur}

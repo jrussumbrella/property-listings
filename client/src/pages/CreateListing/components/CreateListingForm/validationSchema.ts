@@ -16,6 +16,7 @@ export const validationSchema: TValidationSchema = {
       .moreThan(0)
       .typeError('Price must be a number')
       .required('Price is required field'),
+    image: Yup.string().required('Image file is  required field'),
   }),
   step2: Yup.object({
     address: Yup.string().required('Address is required field'),

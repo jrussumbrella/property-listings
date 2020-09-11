@@ -17,10 +17,10 @@ export interface Property {
 }
 
 export interface FormProps {
-  imagePreview?: ArrayBuffer | null | string;
   onChange(e: React.ChangeEvent<HTMLElement>): void;
   onBlur(e: React.FocusEvent<HTMLElement>): void;
   errors: FormikErrors<Property>;
   touched: FormikTouched<Property>;
   values: Property;
+  onImageChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }

@@ -14,7 +14,7 @@ import { FormProps } from './types';
 
 const Step1: React.FC<FormProps> = ({
   onChange,
-  imagePreview,
+  onImageChange,
   errors,
   touched,
   onBlur,
@@ -82,11 +82,12 @@ const Step1: React.FC<FormProps> = ({
         <InputFile>
           <BsUpload size={23} />
           <span>Select Image</span>
-          <input type="file" id="image" name="image" onChange={onChange} />
+          <input type="file" id="image" name="image" onChange={onImageChange} />
         </InputFile>
       </FormGroup>
-      {imagePreview && (
-        <ImagePreview style={{ backgroundImage: `url(${imagePreview})` }} />
+      {touched.image && errors.image && <ErrorText>{errors.image}</ErrorText>}
+      {values.image && (
+        <ImagePreview style={{ backgroundImage: `url(${values.image})` }} />
       )}
     </div>
   );
