@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost';
 
 export const HOST = gql`
   query Host($id: ID!, $page: Int!, $limit: Int!) {

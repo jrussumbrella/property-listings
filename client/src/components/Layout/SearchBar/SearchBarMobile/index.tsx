@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { MdClose } from "react-icons/md";
-import { motion } from "framer-motion";
-import { SearchBarForm } from "../SearchBarForm";
+import React from 'react';
+import styled from 'styled-components';
+import { MdClose } from 'react-icons/md';
+import { motion } from 'framer-motion';
+import { SearchBarForm } from '../SearchBarForm';
 
 const Container = styled.div`
   display: block;
@@ -26,7 +26,7 @@ interface Props {
 export const SearchBarMobile: React.FC<Props> = ({
   isOpenSearchBar,
   setIsOpenSearchBar,
-}) => {
+}): JSX.Element => {
   return (
     <Container>
       <motion.div
@@ -35,17 +35,17 @@ export const SearchBarMobile: React.FC<Props> = ({
           top: isOpenSearchBar ? 0 : -1000,
         }}
         style={{
-          position: "fixed",
+          position: 'fixed',
           top: 0,
           left: 0,
-          width: "100%",
-          height: "100%",
+          width: '100%',
+          height: '100%',
           zIndex: 999,
-          backgroundColor: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "0 1rem",
+          backgroundColor: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 1rem',
         }}
       >
         <Container>

@@ -1,2 +1,2 @@
-export * from "./SearchBarMobile";
-export * from "./SearchBarDesktop";
+export * from './SearchBarMobile';
+export * from './SearchBarDesktop';

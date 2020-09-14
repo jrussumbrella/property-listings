@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost';
 
 export const EMAIL_VERIFICATION = gql`
   mutation EmailVerification($token: String!) {

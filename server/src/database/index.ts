@@ -1,5 +1,5 @@
-import { MongoClient } from "mongodb";
-import { Database, Listing, User } from "../lib/types";
+import { MongoClient } from 'mongodb';
+import { Database, Listing, User } from '../types';
 
 export const connectDb = async (): Promise<Database> => {
   const uri = `${process.env.DATABASE_LOCAL}`;
@@ -8,9 +8,9 @@ export const connectDb = async (): Promise<Database> => {
     useUnifiedTopology: true,
   });
 
-  const db = client.db("property-listings");
+  const db = client.db('property-listings');
   return {
-    listings: db.collection<Listing>("listings"),
-    users: db.collection<User>("users"),
+    listings: db.collection<Listing>('listings'),
+    users: db.collection<User>('users'),
   };
 };

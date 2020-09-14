@@ -1,13 +1,13 @@
-import { Database, User } from "../../../lib/types";
+import { Database, User } from '../../../types';
 import {
   UserArgs,
   UserListingsArgs,
   UserListingsData,
   UserFavoritesArgs,
   UserFavoritesData,
-} from "./types";
-import { authenticate } from "../../../lib/utils";
-import { Request } from "express";
+} from './types';
+import { authenticate } from '../../../lib/utils';
+import { Request } from 'express';
 
 export const userResolvers = {
   Query: {
@@ -18,7 +18,7 @@ export const userResolvers = {
     ): Promise<User> => {
       try {
         const host = await db.users.findOne({ _id: id });
-        if (!host) throw new Error("Host not found");
+        if (!host) throw new Error('Host not found');
         return host;
       } catch (error) {
         throw new Error(error);

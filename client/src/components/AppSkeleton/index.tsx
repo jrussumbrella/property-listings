@@ -1,12 +1,29 @@
-import React from "react";
-import { GlobalStyle } from "../../lib";
-import AppSkeletonHeader from "./AppSkeletonHeader";
+import React from 'react';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { BsSearch } from 'react-icons/bs';
+import {
+  StyledHeader,
+  MobileIconWrapper,
+  SiteTitleWrapper,
+  SiteTitle,
+} from './styled';
 
-export const AppSkeleton = () => {
+const AppSkeleton = (): JSX.Element => {
   return (
     <>
-      <GlobalStyle />
-      <AppSkeletonHeader />
+      <StyledHeader>
+        <MobileIconWrapper>
+          <GiHamburgerMenu size={20} />
+        </MobileIconWrapper>
+        <SiteTitleWrapper>
+          <SiteTitle> Property </SiteTitle>
+        </SiteTitleWrapper>
+        <MobileIconWrapper>
+          <BsSearch size={20} />
+        </MobileIconWrapper>
+      </StyledHeader>
     </>
   );
 };
+
+export default AppSkeleton;

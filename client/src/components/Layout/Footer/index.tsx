@@ -1,62 +1,41 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
 import {
   AiFillGithub,
   AiOutlineTwitter,
   AiOutlineCodepen,
-} from "react-icons/ai";
+} from 'react-icons/ai';
+import { StyledFooter, Text, Social, SocialList } from './styled';
 
-const StyledFooter = styled.footer`
-  color: #fff;
-  padding: 2.5rem;
-  text-align: center;
-  background-color: var(--color-darker);
-  font-size: 1rem;
-`;
-
-const Text = styled.div`
-  margin-bottom: 0.6rem;
-  line-height: 1.5;
-`;
-
-const Social = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const SocialList = styled.li`
-  &:not(last-child) {
-    margin-right: 0.6rem;
-  }
-
-  svg {
-    font-size: 1.3rem;
-  }
-
-  a {
-    color: #fff;
-  }
-`;
-
-const Footer = () => {
+const Footer = (): JSX.Element => {
   return (
     <StyledFooter>
       <Text>Made with love by James Russel C. Bautista</Text>
       <Text> Follow me on </Text>
       <Social>
         <SocialList>
-          <a href="https://github.com/jrussumbrella" target="_blank">
+          <a
+            href="https://github.com/jrussumbrella"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <AiFillGithub />
           </a>
         </SocialList>
         <SocialList>
-          <a href="https://twitter.com/jruss_bautista" target="_blank">
+          <a
+            href="https://twitter.com/jruss_bautista"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <AiOutlineTwitter />
           </a>
         </SocialList>
         <SocialList>
-          <a href="https://codepen.io/james-russel-c-bautista" target="_blank">
+          <a
+            href="https://codepen.io/james-russel-c-bautista"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <AiOutlineCodepen />
           </a>
         </SocialList>

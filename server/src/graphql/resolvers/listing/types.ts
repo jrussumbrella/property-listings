@@ -1,5 +1,5 @@
-import { Listing, ListingType } from "../../../lib/types";
-import { ObjectID } from "mongodb";
+import { Listing, ListingType } from '../../../types';
+import { ObjectID } from 'mongodb';
 
 export interface ListingsData {
   total: number;

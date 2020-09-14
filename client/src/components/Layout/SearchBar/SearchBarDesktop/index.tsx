@@ -1,6 +1,6 @@
-import React from "react";
-import { SearchBarForm } from "../SearchBarForm";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { SearchBarForm } from '../SearchBarForm';
 
 const Container = styled.div`
   display: none;
@@ -9,7 +9,7 @@ const Container = styled.div`
   }
 `;
 
-export const SearchBarDesktop = () => {
+export const SearchBarDesktop = (): JSX.Element => {
   return (
     <Container>
       <SearchBarForm />

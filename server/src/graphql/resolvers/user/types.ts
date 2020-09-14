@@ -1,4 +1,4 @@
-import { Listing } from "../../../lib/types";
+import { Listing } from '../../../types';
 
 export interface UserArgs {
   id: string;

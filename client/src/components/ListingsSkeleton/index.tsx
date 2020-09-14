@@ -1,46 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-
-const Title = styled.div`
-  background-color: var(--color-gray);
-  width: 12rem;
-  height: 2rem;
-  margin: 0 auto;
-`;
-
-const List = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
-  margin: 1rem 0;
-
-  @media only screen and (min-width: 768px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-`;
-
-const Info = styled.div`
-  padding: 0.5rem;
-`;
-
-const CoverWrapper = styled.div`
-  width: 100%;
-  padding-top: 80%;
-  position: relative;
-  background-color: var(--color-gray);
-`;
-
-const Line = styled.div`
-  background-color: var(--color-gray);
-  height: 1.2rem;
-  margin-bottom: 0.5rem;
-`;
+import React from 'react';
+import { Title, List, Line, Info, CoverWrapper } from './styled';
 
 interface Props {
   numbers: number;
 }
 
-export const ListingsSkeleton: React.FC<Props> = ({ numbers = 12 }) => {
+const ListingsSkeleton: React.FC<Props> = ({ numbers = 12 }): JSX.Element => {
   const listingBox = Array(numbers)
     .fill(null)
     .map((_, i) => i + 1);
@@ -51,10 +16,10 @@ export const ListingsSkeleton: React.FC<Props> = ({ numbers = 12 }) => {
       <List>
         {listingBox.map((listing) => (
           <div key={listing}>
-            <CoverWrapper></CoverWrapper>
+            <CoverWrapper />
             <Info>
               <Line />
-              <Line style={{ width: "40%" }} />
+              <Line style={{ width: '40%' }} />
             </Info>
           </div>
         ))}
@@ -62,3 +27,5 @@ export const ListingsSkeleton: React.FC<Props> = ({ numbers = 12 }) => {
     </div>
   );
 };
+
+export default ListingsSkeleton;

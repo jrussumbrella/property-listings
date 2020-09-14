@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost';
 
 export const MY_PROPERTIES = gql`
   query MyProperties($page: Int!, $limit: Int!) {

@@ -1,4 +1,4 @@
-import { Database, Listing, User, ListingType } from "../../../lib/types";
+import { Database, Listing, User, ListingType } from '../../../types';
 import {
   ListingsData,
   ListingsArgs,
@@ -7,12 +7,12 @@ import {
   CreateListingInput,
   EmailAgentListingArgs,
   ListingsQuery,
-} from "./types";
-import { ObjectId } from "mongodb";
-import { authenticate } from "../../../lib/utils";
-import { Request } from "express";
-import { Google, Cloudinary } from "./../../../lib/api";
-import { sendEmail } from "../../../lib/api/email";
+} from './types';
+import { ObjectId } from 'mongodb';
+import { authenticate } from '../../../lib/utils';
+import { Request } from 'express';
+import { Google, Cloudinary } from './../../../lib/api';
+import { sendEmail } from '../../../lib/api/email';
 
 const validateListingInput = ({
   title,
@@ -24,20 +24,20 @@ const validateListingInput = ({
   numOfGuests,
   type,
 }: CreateListingInput) => {
-  if (title.length > 100) throw new Error("Title must be under 100 characters");
+  if (title.length > 100) throw new Error('Title must be under 100 characters');
   if (description.length > 5000)
-    throw new Error("Description must be under 5000 characters");
+    throw new Error('Description must be under 5000 characters');
   if (type !== ListingType.Apartment && type !== ListingType.House)
-    throw new Error("Type must be house or apartment");
-  if (price < 0) throw new Error("Price must be greater than zero");
+    throw new Error('Type must be house or apartment');
+  if (price < 0) throw new Error('Price must be greater than zero');
   if (propertySize.length === 0)
-    throw new Error("Property size cannot be empty");
+    throw new Error('Property size cannot be empty');
   if (String(numOfBaths).length === 0)
-    throw new Error("Number of baths cannot be empty");
+    throw new Error('Number of baths cannot be empty');
   if (String(numOfBedrooms).length === 0)
-    throw new Error("Number of bed rooms cannot be empty");
+    throw new Error('Number of bed rooms cannot be empty');
   if (String(numOfGuests).length === 0)
-    throw new Error("Number of guests cannot be empty");
+    throw new Error('Number of guests cannot be empty');
 };
 
 export const listingResolvers = {
@@ -128,7 +128,7 @@ export const listingResolvers = {
     ): Promise<Listing> => {
       try {
         const listing = await db.listings.findOne({ _id: new ObjectId(id) });
-        if (!listing) throw new Error("Listing not found");
+        if (!listing) throw new Error('Listing not found');
         const viewer = await authenticate(db, req);
 
         if (!viewer) {
@@ -169,12 +169,12 @@ export const listingResolvers = {
       // perform validation to input
       validateListingInput(input);
       const viewer = await authenticate(db, req);
-      if (!viewer) throw new Error("User cannot be found");
+      if (!viewer) throw new Error('User cannot be found');
       if (!viewer.isEmailVerified)
-        throw new Error("Please confirm your email address first.");
+        throw new Error('Please confirm your email address first.');
 
       const { city, admin, country } = await Google.geocode(input.address);
-      if (!city || !admin || !country) throw new Error("Invalid input address");
+      if (!city || !admin || !country) throw new Error('Invalid input address');
 
       const imageUrl = await Cloudinary.upload(image);
 
@@ -208,18 +208,18 @@ export const listingResolvers = {
         const listing = await db.listings.findOne({
           _id: new ObjectId(input.listingId),
         });
-        if (!listing) throw new Error("Listing not found");
+        if (!listing) throw new Error('Listing not found');
 
         const host = await db.users.findOne({ _id: listing.host });
-        if (!host) throw new Error("Agent not found");
+        if (!host) throw new Error('Agent not found');
 
         const url = `${process.env.CLIENT_URL}/listing/${listing._id}`;
 
         // send email host of listing
         await sendEmail({
           name: input.name,
-          template: "email-host-listing",
-          subject: "Inquire for Property",
+          template: 'email-host-listing',
+          subject: 'Inquire for Property',
           from: input.email,
           to: host?.email,
           url,
@@ -241,7 +241,7 @@ export const listingResolvers = {
       { db }: { db: Database }
     ): Promise<User> => {
       const user = await db.users.findOne({ _id: listing.host });
-      if (!user) throw new Error("Host not found");
+      if (!user) throw new Error('Host not found');
       return user;
     },
   },

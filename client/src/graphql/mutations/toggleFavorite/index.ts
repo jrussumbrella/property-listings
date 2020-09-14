@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost';
 
 export const TOGGLE_FAVORITE = gql`
   mutation ToggleFavorite($id: ID!) {

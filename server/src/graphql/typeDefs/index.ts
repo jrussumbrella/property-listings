@@ -1,4 +1,4 @@
-import { gql } from "apollo-server";
+import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
   enum ListingType {
@@ -49,7 +49,6 @@ export const typeDefs = gql`
   type Viewer {
     token: String!
     user: User!
-    hasWallet: Boolean!
   }
 
   input LoginInput {

@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
-import { Request } from "express";
-import { Database, User } from "../types";
+import jwt from 'jsonwebtoken';
+import { Request } from 'express';
+import { Database, User } from '../../types';
 
 interface Decoded {
   id: string;
@@ -13,9 +13,9 @@ export const authenticate = async (
   let token;
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
+    req.headers.authorization.startsWith('Bearer')
   ) {
-    token = req.headers.authorization.split(" ")[1];
+    token = req.headers.authorization.split(' ')[1];
   }
   if (!token) return null;
   try {

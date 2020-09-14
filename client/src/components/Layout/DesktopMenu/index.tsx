@@ -1,58 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../../store';
-import { Button } from '../../Common';
-import styled from 'styled-components';
+import { useAuth } from 'globalState';
+import Button from '../../Button';
+import { Avatar, Nav, NavList, UserInfo } from './styled';
 
-const Nav = styled.ul`
-  display: none;
-  align-items: center;
-
-  @media ${(props) => props.theme.mediaQueries.desktop} {
-    display: flex;
-  }
-
-  .link {
-    font-size: 1rem;
-    display: block;
-  }
-`;
-
-const NavList = styled.li`
-  padding: 0 1rem;
-  position: relative;
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  img {
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 50%;
-  }
-
-  span {
-    padding: 0 1rem;
-  }
-`;
-
-const Avatar = styled.div`
-  width: 2.6rem;
-  height: 2.6rem;
-  border-radius: 50%;
-  background-color: var(--color-primary);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-`;
-
-const DesktopMenu = () => {
+const DesktopMenu = (): JSX.Element => {
   const { user } = useAuth();
 
   const userAvatar = user?.photoUrl ? (
@@ -64,19 +16,19 @@ const DesktopMenu = () => {
   const guestRoutes = () => (
     <Nav>
       <NavList>
-        <Link to="/auth" className="link">
+        <Link to="/login" className="link">
           Log In
         </Link>
       </NavList>
       <NavList>
-        <Link to="/auth/sign-up" className="link">
+        <Link to="/sign-up" className="link">
           Sign Up
         </Link>
       </NavList>
       <NavList>
         <Button
           to="/listing/create"
-          classtype="outline"
+          variant="outline"
           type="button"
           title="List your property"
           style={{ width: '100%' }}
@@ -99,7 +51,7 @@ const DesktopMenu = () => {
       </NavList>
       <NavList>
         <Button
-          classtype="outline"
+          variant="outline"
           type="button"
           title="List your property"
           style={{ width: '100%' }}

@@ -1,15 +1,15 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { AuthenticationError } from "apollo-server";
-import { Request } from "express";
-import { v4 } from "uuid";
-import { Database, Viewer, User } from "../../../lib/types";
-import { LoginArgs, SignUpArgs } from "./types";
-import { ObjectID } from "mongodb";
-import { authenticate } from "../../../lib/utils";
-import { sendEmail } from "../../../lib/api/email";
-import { redis } from "../../../lib";
-import { Google } from "../../../lib/api";
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { AuthenticationError } from 'apollo-server';
+import { Request } from 'express';
+import { v4 } from 'uuid';
+import { Database, Viewer, User } from '../../../types';
+import { LoginArgs, SignUpArgs } from './types';
+import { ObjectID } from 'mongodb';
+import { authenticate } from '../../../lib/utils';
+import { sendEmail } from '../../../lib/api/email';
+import { redis } from '../../../lib';
+import { Google } from '../../../lib/api';
 
 const generateToken = (id: string, expiresIn: string): string => {
   const secret = String(process.env.JWT_SECRET_KEY);
@@ -25,7 +25,7 @@ export const viewerResolvers = {
     ): Promise<User | null> => {
       try {
         const user = await authenticate(db, req);
-        if (!user) throw new Error("Invalid token");
+        if (!user) throw new Error('Invalid token');
         return user;
       } catch (error) {
         throw new Error(error);
@@ -42,20 +42,19 @@ export const viewerResolvers = {
         const { email, password } = input;
 
         const viewer = await db.users.findOne({ email });
-        if (!viewer) throw new Error("Email or password is incorrect");
+        if (!viewer) throw new Error('Email or password is incorrect');
 
         // check viewer input password if match into found viewer
 
         const isMatch = await bcrypt.compare(password, String(viewer.password));
-        if (!isMatch) throw new Error("Email or password is incorrect");
+        if (!isMatch) throw new Error('Email or password is incorrect');
 
         // generate token
-        const token = generateToken(viewer._id, "7d");
+        const token = generateToken(viewer._id, '7d');
 
         return {
           user: viewer,
           token,
-          walletId: viewer.walletId,
         };
       } catch (error) {
         throw new AuthenticationError(error);
@@ -69,7 +68,7 @@ export const viewerResolvers = {
       try {
         const results = await Google.verifyIdToken(idToken);
         if (!results)
-          throw new Error("Cant verify access token. Please try again later.");
+          throw new Error('Cant verify access token. Please try again later.');
 
         const email = results.email as string;
         const name = results.name as string;
@@ -83,10 +82,8 @@ export const viewerResolvers = {
             _id: new ObjectID().toString(),
             name,
             email,
-            bookings: [],
             listings: [],
             favorites: [],
-            income: 0,
             isEmailVerified: true,
             googleId,
             photoUrl,
@@ -96,12 +93,11 @@ export const viewerResolvers = {
         }
 
         // generate token
-        const token = generateToken(viewer._id, "7d");
+        const token = generateToken(viewer._id, '7d');
 
         return {
           user: viewer,
           token,
-          walletId: viewer.walletId,
         };
       } catch (error) {
         throw new Error(error);
@@ -116,7 +112,7 @@ export const viewerResolvers = {
         const { email, name, password } = input;
         // check if email is already taken
         const checkEmailExists = await db.users.findOne({ email });
-        if (checkEmailExists) throw new Error("Email is already taken");
+        if (checkEmailExists) throw new Error('Email is already taken');
 
         // encrypt password
         const salt = await bcrypt.genSalt(10);
@@ -127,10 +123,8 @@ export const viewerResolvers = {
           name,
           email,
           password: encryptPassword,
-          bookings: [],
           listings: [],
           favorites: [],
-          income: 0,
           _id: new ObjectID().toString(),
           isEmailVerified: false,
         });
@@ -138,12 +132,12 @@ export const viewerResolvers = {
         const viewer = insertRes.ops[0];
 
         // generate access token
-        const token = generateToken(viewer._id, "7d");
+        const token = generateToken(viewer._id, '7d');
 
         const emailVerifyToken = v4();
 
         // save email verify token to redis
-        await redis.set(emailVerifyToken, viewer._id, "ex", 60 * 60 * 24); // set 1 day expiration
+        await redis.set(emailVerifyToken, viewer._id, 'ex', 60 * 60 * 24); // set 1 day expiration
 
         const url = `${process.env.CLIENT_URL}/email-confirmation/${emailVerifyToken}`;
 
@@ -151,16 +145,15 @@ export const viewerResolvers = {
           name: viewer.name,
           from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
           to: viewer.email,
-          template: "email-confirmation",
-          subject: "Welcome to Property Listings",
+          template: 'email-confirmation',
+          subject: 'Welcome to Property Listings',
           url,
-          message: "Thanks for creating an account",
+          message: 'Thanks for creating an account',
         });
 
         return {
           user: viewer,
           token,
-          walletId: viewer.walletId,
         };
       } catch (error) {
         throw new Error(error);
@@ -193,16 +186,13 @@ export const viewerResolvers = {
       // delete token in redis
       await redis.del(token);
 
-      const userToken = generateToken(viewer._id, "7d");
+      const userToken = generateToken(viewer._id, '7d');
 
       return {
         user: viewer,
         token: userToken,
-        walletId: viewer.walletId,
       };
     },
   },
-  Viewer: {
-    hasWallet: (viewer: Viewer): boolean => (viewer.walletId ? true : false),
-  },
+  Viewer: {},
 };
