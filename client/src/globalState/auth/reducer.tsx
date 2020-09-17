@@ -1,5 +1,5 @@
 import { User } from '../../types';
-import { SET_USER, LOG_OUT, AUTH_ERROR } from './constants';
+import { SET_USER, LOG_OUT, AUTH_ERROR, UPDATE_PROFILE } from './constants';
 
 type State = {
   isLoading: boolean;
@@ -19,6 +19,8 @@ export default (state: State, action: Action): State => {
       return { ...state, user: null, isLoading: false };
     case AUTH_ERROR:
       return { ...state, user: null, isLoading: false };
+    case UPDATE_PROFILE:
+      return { ...state, user: action.payload };
     default:
       return state;
   }

@@ -10,8 +10,8 @@ export const Group = styled.div`
 export const Label = styled.label`
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--color-gray);
-  font-size: 1.7rem;
+  color: var(--color-dark-gray);
+  font-size: 1rem;
 `;
 
 export const StyledInput = styled.input<InputProps>`

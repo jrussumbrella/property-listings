@@ -49,11 +49,21 @@ export const Settings = styled.ul`
   li {
     padding: 1rem 0;
     border-bottom: 1px solid var(--color-gray);
+  }
+
+  .btn-settings {
     font-size: 1.1rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: transparent;
+    border: 1px solid transparent;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  button:focus {
+    outline: none;
   }
 `;
 

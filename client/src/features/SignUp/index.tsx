@@ -35,7 +35,7 @@ const SignUp = (): JSX.Element => {
       history.push('/profile');
     },
     onError(err) {
-      setToast('error', err.graphQLErrors[0].message.split(':')[1]);
+      setToast('error', err.graphQLErrors[0].message);
     },
   });
 

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import cookie from 'js-cookie';
 import reducer from './reducer';
-import { SET_USER, LOG_OUT, AUTH_ERROR } from './constants';
+import { SET_USER, LOG_OUT, AUTH_ERROR, UPDATE_PROFILE } from './constants';
 import { Viewer, User } from '../../types';
 
 interface InitialStateType {
@@ -11,6 +11,7 @@ interface InitialStateType {
   loadUser(user: User): void;
   logout(): void;
   setAuthError(): void;
+  updateProfile(user: User): void;
 }
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   loadUser: () => null,
   logout: () => null,
   setAuthError: () => null,
+  updateProfile: () => null,
 };
 
 export const AuthContext = createContext<InitialStateType>(initialState);
@@ -49,9 +51,13 @@ export const AuthProvider: React.FC = ({ children }) => {
     dispatch({ type: AUTH_ERROR, payload: null });
   };
 
+  const updateProfile = (user: User) => {
+    dispatch({ type: UPDATE_PROFILE, payload: user });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ ...state, login, loadUser, logout, setAuthError }}
+      value={{ ...state, login, loadUser, logout, setAuthError, updateProfile }}
     >
       {children}
     </AuthContext.Provider>

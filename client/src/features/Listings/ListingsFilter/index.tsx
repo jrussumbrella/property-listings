@@ -51,30 +51,30 @@ const ListingsFilter = (): JSX.Element => {
     [history, pathname]
   );
 
-  // useEffect(() => {
-  //   let newParams: Params = {};
+  useEffect(() => {
+    let newParams: Params = {};
 
-  //   if (filter.price.maxPrice && filter.price.minPrice) {
-  //     newParams = {
-  //       ...params,
-  //       minPrice: filter.price.minPrice,
-  //       maxPrice: filter.price.maxPrice,
-  //     };
-  //   }
+    if (filter.price.maxPrice && filter.price.minPrice) {
+      newParams = {
+        ...params,
+        minPrice: filter.price.minPrice,
+        maxPrice: filter.price.maxPrice,
+      };
+    }
 
-  //   if (filter.type.length > 0) {
-  //     newParams = {
-  //       ...params,
-  //       type: filter.type.join(' '),
-  //     };
-  //   } else if (newParams.type) {
-  //     delete newParams.type;
-  //   }
+    if (filter.type.length > 0) {
+      newParams = {
+        ...params,
+        type: filter.type.join(' '),
+      };
+    } else if (newParams.type) {
+      delete newParams.type;
+    }
 
-  //   if (Object.keys(newParams).length !== 0) {
-  //     pushUrl(newParams);
-  //   }
-  // }, [filter.price.maxPrice, filter.price.minPrice, filter.type]);
+    if (Object.keys(newParams).length !== 0) {
+      pushUrl(newParams);
+    }
+  }, [filter.price.maxPrice, filter.price.minPrice, filter.type]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const dataId = e.target.dataset.id;

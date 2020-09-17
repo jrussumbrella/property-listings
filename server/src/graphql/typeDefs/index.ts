@@ -62,6 +62,23 @@ export const typeDefs = gql`
     password: String!
   }
 
+  input UpdateProfileInput {
+    name: String!
+    email: String!
+  }
+
+  input ChangePasswordInput {
+    oldPassword: String!
+    newPassword: String!
+    confirmNewPassword: String!
+  }
+
+  input ResetPasswordInput {
+    token: String!
+    newPassword: String!
+    confirmNewPassword: String!
+  }
+
   input CreateListingInput {
     title: String!
     description: String!
@@ -109,6 +126,10 @@ export const typeDefs = gql`
     signUp(input: SignUpInput): Viewer!
     login(input: LoginInput!): Viewer!
     loginWithGoogle(idToken: String!): Viewer!
+    updateProfile(input: UpdateProfileInput!): Viewer!
+    changePassword(input: ChangePasswordInput!): Viewer!
+    forgotPassword(email: String!): String!
+    resetPassword(input: ResetPasswordInput!): Viewer!
     emailTokenVerification(token: String!): Viewer!
     toggleFavorite(id: ID!): Listing!
     createListing(input: CreateListingInput!): Listing!

@@ -4,19 +4,18 @@ import Layout from 'components/Layout';
 import { ScrollToTop } from './ScrollTop';
 import { ProtectedRoute } from './ProtectedRoute';
 import CreateListing from '../features/CreateListing';
-import Home from '../features/Home';
-import Listing from '../features/Listing';
-import Listings from '../features/Listings';
-import MyProperties from '../features/MyProperties';
-import MyFavorites from '../features/MyFavorites';
-import EditProfile from '../features/EditProfile';
-import ChangePassword from '../features/ChangePassword';
-import Profile from '../features/Profile';
-import User from '../features/User';
-import SignIn from '../features/SignIn';
-import SignUp from '../features/SignUp';
-import EmailConfirmation from '../features/EmailConfirmation';
-import NotFound from '../features/NotFound';
+import Home from 'features/Home';
+import Listing from 'features/Listing';
+import Listings from 'features/Listings';
+import MyProperties from 'features/MyProperties';
+import MyFavorites from 'features/MyFavorites';
+import Profile from 'features/Profile';
+import User from 'features/User';
+import SignIn from 'features/SignIn';
+import SignUp from 'features/SignUp';
+import EmailConfirmation from 'features/EmailConfirmation';
+import ForgotPassword from 'features/ForgotPassword';
+import NotFound from 'features/NotFound';
 
 const AppRoutes = () => {
   return (
@@ -31,16 +30,6 @@ const AppRoutes = () => {
           />
           <ProtectedRoute path="/my-favorites" component={MyFavorites} exact />
           <ProtectedRoute path="/profile" component={Profile} exact />
-          <ProtectedRoute
-            path="/profile/edit-profile"
-            component={EditProfile}
-            exact
-          />
-          <ProtectedRoute
-            path="/profile/change-password"
-            component={ChangePassword}
-            exact
-          />
           <ProtectedRoute
             path="/listing/create"
             component={CreateListing}
@@ -66,6 +55,9 @@ const AppRoutes = () => {
           </Route>
           <Route path="/email-confirmation/:token" exact>
             <EmailConfirmation />
+          </Route>
+          <Route path="/forgot-password" exact>
+            <ForgotPassword />
           </Route>
           <Route>
             <NotFound />

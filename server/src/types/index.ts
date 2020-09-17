@@ -33,7 +33,6 @@ export interface User {
   googleId?: string;
   password?: string;
   photoUrl?: string;
-  walletId?: string;
   listings: ObjectId[];
   favorites: ObjectId[];
 }
@@ -41,10 +40,17 @@ export interface User {
 export interface Viewer {
   token: string;
   user: User;
-  walletId?: string;
+}
+
+export interface PasswordResets {
+  _id: string;
+  token: string;
+  email: string;
+  expiredAt: number;
 }
 
 export interface Database {
   listings: Collection<Listing>;
   users: Collection<User>;
+  passwordResets: Collection<PasswordResets>;
 }

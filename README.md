@@ -28,6 +28,10 @@
 - Login with email
 - Login with google
 - Create an account
+- Edit profile
+- Email Verification
+- Forgot Password
+- Change Password
 - View property details
 - Search properties
 - Inquire for property

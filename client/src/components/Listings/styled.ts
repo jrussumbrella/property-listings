@@ -53,6 +53,7 @@ export const ActionWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: 0.5rem;
+  width: 4rem;
 `;
 export const IconWrapper = styled.button`
   background-color: rgba(255, 255, 255, 0.8);

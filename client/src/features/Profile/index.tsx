@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from 'globalState';
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import Alert from 'components/Alert';
 import { useHistory } from 'react-router-dom';
+import EditProfile from './EditProfile';
+import ChangePassword from './ChangePassword';
 import {
   AlertWrapper,
   Img,
@@ -15,13 +17,77 @@ import {
   Avatar,
 } from './styled';
 
+type SelectedSettings = Array<string>;
+
+const menuSettings = [
+  {
+    name: 'edit-profile',
+    label: 'Edit Profile',
+  },
+  {
+    name: 'change-password',
+    label: 'Change Password',
+  },
+];
+
 const Profile = (): JSX.Element => {
   const history = useHistory();
   const { user, logout } = useAuth();
 
+  const [selectedSettings, setSelectedSettings] = useState<SelectedSettings>(
+    []
+  );
+
   const handleLogOut = () => {
     logout();
     history.push('/login');
+  };
+
+  const handleSelectSettings = (selected: string) => {
+    const isAlreadySelected = selectedSettings.some(
+      (setting) => setting === selected
+    );
+    if (isAlreadySelected) {
+      const filteredSettings = selectedSettings.filter(
+        (setting) => setting !== selected
+      );
+      setSelectedSettings(filteredSettings);
+    } else {
+      setSelectedSettings([...selectedSettings, selected]);
+    }
+  };
+
+  const renderMenu = (element: string) => {
+    switch (element) {
+      case 'edit-profile':
+        return <EditProfile />;
+      case 'change-password':
+        return <ChangePassword />;
+      default:
+        return null;
+    }
+  };
+
+  const renderMenuSettings = () => {
+    return menuSettings.map((setting) => (
+      <li key={setting.name}>
+        <button
+          className="btn-settings"
+          type="button"
+          onClick={() => handleSelectSettings(setting.name)}
+        >
+          <span>{setting.label} </span>
+          <span>
+            {selectedSettings.includes(setting.name) ? (
+              <MdKeyboardArrowUp />
+            ) : (
+              <MdKeyboardArrowDown />
+            )}
+          </span>
+        </button>
+        {selectedSettings.includes(setting.name) && renderMenu(setting.name)}
+      </li>
+    ));
   };
 
   const isEmailVerifiedMessage = !user?.isEmailVerified ? (
@@ -49,20 +115,7 @@ const Profile = (): JSX.Element => {
         <Text>{user?.email}</Text>
       </Info>
       <h2> Settings </h2>
-      <Settings>
-        <li>
-          <span>Edit Profile </span>
-          <span>
-            <MdKeyboardArrowDown />
-          </span>
-        </li>
-        <li>
-          <span> Change Password </span>
-          <span>
-            <MdKeyboardArrowDown />
-          </span>
-        </li>
-      </Settings>
+      <Settings>{renderMenuSettings()}</Settings>
       <BottomContainer>
         <LogOutButton type="button" onClick={handleLogOut}>
           Log Out
