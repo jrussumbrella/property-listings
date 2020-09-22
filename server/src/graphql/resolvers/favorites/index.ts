@@ -1,4 +1,4 @@
-import { Database, Listing, User } from '../../../types';
+import { Database } from '../../../types';
 import { Request } from 'express';
 import { ToggleFavoriteArgs } from './types';
 import { ObjectID } from 'mongodb';
@@ -11,45 +11,39 @@ export const favoritesResolvers = {
       { id }: ToggleFavoriteArgs,
       { db, req }: { db: Database; req: Request }
     ) => {
-      try {
-        const user = await authenticate(db, req);
-        if (!user) throw new Error('Ops make sure you login first');
-        const listing = await db.listings.findOne({ _id: new ObjectID(id) });
-        if (!listing) throw new Error(`Listing not found`);
+      const user = await authenticate(db, req);
+      if (!user) throw new Error('Ops make sure you login first');
+      const listing = await db.listings.findOne({ _id: new ObjectID(id) });
+      if (!listing) throw new Error(`Listing not found`);
 
-        const isFavorite = user.favorites.some(
-          (favorite) => favorite.toString() === id
+      const isFavorite = user.favorites.some(
+        (favorite) => favorite.toString() === id
+      );
+
+      if (isFavorite) {
+        // remove listing to users' favorite
+        const removeFaveResult = await db.users.findOneAndUpdate(
+          { _id: user._id },
+          {
+            $pull: { favorites: listing._id },
+          }
+        );
+        if (!removeFaveResult.value)
+          throw new Error('Failed to remove to favorites');
+      } else {
+        // add listing to user's favorites array
+        const insertFaveResult = await db.users.findOneAndUpdate(
+          { _id: user._id },
+          {
+            $addToSet: { favorites: listing._id },
+          }
         );
 
-        if (isFavorite) {
-          // remove listing to users' favorite
-          const removeFaveResult = await db.users.findOneAndUpdate(
-            { _id: user._id },
-            {
-              $pull: { favorites: listing._id },
-            }
-          );
-          if (!removeFaveResult.value)
-            throw new Error('Failed to remove to favorites');
-        } else {
-          // add listing to user's favorites array
-          const insertFaveResult = await db.users.findOneAndUpdate(
-            { _id: user._id },
-            {
-              $addToSet: { favorites: listing._id },
-            }
-          );
-
-          if (!insertFaveResult.value)
-            throw new Error('Failed to add to favorites');
-        }
-
-        listing.isFavorite = !isFavorite;
-
-        return listing;
-      } catch (error) {
-        throw new Error(error);
+        if (!insertFaveResult.value)
+          throw new Error('Failed to add to favorites');
       }
+
+      return listing;
     },
   },
 };

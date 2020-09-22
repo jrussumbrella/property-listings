@@ -1,9 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from 'components/Layout';
-import { ScrollToTop } from './ScrollTop';
-import { ProtectedRoute } from './ProtectedRoute';
-import CreateListing from '../features/CreateListing';
 import Home from 'features/Home';
 import Listing from 'features/Listing';
 import Listings from 'features/Listings';
@@ -16,6 +13,10 @@ import SignUp from 'features/SignUp';
 import EmailConfirmation from 'features/EmailConfirmation';
 import ForgotPassword from 'features/ForgotPassword';
 import NotFound from 'features/NotFound';
+import CreateListing from 'features/CreateListing';
+import ResetPassword from 'features/ResetPassword';
+import { ScrollToTop } from './ScrollTop';
+import { ProtectedRoute } from './ProtectedRoute';
 
 const AppRoutes = () => {
   return (
@@ -58,6 +59,9 @@ const AppRoutes = () => {
           </Route>
           <Route path="/forgot-password" exact>
             <ForgotPassword />
+          </Route>
+          <Route path="/reset-password/:token" exact>
+            <ResetPassword />
           </Route>
           <Route>
             <NotFound />

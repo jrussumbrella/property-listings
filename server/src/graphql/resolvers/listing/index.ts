@@ -1,4 +1,10 @@
-import { Database, Listing, User, ListingType } from '../../../types';
+import {
+  Database,
+  Listing,
+  User,
+  ListingType,
+  TransactionType,
+} from '../../../types';
 import {
   ListingsData,
   ListingsArgs,
@@ -30,8 +36,7 @@ const validateListingInput = ({
   if (type !== ListingType.Apartment && type !== ListingType.House)
     throw new Error('Type must be house or apartment');
   if (price < 0) throw new Error('Price must be greater than zero');
-  if (propertySize.length === 0)
-    throw new Error('Property size cannot be empty');
+  if (propertySize === 0) throw new Error('Property size cannot be empty');
   if (String(numOfBaths).length === 0)
     throw new Error('Number of baths cannot be empty');
   if (String(numOfBedrooms).length === 0)
@@ -85,36 +90,7 @@ export const listingResolvers = {
         cursor = cursor.skip(skips).limit(limit);
         data.total = await cursor.count();
 
-        const listingsArray = await cursor.toArray();
-
-        const viewer = await authenticate(db, req);
-        if (!viewer) {
-          data.result = listingsArray.map((listing) => ({
-            ...listing,
-            isFavorite: false,
-          }));
-          return data;
-        }
-
-        const listingsResult = listingsArray.map((listing) => {
-          const isFavorite = viewer.favorites.some(
-            (listingId) => listingId.toString() === listing._id.toString()
-          );
-
-          if (isFavorite) {
-            return {
-              ...listing,
-              isFavorite: true,
-            };
-          } else {
-            return {
-              ...listing,
-              isFavorite: false,
-            };
-          }
-        });
-
-        data.result = listingsResult;
+        data.result = await cursor.toArray();
 
         return data;
       } catch (error) {
@@ -126,25 +102,10 @@ export const listingResolvers = {
       { id }: ListingArgs,
       { db, req }: { db: Database; req: Request }
     ): Promise<Listing> => {
-      try {
-        const listing = await db.listings.findOne({ _id: new ObjectId(id) });
-        if (!listing) throw new Error('Listing not found');
-        const viewer = await authenticate(db, req);
+      const listing = await db.listings.findOne({ _id: new ObjectId(id) });
+      if (!listing) throw new Error('Listing not found');
 
-        if (!viewer) {
-          listing.isFavorite = false;
-          return listing;
-        }
-
-        let isFavorite = viewer.favorites.some(
-          (listingId) => listingId.toString() === listing._id.toString()
-        );
-
-        listing.isFavorite = isFavorite;
-        return listing;
-      } catch (error) {
-        throw new Error(error);
-      }
+      return listing;
     },
   },
   Mutation: {
@@ -179,6 +140,7 @@ export const listingResolvers = {
       const imageUrl = await Cloudinary.upload(image);
 
       const insertResult = await db.listings.insertOne({
+        transactionType: TransactionType.Rent,
         title,
         description,
         imageUrl,
@@ -193,6 +155,7 @@ export const listingResolvers = {
         admin,
         city,
         host: viewer._id,
+        verified: false,
       });
 
       const listing: Listing = insertResult.ops[0];
@@ -235,6 +198,15 @@ export const listingResolvers = {
   },
   Listing: {
     id: (listing: Listing): string => listing._id.toString(),
+    favorites: async (listing: Listing, {}, { db }: { db: Database }) => {
+      const results = await db.favorites
+        .find({ listingId: listing._id.toString() })
+        .toArray();
+      const favorites = results.map((favorite) => {
+        return favorite.userId;
+      });
+      return favorites;
+    },
     host: async (
       listing: Listing,
       {},

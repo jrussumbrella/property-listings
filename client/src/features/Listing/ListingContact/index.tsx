@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Host } from 'types';
+import { User } from 'types';
 import { Container, Heading, HostImage, HostName, HostWrapper } from './styled';
 
 interface Props {
-  host: Host;
+  host: User;
 }
 
 const ListingContact: React.FC<Props> = ({ host }): JSX.Element => {

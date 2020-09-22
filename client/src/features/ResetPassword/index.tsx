@@ -1,19 +1,27 @@
 import React from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import { useToast } from 'globalState';
 import { useMutation } from '@apollo/react-hooks';
-import { CHANGE_PASSWORD } from 'graphql/mutations';
-import { Container } from './styled';
+import { RESET_PASSWORD } from 'graphql/mutations';
+import { Container, Heading } from './styled';
 
-const ChangePassword = () => {
+interface Params {
+  token: string;
+}
+
+const ResetPassword = () => {
+  const history = useHistory();
   const { setToast } = useToast();
+  const { token } = useParams<Params>();
 
-  const [changePassword, { loading }] = useMutation(CHANGE_PASSWORD, {
+  const [resetPassword, { loading }] = useMutation(RESET_PASSWORD, {
     onCompleted() {
       setToast('success', 'Successfully update your new password');
+      history.push('/login');
     },
     onError(err) {
       setToast('error', err.graphQLErrors[0].message);
@@ -21,7 +29,6 @@ const ChangePassword = () => {
   });
 
   const initialValues = {
-    oldPassword: '',
     newPassword: '',
     confirmNewPassword: '',
   };
@@ -29,9 +36,6 @@ const ChangePassword = () => {
   const formik = useFormik({
     initialValues,
     validationSchema: Yup.object({
-      oldPassword: Yup.string()
-        .min(6, 'Old Password must be at least 6 characters')
-        .required('Old Password is required field'),
       newPassword: Yup.string()
         .min(6, 'New Password must be at least 6 characters')
         .required('New Password is required field'),
@@ -40,26 +44,18 @@ const ChangePassword = () => {
         .required('Confirm New Password is required field'),
     }),
     onSubmit: (values) => {
-      changePassword({ variables: { input: values } });
+      const input = {
+        ...values,
+        token,
+      };
+      resetPassword({ variables: { input } });
     },
   });
 
   return (
     <Container>
+      <Heading> Reset Password </Heading>
       <form onSubmit={formik.handleSubmit}>
-        <Input
-          label="Old Password"
-          type="password"
-          name="oldPassword"
-          id="oldPassword"
-          value={formik.values.oldPassword}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          error={Boolean(
-            formik.touched.oldPassword && formik.errors.oldPassword
-          )}
-          errorMessage={formik.touched.oldPassword && formik.errors.oldPassword}
-        />
         <Input
           label="New Password"
           type="password"
@@ -101,4 +97,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default ResetPassword;

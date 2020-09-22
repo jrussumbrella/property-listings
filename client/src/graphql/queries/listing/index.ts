@@ -8,8 +8,12 @@ export const LISTING = gql`
       imageUrl
       description
       price
+      numOfGuests
+      numOfBaths
+      numOfBedrooms
+      propertySize
       address
-      isFavorite
+      favorites
       host {
         id
         name

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
-  width: 30rem;
+  width: 100%;
 `;
 
 export const FormGroup = styled.div`

@@ -1,24 +1,6 @@
-export interface BookingsIndexMonth {
-  [key: string]: boolean;
-}
-
-export interface BookingsIndexYear {
-  [key: string]: BookingsIndexMonth;
-}
-
-export interface BookingsIndex {
-  [key: string]: BookingsIndexYear;
-}
-
 export enum ListingType {
   Apartment = 'APARTMENT',
   House = 'HOUSE',
-}
-
-export interface Host {
-  id: string;
-  name: string;
-  photoUrl: string;
 }
 
 export interface Listing {
@@ -31,13 +13,15 @@ export interface Listing {
   city: string;
   admin: string;
   numOfGuests: number;
+  numOfBaths: number;
+  numOfBedrooms: number;
   rating?: number;
   price: number;
-  host: Host;
+  host: User;
   type: ListingType;
   bookings: string[];
-  bookingsIndex: BookingsIndex;
-  isFavorite: boolean;
+  propertySize: number;
+  favorites: string[];
 }
 
 export interface City {
@@ -56,4 +40,5 @@ export interface User {
   email: string;
   photoUrl: string;
   isEmailVerified: boolean;
+  phone: string;
 }

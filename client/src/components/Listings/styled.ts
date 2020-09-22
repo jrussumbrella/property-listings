@@ -2,9 +2,13 @@ import styled from 'styled-components';
 
 export const StyledList = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 1rem;
   margin: 1rem 0;
+
+  @media ${(props) => props.theme.mediaQueries.tablet} {
+    grid-template-columns: 1fr 1fr;
+  }
 
   @media ${(props) => props.theme.mediaQueries.desktop} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -42,6 +46,8 @@ export const Price = styled.div`
   margin-top: 0.5rem;
   color: var(--color-primary);
   font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 `;
 export const ActionWrapper = styled.div`
   position: absolute;
@@ -69,5 +75,31 @@ export const IconWrapper = styled.button`
 
   &:focus {
     outline: none;
+  }
+`;
+
+export const Item = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  .label {
+    padding: 0 0.5rem;
+  }
+
+  .icon {
+    color: var(--color-dark-gray);
+  }
+`;
+
+export const ListItem = styled.div`
+  transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
+  border-radius: 6px;
+  overflow: hidden;
+
+  &:hover {
+    transform: scale(1.1, 1.1);
+    box-shadow: 0 14px 24px 0 rgba(50, 49, 58, 0.25);
+    z-index: 2;
   }
 `;

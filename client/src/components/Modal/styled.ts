@@ -9,11 +9,11 @@ export const StyledModal = styled.div`
   background-color: #fff;
   border-radius: 6px;
   padding: 1rem;
-  max-width: 70%;
+  min-width: 80%;
   max-height: 700px;
 
   @media only screen and (min-width: 768px) {
-    max-width: 60%;
+    min-width: 50%;
   }
 `;
 

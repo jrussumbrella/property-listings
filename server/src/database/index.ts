@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import { Database, Listing, User, PasswordResets } from '../types';
+import { Database, Listing, User, PasswordResets, Favorites } from '../types';
 
 export const connectDb = async (): Promise<Database> => {
   const uri = `${process.env.DATABASE_LOCAL}`;
@@ -13,5 +13,6 @@ export const connectDb = async (): Promise<Database> => {
     listings: db.collection<Listing>('listings'),
     users: db.collection<User>('users'),
     passwordResets: db.collection<PasswordResets>('passwordResets'),
+    favorites: db.collection<Favorites>('favorites'),
   };
 };

@@ -13,7 +13,7 @@ export interface Property {
   numOfBaths: number;
   numOfGuests: number;
   numOfBedrooms: number;
-  propertySize: string;
+  propertySize: number;
 }
 
 export interface FormProps {

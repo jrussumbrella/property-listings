@@ -45,7 +45,7 @@ export interface CreateListingInput {
   numOfGuests: number;
   numOfBaths: number;
   numOfBedrooms: number;
-  propertySize: string;
+  propertySize: number;
 }
 
 export interface CreateListingArgs {

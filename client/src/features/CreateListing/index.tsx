@@ -29,7 +29,7 @@ const initialState = {
   numOfBaths: 1,
   numOfGuests: 1,
   numOfBedrooms: 1,
-  propertySize: '',
+  propertySize: 1,
 };
 
 const Container = styled.div`
@@ -92,7 +92,7 @@ const CreateListing = (): JSX.Element => {
         type,
         image,
         address: fullAddress,
-        propertySize,
+        propertySize: Number(propertySize),
         price: Number(price),
         numOfBaths: Number(numOfBaths),
         numOfBedrooms: Number(numOfBedrooms),

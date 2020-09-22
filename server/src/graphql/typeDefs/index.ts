@@ -27,7 +27,7 @@ export const typeDefs = gql`
     rating: Int
     price: Int!
     host: User!
-    isFavorite: Boolean
+    favorites: [String]
     type: ListingType
   }
 

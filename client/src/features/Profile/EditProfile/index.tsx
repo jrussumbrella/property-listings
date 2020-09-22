@@ -1,12 +1,12 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Container } from './styled';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import { useAuth, useToast } from 'globalState';
 import { useMutation } from '@apollo/react-hooks';
 import { UPDATE_PROFILE } from 'graphql/mutations';
+import { Container } from './styled';
 
 const EditProfile = () => {
   const { user, updateProfile } = useAuth();
@@ -22,7 +22,7 @@ const EditProfile = () => {
       updateProfile(data.updateProfile.user);
       setToast('success', 'Successfully updated your user profile');
     },
-    onError(err) {
+    onError() {
       setToast(
         'error',
         'Unable to update your user profile right now. Please try again later'

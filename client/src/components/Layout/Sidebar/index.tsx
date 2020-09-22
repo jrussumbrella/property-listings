@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import { useAuth } from 'globalState';
 import Button from 'components/Button';
@@ -23,11 +23,14 @@ interface Props {
 const Sidebar = ({ isOpen, onClose }: Props): JSX.Element => {
   const { user, logout } = useAuth();
   const history = useHistory();
+  const location = useLocation();
 
-  // close side bar on mount
   useEffect(() => {
-    // on close side bar here
-  }, []);
+    // on close side bar on route change
+    if (isOpen) {
+      onClose();
+    }
+  }, [location]);
 
   const handleLogOut = (): void => {
     onClose();

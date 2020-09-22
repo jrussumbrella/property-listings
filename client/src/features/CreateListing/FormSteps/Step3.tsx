@@ -55,7 +55,7 @@ const Step3: React.FC<FormProps> = ({
         />
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="size"> Property Size (.ft)</Label>
+        <Label htmlFor="size"> Property Size (square ft.)</Label>
         <Input
           type="text"
           id="size"

@@ -16,10 +16,20 @@ const ListingAction: React.FC<Props> = ({ listing }): JSX.Element => {
     openModal(<ListingContactModal id={listing.id} />);
   };
 
+  const callAgent = () => {
+    const telNo = `tel:${listing.host.phone}`;
+    window.open(telNo);
+  };
+
   return (
     <BottomAction>
       <ButtonWrapper>
-        <Button title="Call Agent" type="button" variant="primary" />
+        <Button
+          title="Call Agent"
+          type="button"
+          variant="primary"
+          onClick={callAgent}
+        />
         <Button
           title="Email Agent"
           onClick={handleOpenModal}

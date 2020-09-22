@@ -8,3 +8,4 @@ export * from './toggleFavorite';
 export * from './createListing';
 export * from './emailAgentListing';
 export * from './updateProfile';
+export * from './resetPassword';

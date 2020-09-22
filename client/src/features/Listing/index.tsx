@@ -32,7 +32,8 @@ const Listing = (): JSX.Element => {
       </Container>
     );
 
-  if (error) return <ErrorMessage message="Listing not found" />;
+  if (error)
+    return <ErrorMessage message="Something went wrong. Please try again." />;
 
   const { listing } = data;
 

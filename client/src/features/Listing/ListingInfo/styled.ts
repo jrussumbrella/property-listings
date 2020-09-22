@@ -34,7 +34,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-bottom: 0.5rem;
   line-height: 1.2;
 `;
@@ -56,7 +56,7 @@ export const Location = styled.div`
 `;
 
 export const Description = styled.div`
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.5;
 `;
 
@@ -68,11 +68,14 @@ export const Heading = styled.div`
 
 export const Details = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 1rem;
 
   li {
-    padding-right: 1rem;
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 
   span {

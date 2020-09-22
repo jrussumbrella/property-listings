@@ -29,7 +29,10 @@ export const validationSchema: TValidationSchema = {
       ),
   }),
   step3: Yup.object({
-    propertySize: Yup.string().required('Property Size is required field'),
+    propertySize: Yup.number()
+      .moreThan(0)
+      .typeError('Property Size must be a number')
+      .required('Property Size is required field'),
     numOfBedrooms: Yup.number()
       .moreThan(0)
       .typeError('Number of bedrooms must be a number')

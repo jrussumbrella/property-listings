@@ -5,6 +5,11 @@ export enum ListingType {
   House = 'HOUSE',
 }
 
+export enum TransactionType {
+  Rent = 'Rent',
+  Buy = 'Buy',
+}
+
 export interface Listing {
   _id: ObjectId;
   title: string;
@@ -17,12 +22,14 @@ export interface Listing {
   numOfGuests: number;
   numOfBaths: number;
   numOfBedrooms: number;
-  propertySize: string;
+  propertySize: number;
   rating?: number;
   price: number;
   host: string;
-  isFavorite?: boolean;
+  favorites?: string[];
   type: ListingType;
+  verified: boolean;
+  transactionType: TransactionType;
 }
 
 export interface User {
@@ -35,6 +42,7 @@ export interface User {
   photoUrl?: string;
   listings: ObjectId[];
   favorites: ObjectId[];
+  phone?: string;
 }
 
 export interface Viewer {
@@ -49,8 +57,15 @@ export interface PasswordResets {
   expiredAt: number;
 }
 
+export interface Favorites {
+  _id: string;
+  userId: string;
+  listingId: string;
+}
+
 export interface Database {
   listings: Collection<Listing>;
   users: Collection<User>;
   passwordResets: Collection<PasswordResets>;
+  favorites: Collection<Favorites>;
 }

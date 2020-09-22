@@ -16,7 +16,7 @@ const ForgotPassword = (): JSX.Element => {
   const { setToast } = useToast();
 
   const [forgotPassword, { loading }] = useMutation(FORGOT_PASSWORD, {
-    onCompleted(data) {
+    onCompleted() {
       setToast('success', 'Successfully sent. Please check your email');
     },
     onError(err) {

@@ -84,6 +84,7 @@ export const ImagePreview = styled.div`
   height: 200px;
   background-size: cover;
   margin-top: 10px;
+  border-radius: 6px;
 `;
 
 export const ErrorText = styled.div`

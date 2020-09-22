@@ -1,11 +1,12 @@
 import React from 'react';
 import { FaBed, FaBath } from 'react-icons/fa';
+import { IoMdSquare } from 'react-icons/io';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { FiShare } from 'react-icons/fi';
-import { useMutation } from '@apollo/react-hooks';
+import { MdSupervisorAccount } from 'react-icons/md';
 import { Listing } from 'types';
-import { TOGGLE_FAVORITE } from 'graphql/mutations';
-import { useToast, useModal } from 'globalState';
+import { useModal } from 'globalState';
+import useFavorite from 'hooks/useFavorite';
 import ListingShareModal from '../ListingShareModal';
 import ListingContact from '../ListingContact';
 import {
@@ -31,21 +32,11 @@ interface Props {
 const COLOR_RED = 'var(--color-red)';
 
 const ListingInfo: React.FC<Props> = ({ listing }): JSX.Element => {
-  const { setToast } = useToast();
   const { openModal } = useModal();
 
-  const [toggleFavorite] = useMutation(TOGGLE_FAVORITE, {
-    variables: { id: listing.id },
-    onError(err) {
-      setToast('error', err.graphQLErrors[0].message);
-    },
-  });
+  const { handleToggle, checkIsFavorite } = useFavorite(listing);
 
   const { host } = listing;
-
-  const handleToggleFavorite = () => {
-    toggleFavorite();
-  };
 
   const handleOpenShare = () => {
     openModal(<ListingShareModal />);
@@ -56,15 +47,13 @@ const ListingInfo: React.FC<Props> = ({ listing }): JSX.Element => {
       <CoverImg>
         <Img src={listing.imageUrl} alt={listing.title} />
         <ActionWrapper>
-          {listing.isFavorite ? (
-            <IconWrapper onClick={handleToggleFavorite}>
+          <IconWrapper onClick={handleToggle}>
+            {checkIsFavorite() ? (
               <AiFillHeart fill={COLOR_RED} />
-            </IconWrapper>
-          ) : (
-            <IconWrapper onClick={handleToggleFavorite}>
+            ) : (
               <AiOutlineHeart />
-            </IconWrapper>
-          )}
+            )}
+          </IconWrapper>
           <IconWrapper onClick={handleOpenShare}>
             <FiShare />
           </IconWrapper>
@@ -78,17 +67,29 @@ const ListingInfo: React.FC<Props> = ({ listing }): JSX.Element => {
             <span>
               <FaBed />
             </span>
-            <span> 2 Bed </span>
+            <span> {listing.numOfBedrooms} Bed </span>
           </li>
           <li>
             <span>
               <FaBath />
             </span>
-            <span> 2 Bath </span>
+            <span> {listing.numOfBaths} Bath </span>
+          </li>
+          <li>
+            <span>
+              <IoMdSquare />
+            </span>
+            <span> {listing.propertySize} Sq Ft </span>
+          </li>
+          <li>
+            <span>
+              <MdSupervisorAccount />
+            </span>
+            <span> {listing.propertySize} person </span>
           </li>
         </Details>
         <PriceWrapper>
-          <Price>P{listing.price}</Price>/month
+          <Price>P{listing.price}</Price>
         </PriceWrapper>
         <Heading> Description </Heading>
         <Description>{listing.description}</Description>

@@ -66,6 +66,7 @@ export const UserInfo = styled.div`
 
   span {
     padding: 0 1rem;
+    flex: 1;
   }
 `;
 

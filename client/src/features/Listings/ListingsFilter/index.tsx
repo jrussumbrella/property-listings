@@ -117,71 +117,77 @@ const ListingsFilter = (): JSX.Element => {
     setFilter({ price: { minPrice: '', maxPrice: '' }, type: [] });
   };
 
+  const checked = (value: string) => {
+    return filter.type.some((val) => val === value);
+  };
+
   return (
     <Container>
-      <FilterContainer>
-        <FilterTitle> Property Type </FilterTitle>
-        <div>
-          <input
-            data-index="0"
-            type="checkbox"
-            checked={filter.type.some((val) => val === 'House')}
-            id="house"
-            name="type"
-            value="House"
-            onChange={handleCheckChange}
+      <form>
+        <FilterContainer>
+          <FilterTitle> Property Type </FilterTitle>
+          <div>
+            <input
+              data-index="0"
+              type="checkbox"
+              checked={checked('House')}
+              id="house"
+              name="type"
+              value="House"
+              onChange={handleCheckChange}
+            />
+            <label htmlFor="house"> House </label>
+          </div>
+          <div>
+            <input
+              checked={checked('Apartment')}
+              data-index="1"
+              type="checkbox"
+              value="Apartment"
+              id="apartment"
+              name="type"
+              onChange={handleCheckChange}
+            />
+            <label htmlFor="apartment"> Apartment </label>
+          </div>
+        </FilterContainer>
+        <FilterContainer>
+          <FilterTitle> Price Range </FilterTitle>
+          <Wrapper>
+            <FilterInput
+              type="text"
+              placeholder="Min"
+              name="minPrice"
+              data-id="price"
+              onChange={handleChange}
+              value={filter.price.minPrice}
+            />
+            <Line />
+            <FilterInput
+              type="text"
+              name="maxPrice"
+              data-id="price"
+              placeholder="Max"
+              onChange={handleChange}
+              value={filter.price.maxPrice}
+            />
+          </Wrapper>
+          <Button
+            type="button"
+            onClick={handleApplyPrice}
+            title="Apply"
+            variant="outline"
           />
-          <label htmlFor="house"> House </label>
-        </div>
-        <div>
-          <input
-            checked={filter.type.some((val) => val === 'Apartment')}
-            data-index="1"
-            type="checkbox"
-            value="Apartment"
-            id="apartment"
-            name="type"
-            onChange={handleCheckChange}
+        </FilterContainer>
+        <FilterContainer>
+          <Button
+            type="button"
+            onClick={handleClearFilters}
+            title="Clear Filters"
+            variant="primary"
           />
-          <label htmlFor="apartment"> Apartment </label>
-        </div>
-      </FilterContainer>
-      <FilterContainer>
-        <FilterTitle> Price Range </FilterTitle>
-        <Wrapper>
-          <FilterInput
-            type="text"
-            placeholder="Min"
-            name="minPrice"
-            data-id="price"
-            onChange={handleChange}
-            value={filter.price.minPrice}
-          />
-          <Line />
-          <FilterInput
-            type="text"
-            name="maxPrice"
-            data-id="price"
-            placeholder="Max"
-            onChange={handleChange}
-            value={filter.price.maxPrice}
-          />
-        </Wrapper>
-        <Button
-          type="button"
-          onClick={handleApplyPrice}
-          title="Apply"
-          variant="outline"
-        />
-      </FilterContainer>
-      <FilterContainer>
-        <Button
-          type="button"
-          onClick={handleClearFilters}
-          title="Clear Filters"
-          variant="primary"
-        />
-      </FilterContainer>
+        </FilterContainer>
+      </form>
     </Container>
   );
 };
