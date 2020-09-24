@@ -19,12 +19,16 @@ export const SearchText = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
+  @media ${(props) => props.theme.mediaQueries.desktop} {
+    display: flex;
+  }
 `;
 
 export const ListingsFilterContainer = styled.div`
-  width: 15rem;
-  padding-right: 1rem;
+  @media ${(props) => props.theme.mediaQueries.desktop} {
+    width: 15rem;
+    padding-right: 1rem;
+  }
 `;
 
 export const SearchListingsContainer = styled.div`

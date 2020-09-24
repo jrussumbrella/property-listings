@@ -52,7 +52,25 @@ const Step1: React.FC<FormProps> = ({
         )}
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="type"> Property Type </Label>
+        <Label htmlFor="type"> Transaction Type </Label>
+        <Select
+          id="type"
+          name="transactionType"
+          onChange={onChange}
+          onBlur={onBlur}
+          defaultValue={values.type}
+          error={Boolean(touched.type && errors.type)}
+        >
+          <option value=""> </option>
+          <option value="RENT"> RENT </option>
+          <option value="BUY"> BUY </option>
+        </Select>
+        {touched.transactionType && errors.transactionType && (
+          <ErrorText>{errors.transactionType}</ErrorText>
+        )}
+      </FormGroup>
+      <FormGroup>
+        <Label htmlFor="type"> Type </Label>
         <Select
           id="type"
           name="type"

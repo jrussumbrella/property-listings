@@ -20,6 +20,7 @@ interface Variables {
   filter?: {
     price?: Record<string, number>;
     type?: string | string[] | undefined;
+    transactionType?: string | string[] | undefined;
   };
 }
 
@@ -27,6 +28,7 @@ interface Params {
   maxPrice?: number;
   minPrice?: number;
   type?: string;
+  transactionType?: string;
 }
 
 const SearchListingsResult: React.FC<Props> = ({ location }): JSX.Element => {
@@ -60,13 +62,26 @@ const SearchListingsResult: React.FC<Props> = ({ location }): JSX.Element => {
     };
   }
 
+  if (params.transactionType) {
+    const transactionType = params.transactionType
+      .split(' ')
+      .map((transaction) => transaction.toUpperCase());
+    variables = {
+      ...variables,
+      filter: {
+        ...variables.filter,
+        transactionType,
+      },
+    };
+  }
+
   const { data, loading, error } = useQuery(LISTINGS, {
     variables,
   });
 
   if (error)
     return (
-      <ErrorMessage message="Error in searching listing. Please try again later." />
+      <ErrorMessage message="Error in searching properties. Please try again later." />
     );
 
   if (loading) return <ListingsSkeleton numbers={12} />;

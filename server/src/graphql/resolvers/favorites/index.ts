@@ -14,35 +14,31 @@ export const favoritesResolvers = {
       const user = await authenticate(db, req);
       if (!user) throw new Error('Ops make sure you login first');
       const listing = await db.listings.findOne({ _id: new ObjectID(id) });
+
       if (!listing) throw new Error(`Listing not found`);
 
-      const isFavorite = user.favorites.some(
-        (favorite) => favorite.toString() === id
-      );
+      const isFavorite = await db.favorites.findOne({
+        listingId: listing._id.toString(),
+        userId: user._id,
+      });
 
       if (isFavorite) {
-        // remove listing to users' favorite
-        const removeFaveResult = await db.users.findOneAndUpdate(
-          { _id: user._id },
-          {
-            $pull: { favorites: listing._id },
-          }
-        );
+        const removeFaveResult = await db.favorites.findOneAndDelete({
+          listingId: listing._id.toString(),
+          userId: user._id,
+        });
         if (!removeFaveResult.value)
           throw new Error('Failed to remove to favorites');
       } else {
         // add listing to user's favorites array
-        const insertFaveResult = await db.users.findOneAndUpdate(
-          { _id: user._id },
-          {
-            $addToSet: { favorites: listing._id },
-          }
-        );
-
-        if (!insertFaveResult.value)
+        const insertFaveResult = await db.favorites.insertOne({
+          _id: new ObjectID(),
+          listingId: listing._id.toString(),
+          userId: user._id,
+        });
+        if (!insertFaveResult.result.ok)
           throw new Error('Failed to add to favorites');
       }
-
       return listing;
     },
   },

@@ -6,6 +6,11 @@ export const typeDefs = gql`
     HOUSE
   }
 
+  enum TransactionType {
+    BUY
+    RENT
+  }
+
   type Listings {
     total: Int!
     result: [Listing]!
@@ -29,6 +34,7 @@ export const typeDefs = gql`
     host: User!
     favorites: [String]
     type: ListingType
+    transactionType: TransactionType
   }
 
   type Favorites {
@@ -108,6 +114,7 @@ export const typeDefs = gql`
   input FilterInput {
     price: Price
     type: [ListingType]
+    transactionType: [TransactionType]
   }
 
   type Query {

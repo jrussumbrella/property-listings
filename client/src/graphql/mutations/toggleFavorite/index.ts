@@ -9,7 +9,7 @@ export const TOGGLE_FAVORITE = gql`
       description
       price
       address
-      isFavorite
+      favorites
     }
   }
 `;

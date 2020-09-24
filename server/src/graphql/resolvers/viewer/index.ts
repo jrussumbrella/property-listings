@@ -84,7 +84,6 @@ export const viewerResolvers = {
           name,
           email,
           listings: [],
-          favorites: [],
           isEmailVerified: true,
           googleId,
           photoUrl,
@@ -121,7 +120,6 @@ export const viewerResolvers = {
         email,
         password: encryptPassword,
         listings: [],
-        favorites: [],
         _id: new ObjectID().toString(),
         isEmailVerified: false,
       });

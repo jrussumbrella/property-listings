@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { MY_FAVORITES } from 'graphql/queries';
 import Listings from 'components/Listings';
 import EmptyMessage from 'components/EmptyMessage';
+import ErrorMessage from 'components/ErrorMessage';
 import ListingsSkeleton from 'components/ListingsSkeleton';
 
 const Container = styled.div`
@@ -28,7 +29,8 @@ const MyFavorites = (): JSX.Element => {
     fetchPolicy: 'cache-and-network',
   });
 
-  if (error) return <div> Something went wrong </div>;
+  if (error)
+    return <ErrorMessage message="Something went wrong. Please try again." />;
 
   if (loading) {
     return (

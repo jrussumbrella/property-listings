@@ -10,9 +10,14 @@ export const MY_FAVORITES = gql`
           id
           title
           imageUrl
-          address
+          description
           price
-          isFavorite
+          numOfGuests
+          numOfBaths
+          numOfBedrooms
+          propertySize
+          address
+          favorites
         }
       }
     }

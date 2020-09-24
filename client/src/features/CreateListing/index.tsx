@@ -19,6 +19,7 @@ import { Property } from './types';
 const initialState = {
   title: '',
   description: '',
+  transactionType: '',
   type: '',
   price: '',
   image: '',

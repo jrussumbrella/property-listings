@@ -188,7 +188,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b39'),
@@ -208,7 +208,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b3a'),
@@ -228,7 +228,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b3b'),
@@ -248,7 +248,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b3c'),
@@ -268,7 +268,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b3d'),
@@ -288,7 +288,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b3e'),
@@ -308,7 +308,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b3f'),
@@ -328,7 +328,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b40'),
@@ -348,7 +348,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b41'),
@@ -368,7 +368,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b42'),
@@ -388,7 +388,7 @@ const listings: Listing[] = [
     numOfBaths: randomNumbers(1, 5),
     numOfBedrooms: randomNumbers(1, 5),
     verified: true,
-    transactionType: TransactionType.Rent,
+    transactionType: TransactionType.Buy,
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b43'),
@@ -764,7 +764,6 @@ const users: User[] = [
       new ObjectId('5d378db94e84753160e08b4c'),
     ],
     isEmailVerified: true,
-    favorites: [],
     phone: faker.phone.phoneNumber(),
   },
   {
@@ -787,7 +786,6 @@ const users: User[] = [
       new ObjectId('5d378db94e84753160e08b54'),
     ],
     isEmailVerified: true,
-    favorites: [],
     phone: faker.phone.phoneNumber(),
   },
   {
@@ -808,7 +806,6 @@ const users: User[] = [
       new ObjectId('5d378db94e84753160e08b4d'),
     ],
     isEmailVerified: true,
-    favorites: [],
     phone: faker.phone.phoneNumber(),
   },
   {
@@ -822,7 +819,6 @@ const users: User[] = [
       new ObjectId('5d378db94e84753160e08b44'),
     ],
     isEmailVerified: true,
-    favorites: [],
     phone: faker.phone.phoneNumber(),
   },
   {
@@ -842,7 +838,6 @@ const users: User[] = [
       new ObjectId('5d378db94e84753160e08b52'),
     ],
     isEmailVerified: true,
-    favorites: [],
     phone: faker.phone.phoneNumber(),
   },
 ];

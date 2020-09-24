@@ -1,5 +1,4 @@
-import { Listing, ListingType } from '../../../types';
-import { ObjectID } from 'mongodb';
+import { Listing, ListingType, TransactionType } from '../../../types';
 
 export interface ListingsData {
   total: number;
@@ -17,11 +16,13 @@ export interface ListingsQuery {
   city?: string;
   price?: Object;
   type?: Object;
+  transactionType?: Object;
 }
 
 export interface Filter {
   price?: PriceQuery;
   type?: [ListingType];
+  transactionType?: [TransactionType];
 }
 
 export interface ListingsArgs {
@@ -46,6 +47,7 @@ export interface CreateListingInput {
   numOfBaths: number;
   numOfBedrooms: number;
   propertySize: number;
+  transactionType: TransactionType;
 }
 
 export interface CreateListingArgs {

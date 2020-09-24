@@ -12,6 +12,10 @@ export const Nav = styled.ul`
     font-size: 1rem;
     display: block;
   }
+
+  .link:hover {
+    color: var(--color-primary);
+  }
 `;
 
 export const NavList = styled.li`

@@ -6,8 +6,8 @@ export enum ListingType {
 }
 
 export enum TransactionType {
-  Rent = 'Rent',
-  Buy = 'Buy',
+  Rent = 'RENT',
+  Buy = 'BUY',
 }
 
 export interface Listing {
@@ -41,7 +41,6 @@ export interface User {
   password?: string;
   photoUrl?: string;
   listings: ObjectId[];
-  favorites: ObjectId[];
   phone?: string;
 }
 
@@ -58,7 +57,7 @@ export interface PasswordResets {
 }
 
 export interface Favorites {
-  _id: string;
+  _id: ObjectId;
   userId: string;
   listingId: string;
 }

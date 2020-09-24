@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { MY_PROPERTIES } from 'graphql/queries';
 import ListingsMedia from 'components/ListingsMedia';
 import EmptyMessage from 'components/EmptyMessage';
+import ErrorMessage from 'components/ErrorMessage';
 import ListingsMediaSkeleton from 'components/ListingsMediaSkeleton';
 
 const Container = styled.div`
@@ -26,7 +27,8 @@ const MyProperties = (): JSX.Element => {
     variables: { page: 1, limit: PAGE_LIMIT },
   });
 
-  if (error) return <div>Error</div>;
+  if (error)
+    return <ErrorMessage message="Something went wrong. Please try again." />;
 
   if (loading) {
     return (

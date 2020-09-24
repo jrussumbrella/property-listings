@@ -16,15 +16,17 @@ interface Price {
   maxPrice?: number | string | string[];
 }
 
-interface InitialState {
+interface InitialState extends Record<string, any> {
   price: Price;
   type: string[] | [];
+  transactionType: string[] | [];
 }
 
 interface Params {
   minPrice?: number | string | string[];
   maxPrice?: number | string | string[];
   type?: string;
+  transactionType?: string;
 }
 
 const ListingsFilter = (): JSX.Element => {
@@ -37,7 +39,10 @@ const ListingsFilter = (): JSX.Element => {
       maxPrice: params.maxPrice || '',
       minPrice: params.minPrice || '',
     },
-    type: [],
+    type: params.type ? String(params.type).split(' ') : [],
+    transactionType: params.transactionType
+      ? String(params.transactionType).split(' ')
+      : [],
   };
 
   const [filter, setFilter] = useState(initialState);
@@ -52,7 +57,7 @@ const ListingsFilter = (): JSX.Element => {
   );
 
   useEffect(() => {
-    let newParams: Params = {};
+    let newParams: Params = { ...params };
 
     if (filter.price.maxPrice && filter.price.minPrice) {
       newParams = {
@@ -64,17 +69,29 @@ const ListingsFilter = (): JSX.Element => {
 
     if (filter.type.length > 0) {
       newParams = {
-        ...params,
+        ...newParams,
         type: filter.type.join(' '),
       };
-    } else if (newParams.type) {
+    } else {
       delete newParams.type;
     }
 
-    if (Object.keys(newParams).length !== 0) {
-      pushUrl(newParams);
+    if (filter.transactionType.length > 0) {
+      newParams = {
+        ...newParams,
+        transactionType: filter.transactionType.join(' '),
+      };
+    } else {
+      delete newParams.transactionType;
     }
-  }, [filter.price.maxPrice, filter.price.minPrice, filter.type]);
+
+    pushUrl(newParams);
+  }, [
+    filter.price.maxPrice,
+    filter.price.minPrice,
+    filter.type,
+    filter.transactionType,
+  ]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const dataId = e.target.dataset.id;
@@ -91,11 +108,13 @@ const ListingsFilter = (): JSX.Element => {
   const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     if (isChecked) {
-      const value = [...filter.type, e.target.value];
+      const value = [...filter[e.target.name], e.target.value];
       setFilter({ ...filter, [e.target.name]: value });
     } else {
       const { value } = e.target;
-      const filterValue = filter.type.filter((val) => val !== value);
+      const filterValue = filter[e.target.name].filter(
+        (val: string) => val !== value
+      );
       setFilter({ ...filter, [e.target.name]: filterValue });
     }
   };
@@ -114,36 +133,67 @@ const ListingsFilter = (): JSX.Element => {
 
   const handleClearFilters = () => {
     history.push(pathname);
-    setFilter({ price: { minPrice: '', maxPrice: '' }, type: [] });
+    setFilter({
+      price: { minPrice: '', maxPrice: '' },
+      type: [],
+      transactionType: [],
+    });
   };
 
-  const checked = (value: string) => {
-    return filter.type.some((val) => val === value);
+  const checked = (name: string, value: string) => {
+    return filter[name].some((val: string) => val === value);
   };
 
   return (
     <Container>
-      <form>
+      <>
+        <FilterContainer>
+          <FilterTitle> Transaction Type </FilterTitle>
+          <div>
+            <input
+              data-index="0"
+              type="checkbox"
+              checked={checked('transactionType', 'rent')}
+              id="rent"
+              name="transactionType"
+              value="rent"
+              onChange={handleCheckChange}
+            />
+            <label htmlFor="rent"> Rent </label>
+          </div>
+          <div>
+            <input
+              checked={checked('transactionType', 'buy')}
+              data-index="1"
+              type="checkbox"
+              value="buy"
+              id="buy"
+              name="transactionType"
+              onChange={handleCheckChange}
+            />
+            <label htmlFor="buy"> Buy </label>
+          </div>
+        </FilterContainer>
         <FilterContainer>
           <FilterTitle> Property Type </FilterTitle>
           <div>
             <input
               data-index="0"
               type="checkbox"
-              checked={checked('House')}
+              checked={checked('type', 'house')}
               id="house"
               name="type"
-              value="House"
+              value="house"
               onChange={handleCheckChange}
             />
             <label htmlFor="house"> House </label>
           </div>
           <div>
             <input
-              checked={checked('Apartment')}
+              checked={checked('type', 'apartment')}
               data-index="1"
               type="checkbox"
-              value="Apartment"
+              value="apartment"
               id="apartment"
               name="type"
               onChange={handleCheckChange}
@@ -187,7 +237,7 @@ const ListingsFilter = (): JSX.Element => {
             variant="primary"
           />
         </FilterContainer>
-      </form>
+      </>
     </Container>
   );
 };

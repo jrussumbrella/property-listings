@@ -26,12 +26,22 @@ export const StyledButton = styled.button<StyledButtonProps>`
     cursor: not-allowed;
   }
 
+  &:hover {
+    background-color: #fff;
+    color: var(--color-primary);
+  }
+
   ${(props) =>
     props.variant === 'outline' &&
     css`
       background: white;
       color: var(--color-primary);
       border: 1px solid var(--color-primary);
+
+      &:hover {
+        background-color: var(--color-primary);
+        color: #fff;
+      }
     `}
 `;
 
@@ -49,12 +59,22 @@ export const StyledLink = styled(Link)<StyledButtonProps>`
   align-items: center;
   white-space: nowrap;
 
+  &:hover {
+    background-color: #fff;
+    color: var(--color-primary);
+  }
+
   ${(props) =>
     props.variant === 'outline' &&
     css`
       background: white;
       color: var(--color-primary);
       border: 1px solid var(--color-primary);
+
+      &:hover {
+        background-color: var(--color-primary);
+        color: #fff;
+      }
     `}
 `;
 

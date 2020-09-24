@@ -80,6 +80,10 @@ export const listingResolvers = {
           query.type = { $in: filter.type };
         }
 
+        if (filter?.transactionType) {
+          query.transactionType = { $in: filter.transactionType };
+        }
+
         let cursor = db.listings.find(query);
 
         if (filter?.price) {
@@ -125,6 +129,7 @@ export const listingResolvers = {
         price,
         propertySize,
         address,
+        transactionType,
       } = input;
 
       // perform validation to input
@@ -140,7 +145,7 @@ export const listingResolvers = {
       const imageUrl = await Cloudinary.upload(image);
 
       const insertResult = await db.listings.insertOne({
-        transactionType: TransactionType.Rent,
+        transactionType,
         title,
         description,
         imageUrl,

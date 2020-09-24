@@ -11,6 +11,9 @@ export const validationSchema: TValidationSchema = {
       .min(10, 'Description cannot be less than 10 characters')
       .max(100, 'Description cannot be greater than 100 characters')
       .required('Description is required field'),
+    transactionType: Yup.string().required(
+      'Transaction type is required field'
+    ),
     type: Yup.string().required('Property type is required field'),
     price: Yup.number()
       .moreThan(0)

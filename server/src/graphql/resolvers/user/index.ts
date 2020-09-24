@@ -8,6 +8,7 @@ import {
 } from './types';
 import { authenticate } from '../../../lib/utils';
 import { Request } from 'express';
+import { ObjectID } from 'mongodb';
 
 export const userResolvers = {
   Query: {
@@ -64,20 +65,23 @@ export const userResolvers = {
 
       const skips = page > 0 ? (page - 1) * limit : 0;
 
+      const favorites = await db.favorites.find({ userId: user._id }).toArray();
+
+      if (favorites.length === 0) {
+        return data;
+      }
+
+      const listingsId = favorites.map(
+        (favorite) => new ObjectID(favorite.listingId)
+      );
+
       let listings = db.listings
-        .find({ _id: { $in: user.favorites } })
+        .find({ _id: { $in: listingsId } })
         .skip(skips)
         .limit(limit);
 
       data.total = await listings.count();
-      const listingsResult = await listings.toArray();
-
-      const result = listingsResult.map((listing) => ({
-        ...listing,
-        isFavorite: true,
-      }));
-
-      data.result = result;
+      data.result = await listings.toArray();
 
       return data;
     },

@@ -68,6 +68,21 @@ const Profile = (): JSX.Element => {
     }
   };
 
+  const isEmailVerifiedMessage = !user?.isEmailVerified ? (
+    <AlertWrapper>
+      <Alert
+        message="Your email is not verified. We sent you a verification email in your register email."
+        type="info"
+      />
+    </AlertWrapper>
+  ) : null;
+
+  const userPhotoElement = user?.photoUrl ? (
+    <Img src={user?.photoUrl} alt={user?.name} />
+  ) : (
+    <Avatar>{user?.name.charAt(0)}</Avatar>
+  );
+
   const renderMenuSettings = () => {
     return menuSettings.map((setting) => (
       <li key={setting.name}>
@@ -89,21 +104,6 @@ const Profile = (): JSX.Element => {
       </li>
     ));
   };
-
-  const isEmailVerifiedMessage = !user?.isEmailVerified ? (
-    <AlertWrapper>
-      <Alert
-        message="Your email is not verified. We sent you a verification email in your register email."
-        type="info"
-      />
-    </AlertWrapper>
-  ) : null;
-
-  const userPhotoElement = user?.photoUrl ? (
-    <Img src={user?.photoUrl} alt={user?.name} />
-  ) : (
-    <Avatar>{user?.name.charAt(0)}</Avatar>
-  );
 
   return (
     <Container>

@@ -14,6 +14,7 @@ export interface Property {
   numOfGuests: number;
   numOfBedrooms: number;
   propertySize: number;
+  transactionType: string;
 }
 
 export interface FormProps {

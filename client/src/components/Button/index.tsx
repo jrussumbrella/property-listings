@@ -5,7 +5,7 @@ import { StyledButton, StyledIcon, StyledLink } from './styled';
 interface Props {
   title: string;
   variant?: 'primary' | 'outline';
-  type: 'reset' | 'submit' | 'button';
+  type?: 'reset' | 'submit' | 'button';
   onClick?(): void;
   style?: React.CSSProperties;
   disabled?: boolean;
@@ -17,7 +17,7 @@ interface Props {
 
 const Button = ({
   title,
-  type,
+  type = 'button',
   variant,
   onClick,
   style,

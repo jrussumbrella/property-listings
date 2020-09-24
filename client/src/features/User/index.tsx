@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { HOST } from 'graphql/queries/host';
 import Spinner from 'components/Spinner';
+import ErrorMessage from 'components/ErrorMessage';
 import UserSkeleton from './UserSkeleton';
 import UserListings from './UserListings';
+
 import {
   Container,
   HostImg,
@@ -78,7 +80,8 @@ const User = (): JSX.Element => {
 
   if (loading) return <UserSkeleton />;
 
-  if (error) return <h2>Error </h2>;
+  if (error)
+    return <ErrorMessage message="Something went wrong. Please try again." />;
 
   const { host } = data;
 
