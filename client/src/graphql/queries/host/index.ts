@@ -14,6 +14,7 @@ export const HOST = gql`
           title
           imageUrl
           price
+          favorites
         }
       }
     }

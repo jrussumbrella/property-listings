@@ -24,23 +24,28 @@ const User = (): JSX.Element => {
     variables: { page: 1, limit: PAGE_LIMIT, id },
   });
   const [isLoadMore, setIsLoadMore] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const listings = data ? data.host.listings : null;
+  const host = data ? data.host : null;
 
   const handleLoadMore = useCallback(async () => {
-    setIsLoadMore(true);
     if (loading) return;
-    const { listings } = data.host;
+
     const currentTotalFetched = listings.result.length;
     const totalItems = listings.total;
-    const nextPage = Math.floor((currentTotalFetched * 2) / PAGE_LIMIT);
 
     if (currentTotalFetched >= totalItems) {
       setIsLoadMore(false);
       return;
     }
 
+    setIsLoadMore(true);
+    setPage((curPage) => curPage + 1);
+
     await fetchMore({
       variables: {
-        page: nextPage,
+        page: page + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
@@ -61,7 +66,7 @@ const User = (): JSX.Element => {
       },
     });
     setIsLoadMore(false);
-  }, [loading, fetchMore, isLoadMore, data]);
+  }, [loading, fetchMore, isLoadMore, listings, page]);
 
   const onScroll = useCallback(() => {
     // check if user scroll to bottom
@@ -83,11 +88,17 @@ const User = (): JSX.Element => {
   if (error)
     return <ErrorMessage message="Something went wrong. Please try again." />;
 
-  const { host } = data;
+  const isReachedListingsEnd = listings.total <= listings.result.length;
 
-  const { listings } = host;
+  const spinnerElement = isLoadMore && (
+    <LoadMoreWrapper>
+      <Spinner color="var(--color-primary)" size={3} />
+    </LoadMoreWrapper>
+  );
 
-  const isReachedListingsEnd = listings.total >= listings.result.length;
+  const reachedEndElement = !isLoadMore && isReachedListingsEnd && (
+    <ReachedEndText> You have reached the end. </ReachedEndText>
+  );
 
   return (
     <Container>
@@ -96,14 +107,8 @@ const User = (): JSX.Element => {
         <HostName> {host.name} </HostName>
       </HostWrapper>
       <UserListings listings={listings} />
-      {isLoadMore && (
-        <LoadMoreWrapper>
-          <Spinner color="var(--color-primary)" size={3} />
-        </LoadMoreWrapper>
-      )}
-      {!isLoadMore && isReachedListingsEnd && (
-        <ReachedEndText> You have reached the end. </ReachedEndText>
-      )}
+      {spinnerElement}
+      {reachedEndElement}
     </Container>
   );
 };

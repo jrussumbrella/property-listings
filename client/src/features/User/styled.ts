@@ -34,6 +34,6 @@ export const LoadMoreWrapper = styled.div`
 
 export const ReachedEndText = styled.div`
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: var(--color-primary);
 `;
