@@ -6,6 +6,7 @@ import Listings from 'components/Listings';
 import EmptyMessage from 'components/EmptyMessage';
 import ErrorMessage from 'components/ErrorMessage';
 import ListingsSkeleton from 'components/ListingsSkeleton';
+import Meta from 'components/Meta';
 
 const Container = styled.div`
   padding: 2rem 1rem;
@@ -44,6 +45,7 @@ const MyFavorites = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title="My Favorites" />
       {favorites.total === 0 ? (
         <EmptyMessage
           message="Nothing to see here yet."

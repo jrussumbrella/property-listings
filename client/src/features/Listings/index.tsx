@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import Meta from 'components/Meta';
 import ListingsFilter from './ListingsFilter';
 import SearchListingsResult from './SearchListingsResults';
 import {
@@ -19,6 +20,7 @@ const Listings = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title={`Search Listings for ${search}`} />
       <SearchText>
         Search Results for <span>{search}</span>
       </SearchText>

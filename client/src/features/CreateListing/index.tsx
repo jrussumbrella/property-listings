@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { useToast } from 'globalState';
+import Meta from 'components/Meta';
 import Button from 'components/Button';
 import PageLoader from 'components/PageLoader';
 import { NUMBER_OF_STEP } from 'utils/constants';
@@ -185,6 +186,7 @@ const CreateListing = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title="Create a property" />
       <h1> Create a Property </h1>
       {pageLoaderElement}
       <StepperIndicator activeNumber={step} />

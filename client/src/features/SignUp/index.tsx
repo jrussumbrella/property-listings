@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/react-hooks';
 import Button from 'components/Button';
 import AuthSocial from 'components/AuthSocial';
 import AuthLink from 'components/AuthLink';
+import Meta from 'components/Meta';
 import Input from 'components/Input';
 import { SIGN_UP } from 'graphql/mutations';
 import { useAuth, useToast } from 'globalState';
@@ -59,6 +60,7 @@ const SignUp = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title="Sign Up" />
       <AuthWrapper>
         <Heading> Create your account </Heading>
         <Form onSubmit={formik.handleSubmit}>

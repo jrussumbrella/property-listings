@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from 'components/Input';
 import Button from 'components/Button';
+import Meta from 'components/Meta';
 import { useToast } from 'globalState';
 import { useMutation } from '@apollo/react-hooks';
 import { RESET_PASSWORD } from 'graphql/mutations';
@@ -54,6 +55,7 @@ const ResetPassword = () => {
 
   return (
     <Container>
+      <Meta title="Reset Password" />
       <Heading> Reset Password </Heading>
       <form onSubmit={formik.handleSubmit}>
         <Input

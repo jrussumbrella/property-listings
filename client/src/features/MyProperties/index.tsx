@@ -6,6 +6,7 @@ import ListingsMedia from 'components/ListingsMedia';
 import EmptyMessage from 'components/EmptyMessage';
 import ErrorMessage from 'components/ErrorMessage';
 import ListingsMediaSkeleton from 'components/ListingsMediaSkeleton';
+import Meta from 'components/Meta';
 
 const Container = styled.div`
   padding: 2rem 1rem;
@@ -42,6 +43,7 @@ const MyProperties = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title="My Properties" />
       {listings.total === 0 ? (
         <EmptyMessage
           message="Nothing to see here yet."

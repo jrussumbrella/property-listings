@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from 'globalState';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import Alert from 'components/Alert';
+import Meta from 'components/Meta';
 import { useHistory } from 'react-router-dom';
 import EditProfile from './EditProfile';
 import ChangePassword from './ChangePassword';
@@ -107,6 +108,7 @@ const Profile = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title={`${user?.name}`} />
       <h2> Personal Info </h2>
       {isEmailVerifiedMessage}
       <Info>

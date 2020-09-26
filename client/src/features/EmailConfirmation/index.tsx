@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import { EMAIL_VERIFICATION } from 'graphql/mutations';
 import { useAuth, useToast } from 'globalState';
+import Meta from 'components/Meta';
 import Alert from 'components/Alert';
 import Spinner from 'components/Spinner';
 import { Container, Title } from './styled';
@@ -35,6 +36,7 @@ const EmailConfirmation = (): JSX.Element | null => {
   if (loading) {
     return (
       <Container>
+        <Meta title="Verify Email" />
         <Title> Verifying your Email... </Title>
         <Spinner size={5} color="var(--color-primary)" />
       </Container>
@@ -44,6 +46,7 @@ const EmailConfirmation = (): JSX.Element | null => {
   if (error) {
     return (
       <Container>
+        <Meta title="Verify Email" />
         <Alert message="Error in verifying email." type="error" />
       </Container>
     );

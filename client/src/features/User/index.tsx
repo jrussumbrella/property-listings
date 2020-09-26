@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { HOST } from 'graphql/queries/host';
 import Spinner from 'components/Spinner';
 import ErrorMessage from 'components/ErrorMessage';
+import Meta from 'components/Meta';
 import UserSkeleton from './UserSkeleton';
 import UserListings from './UserListings';
 
@@ -102,6 +103,7 @@ const User = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title={host.name} />
       <HostWrapper>
         <HostImg src={host.photoUrl} alt={host.name} />
         <HostName> {host.name} </HostName>

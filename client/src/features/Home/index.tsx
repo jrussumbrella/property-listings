@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Meta from 'components/Meta';
 import HomeHero from './HomeHero';
 import FeaturedCities from './FeaturedCities';
 import HomeListings from './HomeListings';
@@ -11,6 +12,7 @@ const Container = styled.div`
 const Home = (): JSX.Element => {
   return (
     <>
+      <Meta title="Home" />
       <HomeHero />
       <Container>
         <FeaturedCities />

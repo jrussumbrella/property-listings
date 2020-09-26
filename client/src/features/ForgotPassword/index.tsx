@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import Button from 'components/Button';
 import Input from 'components/Input';
+import Meta from 'components/Meta';
 import { useToast } from 'globalState';
 import { FORGOT_PASSWORD } from 'graphql/mutations';
 import { Container, AuthWrapper, Heading, Form } from './styled';
@@ -38,6 +39,7 @@ const ForgotPassword = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title="Forgot Password" />
       <AuthWrapper>
         <Heading> Forgot your Password </Heading>
         <Form onSubmit={formik.handleSubmit}>

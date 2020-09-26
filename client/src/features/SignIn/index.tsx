@@ -9,6 +9,7 @@ import AuthLink from 'components/AuthLink';
 import Input from 'components/Input';
 import { useAuth, useToast } from 'globalState';
 import { LOGIN } from 'graphql/mutations';
+import Meta from 'components/Meta';
 import {
   Container,
   AuthWrapper,
@@ -55,6 +56,7 @@ const SignIn = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta title="Log In" />
       <AuthWrapper>
         <Heading> Login your account </Heading>
         <Form onSubmit={formik.handleSubmit}>

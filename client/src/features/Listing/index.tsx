@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import styled from 'styled-components';
+import Meta from 'components/Meta';
 import ErrorMessage from 'components/ErrorMessage';
 import { LISTING } from '../../graphql/queries';
 import ListingInfo from './ListingInfo';
@@ -39,6 +40,11 @@ const Listing = (): JSX.Element => {
 
   return (
     <Container>
+      <Meta
+        title={listing.title}
+        description={listing.description}
+        image={listing.imageUrl}
+      />
       <ListingInfo listing={listing} />
       <ListingAction listing={listing} />
     </Container>
