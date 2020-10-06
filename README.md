@@ -4,7 +4,7 @@
 
 ### Screenshots
 
-![thumbnail](propety-thumbnail.png)
+![thumbnail](property.png)
 
 ### Breakdown
 

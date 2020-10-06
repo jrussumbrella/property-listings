@@ -95,7 +95,8 @@ export const typeDefs = gql`
     numOfGuests: Int!
     numOfBaths: Int!
     numOfBedrooms: Int!
-    propertySize: String!
+    propertySize: Int!
+    transactionType: TransactionType
   }
 
   input EmailAgentListingInput {

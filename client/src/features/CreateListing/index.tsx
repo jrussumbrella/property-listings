@@ -52,10 +52,11 @@ const CreateListing = (): JSX.Element => {
 
   const [createListing, { loading }] = useMutation(CREATE_LISTING, {
     onError(err) {
-      setToast('error', err.graphQLErrors[0].message);
+      console.log(err);
+      setToast('error', 'Error in creating listing. Please try again later.');
     },
     onCompleted(data) {
-      history.push(`/listings/${data.createListing.id}`);
+      history.push(`/listing/${data.createListing.id}`);
       setToast('success', 'Successfully listing created');
     },
   });
@@ -84,6 +85,7 @@ const CreateListing = (): JSX.Element => {
         address,
         state,
         image,
+        transactionType,
       } = values;
 
       const fullAddress = `${address}, ${city}, ${state}, ${zip}`;
@@ -94,6 +96,7 @@ const CreateListing = (): JSX.Element => {
         type,
         image,
         address: fullAddress,
+        transactionType,
         propertySize: Number(propertySize),
         price: Number(price),
         numOfBaths: Number(numOfBaths),

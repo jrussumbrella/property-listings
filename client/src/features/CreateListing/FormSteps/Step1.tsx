@@ -58,7 +58,7 @@ const Step1: React.FC<FormProps> = ({
           name="transactionType"
           onChange={onChange}
           onBlur={onBlur}
-          defaultValue={values.type}
+          defaultValue={values.transactionType}
           error={Boolean(touched.type && errors.type)}
         >
           <option value=""> </option>

@@ -11,13 +11,14 @@ export const StyledList = styled.div`
   }
 
   @media ${(props) => props.theme.mediaQueries.desktop} {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   }
 `;
 export const CoverWrapper = styled.div`
   width: 100%;
   padding-top: 80%;
   position: relative;
+  background-color: var(--color-gray);
 `;
 export const ItemImg = styled.img`
   position: absolute;

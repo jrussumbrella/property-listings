@@ -6,12 +6,13 @@ import { ThemeProvider } from 'styled-components';
 import cookie from 'js-cookie';
 import { GlobalStyle } from 'styles/globalStyles';
 import { AuthProvider, ToastProvider, ModalProvider } from 'globalState';
+import { API_URL } from 'utils/constants';
 import Toast from 'components/Toast';
 import theme from './utils/theme';
 import App from './App';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
+  uri: API_URL,
   request: (operation) => {
     const token = cookie.get('token') || '';
     operation.setContext({
