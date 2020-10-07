@@ -13,8 +13,12 @@ export const List = styled.div`
   grid-gap: 1rem;
   margin: 1rem 0;
 
-  @media only screen and (min-width: 768px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+  @media ${(props) => props.theme.mediaQueries.tablet} {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.desktop} {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   }
 `;
 

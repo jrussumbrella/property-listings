@@ -14,7 +14,6 @@ import {
 import { ObjectID } from 'mongodb';
 import { authenticate } from '../../../lib/utils';
 import { sendEmail } from '../../../lib/api/email';
-import { redis } from '../../../lib';
 import { Google } from '../../../lib/api';
 import crypto from 'crypto';
 
@@ -131,9 +130,6 @@ export const viewerResolvers = {
 
       const emailVerifyToken = v4();
 
-      // save email verify token to redis
-      await redis.set(emailVerifyToken, viewer._id, 'ex', 60 * 60 * 24); // set 1 day expiration
-
       const url = `${process.env.CLIENT_URL}/email-confirmation/${emailVerifyToken}`;
 
       await sendEmail({
@@ -239,7 +235,7 @@ export const viewerResolvers = {
       { token }: { token: string },
       { db }: { db: Database }
     ): Promise<Viewer> => {
-      const userId = await redis.get(token);
+      const userId = '';
       if (!userId) throw new Error(`Invalid token/ Token expired.`);
 
       const updateResult = await db.users.findOneAndUpdate(
@@ -257,9 +253,6 @@ export const viewerResolvers = {
       const viewer = updateResult.value;
 
       if (!viewer) throw new Error(`Error in validating email address.`);
-
-      // delete token in redis
-      await redis.del(token);
 
       const userToken = generateToken(viewer._id, '7d');
 

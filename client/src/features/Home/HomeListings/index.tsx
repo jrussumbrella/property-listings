@@ -89,6 +89,7 @@ const HomeListings: React.FC = (): JSX.Element => {
   if (loading)
     return (
       <Container>
+        <Title> Properties You May Like </Title>
         <ListingsSkeleton numbers={10} />
       </Container>
     );

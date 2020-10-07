@@ -32,9 +32,9 @@ const Title = styled.h1`
   color: #fff;
   margin-bottom: 1rem;
 
-  // @media ${(props) => props.theme.mediaQueries.desktop} {
-  //   font-size: 2.5rem;
-  // }
+  @media ${(props) => props.theme.mediaQueries.desktop} {
+    font-size: 2.5rem;
+  }
 `;
 
 const HomeHero = (): JSX.Element => {

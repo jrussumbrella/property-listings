@@ -10,6 +10,7 @@ export const CoverImg = styled.div`
   position: relative;
   width: 100%;
   padding-bottom: 60%;
+  background-color: var(--color-gray);
 
   @media ${(props) => props.theme.mediaQueries.desktop} {
     width: 55%;

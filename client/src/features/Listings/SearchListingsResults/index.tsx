@@ -75,9 +75,11 @@ const SearchListingsResult: React.FC<Props> = ({ location }): JSX.Element => {
     };
   }
 
-  const { data, loading, error } = useQuery(LISTINGS, {
+  const { data, loading, error, fetchMore } = useQuery(LISTINGS, {
     variables,
   });
+
+  const listings = data ? data.listings : null;
 
   if (error)
     return (
@@ -85,8 +87,6 @@ const SearchListingsResult: React.FC<Props> = ({ location }): JSX.Element => {
     );
 
   if (loading) return <ListingsSkeleton numbers={12} />;
-
-  const { listings } = data;
 
   if (listings.total === 0) {
     return (
@@ -97,7 +97,11 @@ const SearchListingsResult: React.FC<Props> = ({ location }): JSX.Element => {
     );
   }
 
-  return <Listings listings={listings.result} />;
+  return (
+    <>
+      <Listings listings={listings.result} />
+    </>
+  );
 };
 
 export default SearchListingsResult;

@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
+    "start:build": "node ./build/src/index.js",
+    "build": "npx tsc -p ./",
     "seed": "ts-node temp/seed.ts"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, List, Line, Info, CoverWrapper } from './styled';
+import { List, Line, Info, CoverWrapper } from './styled';
 
 interface Props {
   numbers: number;
@@ -12,7 +12,6 @@ const ListingsSkeleton: React.FC<Props> = ({ numbers = 12 }): JSX.Element => {
 
   return (
     <div>
-      <Title />
       <List>
         {listingBox.map((listing) => (
           <div key={listing}>

@@ -1,8 +1,8 @@
-require("dotenv").config();
+require('dotenv').config();
 
-import { ApolloServer } from "apollo-server";
-import { connectDb } from "./database";
-import { typeDefs, resolvers } from "./graphql";
+import { ApolloServer } from 'apollo-server';
+import { connectDb } from './database';
+import { typeDefs, resolvers } from './graphql';
 
 const start = async () => {
   const db = await connectDb();
@@ -10,6 +10,8 @@ const start = async () => {
     resolvers,
     typeDefs,
     context: ({ req, res }) => ({ db, req, res }),
+    playground: true,
+    introspection: true,
   });
   server.listen().then(({ url }) => console.log(`Server ready at ${url}. `));
 };
