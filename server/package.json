@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.ts",
-    "start:build": "node ./build/src/index.js",
-    "build": "npx tsc -p ./",
+    "dev": "nodemon src/index.ts",
+    "start": "node build/index.js",
+    "build": "tsc -p ./",
     "seed": "ts-node temp/seed.ts"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "pug": "^3.0.0",
     "uuid": "^8.1.0"
   },
-  "engine": {
+  "engines": {
     "node": "10.16.3",
     "npm": "6.9.0"
   }

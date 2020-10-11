@@ -189,8 +189,6 @@ exports.viewerResolvers = {
             const viewer = updateResult.value;
             if (!viewer)
                 throw new Error(`Error in validating email address.`);
-            // delete token in redis
-            yield redis.del(token);
             const userToken = generateToken(viewer._id, '7d');
             return {
                 user: viewer,
