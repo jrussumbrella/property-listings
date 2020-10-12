@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb';
 import { Database, Listing, User, PasswordResets, Favorites } from '../types';
 
 export const connectDb = async (): Promise<Database> => {
-  const uri = `${process.env.DATABASE_LOCAL}`;
+  const uri = `${process.env.DATABASE_URI}`;
   const client = await MongoClient.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

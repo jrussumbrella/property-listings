@@ -5,4 +5,6 @@ export const LISTING_CONTACT_MESSAGE =
 export const PAGE_LIMIT = 12;
 export const PAGE = 1;
 
-export const API_URL = isProd ? '' : 'http://localhost:4000/';
+export const API_URL = isProd
+  ? 'https://property-listings-server.herokuapp.com/'
+  : 'http://localhost:4000/';
