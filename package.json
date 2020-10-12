@@ -1,0 +1,20 @@
+{
+  "name": "property-listing",
+  "version": "1.0.0",
+  "description": "- a full stack real state project built with React, Typescript, Node, Graphql and MongoDb.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrussumbrella/property-listings.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrussumbrella/property-listings/issues"
+  },
+  "homepage": "https://github.com/jrussumbrella/property-listings#readme"
+}
