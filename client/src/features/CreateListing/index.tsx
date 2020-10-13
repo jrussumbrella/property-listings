@@ -51,8 +51,7 @@ const CreateListing = (): JSX.Element => {
   const isLastStep = step === NUMBER_OF_STEP;
 
   const [createListing, { loading }] = useMutation(CREATE_LISTING, {
-    onError(err) {
-      console.log(err);
+    onError() {
       setToast('error', 'Error in creating listing. Please try again later.');
     },
     onCompleted(data) {

@@ -75,7 +75,7 @@ const SearchListingsResult: React.FC<Props> = ({ location }): JSX.Element => {
     };
   }
 
-  const { data, loading, error, fetchMore } = useQuery(LISTINGS, {
+  const { data, loading, error } = useQuery(LISTINGS, {
     variables,
   });
 
