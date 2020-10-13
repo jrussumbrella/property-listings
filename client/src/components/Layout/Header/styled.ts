@@ -40,3 +40,7 @@ export const MobileIconWrapper = styled.div`
     display: none;
   }
 `;
+
+export const SiteLogo = styled.img`
+  width: 10rem;
+`;

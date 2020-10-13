@@ -10,6 +10,7 @@ import {
   MobileIconWrapper,
   SiteTitle,
   SiteTitleWrapper,
+  SiteLogo,
 } from './styled';
 
 const Header: React.FC = (): JSX.Element => {
@@ -49,7 +50,9 @@ const Header: React.FC = (): JSX.Element => {
         <GiHamburgerMenu size={20} />
       </MobileIconWrapper>
       <SiteTitleWrapper>
-        <SiteTitle to="/"> Property </SiteTitle>
+        <SiteTitle to="/">
+          <SiteLogo src="/logo.svg" alt="property-listings-logo" />
+        </SiteTitle>
       </SiteTitleWrapper>
       <MobileIconWrapper onClick={() => setIsOpenSearchBar(true)}>
         <BsSearch size={20} />

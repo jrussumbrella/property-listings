@@ -49,7 +49,7 @@ const MyFavorites = (): JSX.Element => {
       {favorites.total === 0 ? (
         <EmptyMessage
           message="Nothing to see here yet."
-          description="Your properties will display here."
+          description="Your favorite properties will display here."
         />
       ) : (
         <>
