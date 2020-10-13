@@ -18,10 +18,12 @@
   - Use absolute import for file
   - Linted using Eslint
   - Formatted using Prettier
+  - Deployed on Netlify
 - Back End
   - Used Apollo Graphql Server for creating graphql server
   - Used typescript in writing api's
   - Used MongoDB for database but will try to move over PostgreSQL
+  - Deployed on Heroku
 
 ### Features
 
