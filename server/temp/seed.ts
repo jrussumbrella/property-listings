@@ -275,7 +275,7 @@ const listings: Listing[] = [
     title: faker.lorem.sentences(1),
     description: faker.lorem.sentences(4),
     imageUrl:
-      'https://res.cloudinary.com/tiny-house/image/upload/v1560641329/mock/Quezon/Quezon-listing-6_dirave.jpg',
+      'https://res.cloudinary.com/djlbfjouc/image/upload/v1601941815/propert-listings/property01_qq3wym.jpg',
     host: '5d378db94e84753160e08b56',
     type: ListingType.Apartment,
     address: '19 Quezon Street, Quezon, Philippines',

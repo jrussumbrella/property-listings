@@ -80,7 +80,7 @@ npm start
 
 ```
 cd server
-npm start
+npm run dev
 ```
 
 ### Lint

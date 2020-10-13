@@ -48,7 +48,7 @@ const ListingsFilter = (): JSX.Element => {
   const [filter, setFilter] = useState(initialState);
 
   const pushUrl = useCallback(
-    (newParams: Params) => {
+    (newParams: any) => {
       const newParamsStringify = queryString.stringify(newParams);
       const url = `${pathname}?${newParamsStringify}`;
       history.push(url);

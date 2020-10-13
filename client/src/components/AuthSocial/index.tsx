@@ -34,7 +34,10 @@ const AuthSocial = (): JSX.Element => {
   });
 
   const responseGoogle = (response: any) => {
-    if (response.error) return;
+    if (response.error) {
+      console.log(response);
+      return;
+    }
     loginWithGoogle({ variables: { idToken: response.tokenId } });
   };
 
