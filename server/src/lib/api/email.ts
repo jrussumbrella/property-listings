@@ -1,6 +1,6 @@
-import nodemailer from "nodemailer";
-import pug from "pug";
-import htmlToText from "html-to-text";
+import nodemailer from 'nodemailer';
+import pug from 'pug';
+import htmlToText from 'html-to-text';
 
 interface IEmail {
   name: string;
@@ -14,11 +14,22 @@ interface IEmail {
 }
 
 const newTransport = () => {
+  if (process.env.NODE_ENV === 'production') {
+    // use gmail for production
+    return nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_EMAIL,
+        pass: process.env.GMAIL_PASSWORD,
+      },
+    });
+  }
+
   // use mailtrap on development
   return nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
+    host: 'smtp.mailtrap.io',
     port: 2525,
-    secure: false,
+    secure: true,
     auth: {
       user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,
