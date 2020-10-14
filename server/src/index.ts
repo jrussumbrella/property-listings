@@ -14,7 +14,7 @@ const start = async () => {
     introspection: true,
   });
   server
-    .listen({ port: process.env.PORT || 4000 })
+    .listen({ port: process.env.PORT || 5000 })
     .then(({ url }) => console.log(`Server ready at ${url}. `));
 };
 

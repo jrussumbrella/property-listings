@@ -5,6 +5,7 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { IoMdSquare } from 'react-icons/io';
 import { FaBed, FaBath } from 'react-icons/fa';
 import useFavorite from 'hooks/useFavorite';
+import formatPrice from 'utils/formatPrice';
 import {
   CoverWrapper,
   ItemImg,
@@ -40,7 +41,7 @@ const ListingItem = ({ listing }: { listing: Listing }) => {
       </CoverWrapper>
       <Link to={`/listing/${listing.id}`}>
         <Info>
-          <Price>P{listing.price}</Price>
+          <Price>{formatPrice(listing.price)}</Price>
           <Title>{listing.title}</Title>
           <Item>
             <span className="icon">

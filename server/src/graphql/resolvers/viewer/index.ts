@@ -17,6 +17,10 @@ import { sendEmail } from '../../../lib/api/email';
 import { Google } from '../../../lib/api';
 import crypto from 'crypto';
 
+interface Decoded {
+  id: string;
+}
+
 const generateToken = (id: string, expiresIn: string): string => {
   const secret = String(process.env.JWT_SECRET_KEY);
   return jwt.sign({ id }, secret, { expiresIn: expiresIn });
@@ -128,19 +132,23 @@ export const viewerResolvers = {
       // generate access token
       const token = generateToken(viewer._id, '7d');
 
-      const emailVerifyToken = v4();
+      const emailVerifyToken = generateToken(viewer._id, '7d');
 
       const url = `${process.env.CLIENT_URL}/email-confirmation/${emailVerifyToken}`;
 
-      await sendEmail({
-        name: viewer.name,
-        from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
-        to: viewer.email,
-        template: 'email-confirmation',
-        subject: 'Welcome to Property Listings',
-        url,
-        message: 'Thanks for creating an account',
-      });
+      try {
+        await sendEmail({
+          name: viewer.name,
+          from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
+          to: viewer.email,
+          template: 'email-confirmation',
+          subject: 'Welcome to Property Listings',
+          url,
+          message: 'Thanks for creating an account',
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
       return {
         user: viewer,
@@ -235,7 +243,9 @@ export const viewerResolvers = {
       { token }: { token: string },
       { db }: { db: Database }
     ): Promise<Viewer> => {
-      const userId = '';
+      const decoded = jwt.verify(token, String(process.env.JWT_SECRET_KEY));
+
+      const userId = (decoded as Decoded).id;
       if (!userId) throw new Error(`Invalid token/ Token expired.`);
 
       const updateResult = await db.users.findOneAndUpdate(

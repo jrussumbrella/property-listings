@@ -7,4 +7,4 @@ export const PAGE = 1;
 
 export const API_URL = isProd
   ? 'https://property-listings-server.herokuapp.com/'
-  : 'http://localhost:4000/';
+  : 'http://localhost:5000/';

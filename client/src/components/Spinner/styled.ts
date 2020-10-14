@@ -10,7 +10,7 @@ export const StyledSpinner = styled.div<StyledProps>`
   width: ${({ size }) => size}rem;
   height: ${({ size }) => size}rem;
   vertical-align: text-bottom;
-  border: 0.15em solid
+  border: 0.1em solid
     ${(props) => (props.color ? props.color : 'var(--color-primary)')};
   border-right-color: #ccc;
   border-radius: 50%;

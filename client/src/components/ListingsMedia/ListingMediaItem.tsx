@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdMoreVert } from 'react-icons/md';
 import { Listing } from '../../types';
+import formatPrice from 'utils/formatPrice';
 import {
   Item,
   ImgCover,
@@ -29,7 +30,7 @@ const ListingMediaItem: React.FC<Props> = ({ listing }): JSX.Element => {
         <Link to={`/listing/${listing.id}`}>
           <Title>{listing.title}</Title>
           <PriceWrapper>
-            <Price>P{listing.price} </Price> /month
+            <Price>{formatPrice(listing.price)} </Price> /month
           </PriceWrapper>
         </Link>
       </Info>

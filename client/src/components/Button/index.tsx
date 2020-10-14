@@ -36,7 +36,7 @@ const Button = ({
   );
 
   const textElement = loading ? (
-    <Spinner color="#fff" size={1.2} />
+    <Spinner color="#fff" size={1.3} />
   ) : (
     titleWithIconElement
   );

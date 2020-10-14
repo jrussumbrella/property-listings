@@ -39,3 +39,15 @@ export const MobileIconWrapper = styled.div`
     display: none;
   }
 `;
+
+export const Main = styled.main`
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 90vh;
+  p {
+    margin: 1rem 0;
+  }
+`;
