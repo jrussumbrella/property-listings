@@ -84,6 +84,8 @@ export const listingResolvers = {
           query.transactionType = { $in: filter.transactionType };
         }
 
+        query.verified = true;
+
         let cursor = db.listings.find(query);
 
         if (filter?.price) {

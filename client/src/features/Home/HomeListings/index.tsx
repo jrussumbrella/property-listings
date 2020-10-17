@@ -90,7 +90,7 @@ const HomeListings: React.FC = (): JSX.Element => {
     return (
       <Container>
         <Title> Properties You May Like </Title>
-        <ListingsSkeleton numbers={10} />
+        <ListingsSkeleton numbers={12} />
       </Container>
     );
 

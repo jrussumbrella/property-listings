@@ -17,6 +17,7 @@ export interface ListingsQuery {
   price?: Object;
   type?: Object;
   transactionType?: Object;
+  verified?: boolean;
 }
 
 export interface Filter {
