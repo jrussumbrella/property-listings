@@ -8,3 +8,5 @@ export const PAGE = 1;
 export const API_URL = isProd
   ? 'https://property-listings-server.herokuapp.com/'
   : 'http://localhost:5000/';
+
+export const GTM_ID = String(process.env.REACT_APP_GTM_ID);
