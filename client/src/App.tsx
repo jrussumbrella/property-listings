@@ -3,10 +3,9 @@ import { useQuery } from '@apollo/react-hooks';
 import { useAuth } from 'globalState';
 import { ME } from 'graphql/queries';
 import AppRoutes from 'routes/AppRoutes';
-import AppSkeleton from 'components/AppSkeleton';
 
 const App = (): JSX.Element => {
-  const { isLoading, loadUser, setAuthError } = useAuth();
+  const { loadUser, setAuthError } = useAuth();
 
   // perform query for user whether user is login or not
   useQuery(ME, {
@@ -17,10 +16,6 @@ const App = (): JSX.Element => {
       setAuthError();
     },
   });
-
-  if (isLoading) {
-    return <AppSkeleton />;
-  }
 
   return <AppRoutes />;
 };

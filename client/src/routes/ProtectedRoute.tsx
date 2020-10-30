@@ -12,6 +12,9 @@ export const ProtectedRoute = ({ component: Component }: PrivateRouteProps) => {
   return (
     <Route
       render={() => {
+        if (isLoading) {
+          return null;
+        }
         if (user && !isLoading) {
           return <Component />;
         }
