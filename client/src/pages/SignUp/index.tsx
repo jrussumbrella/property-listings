@@ -4,34 +4,35 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import Button from 'components/Button';
-import AuthSocial from 'components/AuthSocial';
-import AuthLink from 'components/AuthLink';
-import Input from 'components/Input';
-import { useAuth, useToast } from 'globalState';
-import { LOGIN } from 'graphql/mutations';
+import AuthSocial from 'components/Auth/AuthSocial';
+import AuthLink from 'components/Auth/AuthLink';
 import Meta from 'components/Meta';
+import Input from 'components/Input';
+import { SIGN_UP } from 'graphql/mutations';
+import { useAuth, useToast } from 'globalState';
 import {
   Container,
   AuthWrapper,
   Heading,
   Form,
-  LinkWrapper,
   ButtonWrapper,
+  LinkWrapper,
 } from './styled';
 
 const initialValues = {
+  name: '',
   email: '',
   password: '',
 };
 
-const SignIn = (): JSX.Element => {
-  const { setToast } = useToast();
+const SignUp = (): JSX.Element => {
   const { login: onLogin } = useAuth();
+  const { setToast } = useToast();
   const history = useHistory();
 
-  const [login, { loading }] = useMutation(LOGIN, {
+  const [signUp, { loading }] = useMutation(SIGN_UP, {
     onCompleted(data) {
-      onLogin(data.login);
+      onLogin(data.signUp);
       history.push('/profile');
     },
     onError(err) {
@@ -42,6 +43,9 @@ const SignIn = (): JSX.Element => {
   const formik = useFormik({
     initialValues,
     validationSchema: Yup.object({
+      name: Yup.string()
+        .min(6, 'Name must be at least 6 characters')
+        .required('Name is required field'),
       password: Yup.string()
         .min(6, 'Password must be at least 6 characters')
         .required('Password is required field'),
@@ -50,16 +54,28 @@ const SignIn = (): JSX.Element => {
         .required('Email is required field'),
     }),
     onSubmit: (values) => {
-      login({ variables: { input: values } });
+      signUp({ variables: { input: values } });
     },
   });
 
   return (
     <Container>
-      <Meta title="Log In" />
+      <Meta title="Sign Up" />
       <AuthWrapper>
-        <Heading> Login your account </Heading>
+        <Heading> Create your account </Heading>
         <Form onSubmit={formik.handleSubmit}>
+          <Input
+            id="name"
+            type="text"
+            placeholder="Name"
+            name="name"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            error={Boolean(formik.touched.name && formik.errors.name)}
+            errorMessage={formik.touched.name && formik.errors.name}
+          />
+
           <Input
             id="email"
             type="text"
@@ -71,6 +87,7 @@ const SignIn = (): JSX.Element => {
             error={Boolean(formik.touched.email && formik.errors.email)}
             errorMessage={formik.touched.email && formik.errors.email}
           />
+
           <Input
             id="password"
             type="password"
@@ -79,16 +96,18 @@ const SignIn = (): JSX.Element => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
-            errorMessage={formik.touched.password && formik.errors.password}
             error={Boolean(formik.touched.password && formik.errors.password)}
+            errorMessage={formik.touched.password && formik.errors.password}
           />
+
           <LinkWrapper>
-            <Link to="/forgot-password"> Forgot your pasword? </Link>
+            <Link to="/forgot-password"> Forgot your password? </Link>
           </LinkWrapper>
+
           <ButtonWrapper>
             <Button
               type="submit"
-              title="Log In "
+              title="Sign Up"
               variant="primary"
               disabled={loading}
               loading={loading}
@@ -100,11 +119,11 @@ const SignIn = (): JSX.Element => {
             />
           </ButtonWrapper>
         </Form>
-        <AuthLink link="login" />
+        <AuthLink link="signup" />
         <AuthSocial />
       </AuthWrapper>
     </Container>
   );
 };
 
-export default SignIn;
+export default SignUp;

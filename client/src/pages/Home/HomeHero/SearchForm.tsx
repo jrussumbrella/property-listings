@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 import styled from 'styled-components';
 
 interface Props {
   selectedTransaction: string;
+  searchSubmit(value: string): void;
 }
 
 const FormSearch = styled.form`
@@ -56,15 +56,15 @@ const Btn = styled.button`
   }
 `;
 
-const SearchForm: React.FC<Props> = ({ selectedTransaction }): JSX.Element => {
-  const history = useHistory();
+const SearchForm: React.FC<Props> = ({
+  selectedTransaction,
+  searchSubmit,
+}): JSX.Element => {
   const [search, setSearch] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!search.trim()) return;
-    const url = `/listings/${search}?transactionType=${selectedTransaction}`;
-    history.push(url);
+    searchSubmit(search);
   };
 
   return (

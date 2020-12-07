@@ -37,7 +37,11 @@ const Title = styled.h1`
   }
 `;
 
-const HomeHero = (): JSX.Element => {
+interface Props {
+  searchSubmit(value: string): void;
+}
+
+const HomeHero: React.FC<Props> = ({ searchSubmit }) => {
   const [transactionType, setTransactionType] = useState('rent');
 
   const handleOnChangeTab = (selected: string) => {
@@ -53,7 +57,10 @@ const HomeHero = (): JSX.Element => {
       <Info>
         <Title> Find a place to stay </Title>
         <SearchTab onChangeTab={handleOnChangeTab} selected={transactionType} />
-        <SearchForm selectedTransaction={transactionType} />
+        <SearchForm
+          searchSubmit={searchSubmit}
+          selectedTransaction={transactionType}
+        />
       </Info>
     </StyledHero>
   );

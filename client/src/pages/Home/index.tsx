@@ -1,45 +1,27 @@
 import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+import Meta from 'components/Meta';
 import { useQuery } from '@apollo/react-hooks';
-import styled from 'styled-components';
 import { LISTINGS } from 'graphql/queries';
 import Listings from 'components/Listings';
 import ListingsSkeleton from 'components/ListingsSkeleton';
 import ErrorMessage from 'components/ErrorMessage';
-import Button from 'components/Button';
 import Spinner from 'components/Spinner';
-
-const Container = styled.div`
-  @media ${(props) => props.theme.mediaQueries.desktop} {
-    max-width: 1200px;
-    margin: 1rem auto;
-  }
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  margin-bottom: 2rem;
-`;
-
-const BottomContainer = styled.div`
-  text-align: center;
-  padding: 3rem 0;
-`;
-
-const ViewMoreButton = styled(Button)`
-  width: 15rem;
-  border-radius: 50px;
-`;
-
-const ReachedEndText = styled.div`
-  color: var(--color-primary);
-  font-weight: 600;
-  font-size: 1.1rem;
-`;
+import HomeHero from './HomeHero';
+import FeaturedCities from './FeaturedCities';
+import {
+  ViewMoreButton,
+  Container,
+  Title,
+  BottomContainer,
+  ReachedEndText,
+} from './styled';
 
 const PAGE_LIMIT = 12;
 const PAGE = 1;
 
-const HomeListings: React.FC = (): JSX.Element => {
+const Home = (): JSX.Element => {
+  const history = useHistory();
   const { loading, data, error, fetchMore } = useQuery(LISTINGS, {
     variables: { page: PAGE, limit: PAGE_LIMIT },
   });
@@ -86,17 +68,15 @@ const HomeListings: React.FC = (): JSX.Element => {
     setIsLoadMore(false);
   }, [loading, fetchMore, isLoadMore, listings, page]);
 
-  if (loading)
-    return (
-      <Container>
-        <Title> Properties You May Like </Title>
-        <ListingsSkeleton numbers={12} />
-      </Container>
-    );
+  const handleSearchSubmit = (searchText: string) => {
+    if (!searchText) return;
+    const url = `/listings/${searchText}`;
+    history.push(url);
+  };
 
   if (error) return <ErrorMessage message="Error in fetching listings" />;
 
-  const isReachedListingsEnd = listings.total <= listings.result.length;
+  const isReachedListingsEnd = listings?.total <= listings?.result.length;
 
   const spinnerElement = isLoadMore && (
     <Spinner size={3} color="var(--color-primary)" />
@@ -111,16 +91,25 @@ const HomeListings: React.FC = (): JSX.Element => {
   );
 
   return (
-    <Container>
-      <Title> Properties You May Like </Title>
-      <Listings listings={listings.result} />
-      <BottomContainer>
-        {spinnerElement}
-        {viewMoreElement}
-        {reachedEndElement}
-      </BottomContainer>
-    </Container>
+    <>
+      <Meta title="Home" />
+      <HomeHero searchSubmit={handleSearchSubmit} />
+      <Container>
+        <FeaturedCities />
+        <Title> Properties You May Like </Title>
+        {loading ? (
+          <ListingsSkeleton numbers={12} />
+        ) : (
+          <Listings listings={listings.result} />
+        )}
+        <BottomContainer>
+          {spinnerElement}
+          {viewMoreElement}
+          {reachedEndElement}
+        </BottomContainer>
+      </Container>
+    </>
   );
 };
 
-export default HomeListings;
+export default Home;
