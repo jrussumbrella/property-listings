@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory, Link, useLocation } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
-import { useAuth } from 'globalState';
+import { useAuth } from 'contexts';
 import Button from 'components/Button';
 
 import {

@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/react-hooks';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Meta from 'components/Meta';
-import { useToast } from 'globalState';
+import { useToast } from 'contexts';
 import { FORGOT_PASSWORD } from 'graphql/mutations';
 import { Container, AuthWrapper, Heading, Form } from './styled';
 

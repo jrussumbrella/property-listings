@@ -1,33 +1,30 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { useMutation } from '@apollo/react-hooks';
-import { useModal, useAuth, useToast } from 'globalState';
+import { useAuth } from 'contexts';
 import { LISTING_CONTACT_MESSAGE } from 'utils/constants';
-import { EMAIL_AGENT_LISTING } from 'graphql/mutations';
+import { ContactListing } from 'types';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import { Form, FormGroup, Label, TextArea, ErrorText } from './styled';
 
 interface Props {
+  isVisible: boolean;
   id: string;
+  closeModal(): void;
+  emailAgent(listingContact: ContactListing): void;
+  submitting: boolean;
 }
 
-const ListingContactModal: React.FC<Props> = ({ id }): JSX.Element => {
-  const { toggleModal } = useModal();
+const ListingContactModal: React.FC<Props> = ({
+  id,
+  closeModal,
+  emailAgent,
+  submitting,
+  isVisible,
+}): JSX.Element => {
   const { user } = useAuth();
-  const { setToast } = useToast();
-
-  const [emailAgentListing, { loading }] = useMutation(EMAIL_AGENT_LISTING, {
-    onError() {
-      setToast('error', 'Unable to send your message. Please try again later');
-    },
-    onCompleted() {
-      setToast('success', 'Successfully email sent to agent');
-      toggleModal();
-    },
-  });
 
   const initialValues = {
     name: user?.name || '',
@@ -53,12 +50,16 @@ const ListingContactModal: React.FC<Props> = ({ id }): JSX.Element => {
         listingId: id,
         ...values,
       };
-      emailAgentListing({ variables: { input } });
+      emailAgent(input);
     },
   });
 
   return (
-    <Modal title="Contact Property">
+    <Modal
+      isVisible={isVisible}
+      title="Contact Property"
+      closeModal={closeModal}
+    >
       <Form onSubmit={formik.handleSubmit}>
         <FormGroup>
           <Label htmlFor="name"> Name </Label>
@@ -119,8 +120,8 @@ const ListingContactModal: React.FC<Props> = ({ id }): JSX.Element => {
             variant="primary"
             type="submit"
             style={{ width: '100%', height: '3rem' }}
-            disabled={loading}
-            loading={loading}
+            disabled={submitting}
+            loading={submitting}
           />
         </FormGroup>
       </Form>

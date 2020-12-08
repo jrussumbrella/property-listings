@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import { EMAIL_VERIFICATION } from 'graphql/mutations';
-import { useAuth, useToast } from 'globalState';
+import { useAuth, useToast } from 'contexts';
 import Meta from 'components/Meta';
 import Alert from 'components/Alert';
 import Spinner from 'components/Spinner';

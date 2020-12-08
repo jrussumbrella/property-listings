@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Meta from 'components/Meta';
-import { useToast } from 'globalState';
+import { useToast } from 'contexts';
 import { useMutation } from '@apollo/react-hooks';
 import { RESET_PASSWORD } from 'graphql/mutations';
 import { Container, Heading } from './styled';

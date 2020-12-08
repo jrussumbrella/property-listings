@@ -1,6 +1,5 @@
 import React from 'react';
 import { MdClose } from 'react-icons/md';
-import { useModal } from 'globalState';
 import {
   StyledModal,
   Title,
@@ -12,23 +11,32 @@ import {
 
 interface Props {
   title: string;
+  closeModal(): void;
+  isVisible: boolean;
 }
 
-const Modal: React.FC<Props> = ({ children, title }): JSX.Element => {
-  const { toggleModal } = useModal();
-
+const Modal: React.FC<Props> = ({
+  children,
+  title,
+  closeModal,
+  isVisible,
+}): JSX.Element => {
   return (
     <>
-      <StyledModal>
-        <Header>
-          <Title> {title} </Title>
-          <CloseWrapper onClick={toggleModal}>
-            <MdClose />
-          </CloseWrapper>
-        </Header>
-        <ModalContent>{children}</ModalContent>
-      </StyledModal>
-      <Overlay onClick={toggleModal} />
+      {isVisible && (
+        <>
+          <StyledModal>
+            <Header>
+              <Title> {title} </Title>
+              <CloseWrapper onClick={closeModal}>
+                <MdClose />
+              </CloseWrapper>
+            </Header>
+            <ModalContent>{children}</ModalContent>
+          </StyledModal>
+          <Overlay onClick={closeModal} />
+        </>
+      )}
     </>
   );
 };

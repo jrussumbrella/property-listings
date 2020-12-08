@@ -9,7 +9,7 @@ import AuthLink from 'components/Auth/AuthLink';
 import Meta from 'components/Meta';
 import Input from 'components/Input';
 import { SIGN_UP } from 'graphql/mutations';
-import { useAuth, useToast } from 'globalState';
+import { useAuth, useToast } from 'contexts';
 import {
   Container,
   AuthWrapper,

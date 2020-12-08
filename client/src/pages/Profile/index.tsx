@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from 'globalState';
+import { useAuth } from 'contexts';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import Alert from 'components/Alert';
 import Meta from 'components/Meta';

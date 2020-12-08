@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { useAuth } from 'globalState';
+import { useAuth } from 'contexts';
 import { ME } from 'graphql/queries';
 import AppRoutes from 'routes/AppRoutes';
 

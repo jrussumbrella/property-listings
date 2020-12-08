@@ -5,7 +5,7 @@ import Modal from 'components/Modal';
 import { FacebookIcon, TwitterIcon } from 'components/Icons';
 import share from 'utils/socialShare';
 import copyToClipBoard from 'utils/copyToClipboard';
-import { useToast, useModal } from 'globalState';
+import { useToast } from 'contexts';
 
 const SocialButton = styled.button`
   background-color: #fff;
@@ -33,18 +33,28 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ListingShareModal = (): JSX.Element => {
+interface Props {
+  closeModal(): void;
+  isVisible: boolean;
+}
+
+const ListingShareModal: React.FC<Props> = ({
+  closeModal,
+  isVisible,
+}): JSX.Element => {
   const { setToast } = useToast();
-  const { toggleModal } = useModal();
 
   const handleCopyClipBoard = () => {
     copyToClipBoard();
     setToast('success', 'Copied to clipboard');
-    toggleModal();
   };
 
   return (
-    <Modal title="Share this Property">
+    <Modal
+      title="Share this Property"
+      closeModal={closeModal}
+      isVisible={isVisible}
+    >
       <Container>
         <SocialButton type="button" onClick={() => share('fb')}>
           <FacebookIcon />

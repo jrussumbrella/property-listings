@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from 'components/Input';
 import Button from 'components/Button';
-import { useToast } from 'globalState';
+import { useToast } from 'contexts';
 import { useMutation } from '@apollo/react-hooks';
 import { CHANGE_PASSWORD } from 'graphql/mutations';
 import { Container } from './styled';

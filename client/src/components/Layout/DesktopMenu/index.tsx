@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from 'globalState';
-import Button from '../../Button';
+import { useAuth } from 'contexts';
+import Button from 'components/Button';
 import { Avatar, Nav, NavList, UserInfo } from './styled';
 
 const DesktopMenu = (): JSX.Element => {

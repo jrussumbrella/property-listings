@@ -6,7 +6,7 @@ import { GoogleIcon } from 'components/Icons';
 import Button from 'components/Button';
 import PageLoader from 'components/PageLoader';
 import { LOGIN_WITH_GOOGLE } from 'graphql/mutations';
-import { useToast, useAuth } from 'globalState';
+import { useToast, useAuth } from 'contexts';
 import styled from 'styled-components';
 
 const GoogleLoginButton = styled(Button)`

@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { TOGGLE_FAVORITE } from 'graphql/mutations';
 import { MY_FAVORITES } from 'graphql/queries';
-import { useToast, useAuth } from 'globalState';
+import { useToast, useAuth } from 'contexts';
 import { Listing } from 'types';
 
 const useFavorite = (listing: Listing) => {
@@ -11,7 +11,6 @@ const useFavorite = (listing: Listing) => {
   const history = useHistory();
 
   const [toggleFavorite] = useMutation(TOGGLE_FAVORITE, {
-    variables: { id: listing.id },
     onError(err) {
       setToast('error', err.graphQLErrors[0].message);
     },
@@ -29,11 +28,11 @@ const useFavorite = (listing: Listing) => {
       history.push('/login');
       return;
     }
-    toggleFavorite();
+    toggleFavorite({ variables: { id: listing.id } });
   };
 
   const checkIsFavorite = () => {
-    return listing.favorites.some((favorite) => favorite === user?.id);
+    return listing?.favorites.some((favorite) => favorite === user?.id);
   };
 
   return {

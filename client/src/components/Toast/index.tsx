@@ -1,7 +1,7 @@
 import React from 'react';
 import { MdClose } from 'react-icons/md';
 import { motion } from 'framer-motion';
-import { useToast } from 'globalState';
+import { useToast } from 'contexts';
 import { Message, CloseWrapper, Container } from './styled';
 
 const Toast = (): JSX.Element | null => {

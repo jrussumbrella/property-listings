@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
-import { useToast } from 'globalState';
+import { useToast } from 'contexts';
 import Meta from 'components/Meta';
 import Button from 'components/Button';
 import PageLoader from 'components/PageLoader';

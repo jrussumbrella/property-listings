@@ -7,7 +7,7 @@ import Button from 'components/Button';
 import AuthSocial from 'components/Auth/AuthSocial';
 import AuthLink from 'components/Auth/AuthLink';
 import Input from 'components/Input';
-import { useAuth, useToast } from 'globalState';
+import { useAuth, useToast } from 'contexts';
 import { LOGIN } from 'graphql/mutations';
 import Meta from 'components/Meta';
 import {

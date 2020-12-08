@@ -24,6 +24,12 @@ export interface Listing {
   favorites: string[];
 }
 
+export interface ContactListing {
+  name: string;
+  email: string;
+  message: string;
+}
+
 export interface City {
   id: string;
   imageUrl: string;

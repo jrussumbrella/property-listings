@@ -5,7 +5,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from 'styled-components';
 import cookie from 'js-cookie';
 import { GlobalStyle } from 'styles/globalStyles';
-import { AuthProvider, ToastProvider, ModalProvider } from 'globalState';
+import { AuthProvider, ToastProvider } from 'contexts';
 import TagManager from 'react-gtm-module';
 import { API_URL, GTM_ID } from 'utils/constants';
 import Toast from 'components/Toast';
@@ -38,9 +38,7 @@ ReactDOM.render(
         <ToastProvider>
           <Toast />
           <AuthProvider>
-            <ModalProvider>
-              <App />
-            </ModalProvider>
+            <App />
           </AuthProvider>
         </ToastProvider>
       </ThemeProvider>
