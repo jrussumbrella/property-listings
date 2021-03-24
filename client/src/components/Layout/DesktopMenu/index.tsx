@@ -5,7 +5,7 @@ import Button from 'components/Button';
 import { Avatar, Nav, NavList, UserInfo } from './styled';
 
 const DesktopMenu = (): JSX.Element => {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
 
   const userAvatar = user?.photoUrl ? (
     <img src={user.photoUrl} alt={user.name} />
@@ -65,6 +65,10 @@ const DesktopMenu = (): JSX.Element => {
       </NavList>
     </Nav>
   );
+
+  if (isLoading) {
+    return <div />;
+  }
 
   return <>{user ? authRoutes() : guestRoutes()}</>;
 };

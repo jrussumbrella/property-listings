@@ -13,11 +13,13 @@ export const Input = styled.input`
 `;
 
 export const StyledSearchBar = styled.form`
+  margin: 0 10px;
   height: 3rem;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid var(--color-dark-gray);
   display: flex;
+  min-width: 25rem;
   align-items: center;
 `;
 

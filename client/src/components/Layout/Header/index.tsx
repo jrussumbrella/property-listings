@@ -53,6 +53,7 @@ const Header: React.FC = (): JSX.Element => {
         <SiteTitle to="/">
           <SiteLogo src="/logo.svg" alt="property-listings-logo" />
         </SiteTitle>
+        {desktopSearchBarElement}
       </SiteTitleWrapper>
       <MobileIconWrapper onClick={() => setIsOpenSearchBar(true)}>
         <BsSearch size={20} />
@@ -61,7 +62,6 @@ const Header: React.FC = (): JSX.Element => {
         isOpenSearchBar={isOpenSearchBar}
         setIsOpenSearchBar={setIsOpenSearchBar}
       />
-      {desktopSearchBarElement}
       <DesktopMenu />
       <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </StyledHeader>

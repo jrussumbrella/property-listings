@@ -22,6 +22,8 @@ export const StyledHeader = styled.header`
 export const SiteTitleWrapper = styled.div`
   flex: 1;
   text-align: center;
+  display: flex;
+  align-items: center;
 
   @media ${(props) => props.theme.mediaQueries.desktop} {
     text-align: left;
